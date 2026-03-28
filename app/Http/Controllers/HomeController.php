@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Models\Seo;
+use App\Models\Collection;
+use App\Models\Category;
+
+
+
+class HomeController extends Controller
+{
+   
+    public function index()
+    {
+        $data['seo'] = Seo::find(1);
+
+        $data['categories'] = Category::with(['products' => function ($q) {
+        $q->where('prod_isactive', 1)
+          ->latest()
+          ->take(8);
+        }])
+        ->take(5)
+        ->get()
+        ->values(); 
+
+        $data['collections'] = Collection::orderBy('col_name')->get();
+
+        $data['home_product'] = \App\Models\Product::with(['sizes', 'colors', 'images', 'category', 'subcategory'])
+            ->where('prod_home', 1)
+            ->first();
+            
+        return view('pages.index',$data);
+
+    }
+
+    public function about()
+    {
+        $data['partners'] = \App\Models\Partner::all();
+        $data['recognitions'] = \App\Models\Recognition::all();
+        return view('pages.about', $data);
+    }
+
+
+}
+
