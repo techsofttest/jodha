@@ -16,7 +16,7 @@
             <span class="grid-sale-badge">SALE</span>
         @endif
 
-        <div class="card-hover-actions">
+        <!--<div class="card-hover-actions">
             <button class="hover-action-btn" title="Quick View">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -24,7 +24,7 @@
             <button class="hover-action-btn" title="Add to Cart">
                 <i class="fa-solid fa-plus"></i>
             </button>
-        </div>
+        </div>-->
 
     </div>
 

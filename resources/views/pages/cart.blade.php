@@ -204,7 +204,7 @@
                         </div>
 
                         <div class="d-flex flex-column gap-3 mb-4">
-                            <a href="{{route('checkout.index')}}" class="btn-luxury-solid w-100 py-3" style="font-size: 13px;">Checkout Now <i
+                            <a href="{{route('checkout.index')}}" class="btn-luxury-solid w-100 py-3" style="font-size: 13px;text-align:center">Checkout Now <i
                                     class="fa-solid fa-lock ms-2 small"></i></a>
                             <a href="{{ route('home') }}" class="btn-luxury-outline w-100 py-3 text-center text-decoration-none"
                                 style="font-size: 13px;">Continue Shopping</a>
