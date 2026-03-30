@@ -3,8 +3,6 @@
 
 @section('head_extras')
 
-<link rel="stylesheet" href="{{asset('css\style.css')}}">
-
 @endsection
 
 
