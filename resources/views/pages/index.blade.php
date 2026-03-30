@@ -150,7 +150,7 @@
                 <div class="variant-section mb-4">
                     <p class="variant-label text-muted fw-light mb-2">Color</p>
                     <div class="variant-options d-flex gap-2 fw-light">
-                        <select id="pdpColorSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;">
+                        <select id="pdpColorSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;background:var(--bg-color);">
                             <option value="" disabled selected>Select Color</option>
                             @foreach($home_product->colors as $color)
                                 <option value="{{ $color->id }}">{{ $color->color_name }}</option>
@@ -164,7 +164,7 @@
                 <div class="variant-section mb-5">
                     <p class="variant-label text-muted fw-light mb-2">Size</p>
                     <div class="variant-options d-flex gap-2 fw-light">
-                        <select id="pdpSizeSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;">
+                        <select id="pdpSizeSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;background:var(--bg-color);">
                             <option value="" disabled selected>Select Size</option>
                             @foreach($home_product->sizes as $size)
                                 <option value="{{ $size->id }}">{{ $size->size }} - ₹{{ number_format($size->offer_price ?? $size->price, 2) }}</option>
