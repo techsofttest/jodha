@@ -117,7 +117,10 @@
                                         required>
                                 </div>
 
-                                <div class="col-12">
+
+                               
+
+                                <div class="col-12 d-none">
                                     <div class="form-check luxury-checkbox-wrapper">
                                         <input class="form-check-input luxury-checkbox-input" type="checkbox"
                                             id="saveInfo">
@@ -127,8 +130,15 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                
+
+
                             </div>
                         </div>
+
+
+                        @php /*
 
                         <div class="mb-5">
                             <h4 class="font-heading mb-4" style="color: var(--c-primary); font-size: 20px;">Shipping
@@ -139,8 +149,8 @@
 
                                 <div class="p-3 border-bottom" style="border-color: rgba(0,0,0,0.1) !important;">
                                     <div class="form-check luxury-radio m-0 py-1">
-                                        <input class="form-check-input" type="radio" name="shippingMethod"
-                                            id="standardShip" checked>
+                                        
+                                    
                                         <label
                                             class="form-check-label d-flex justify-content-between w-100 ms-2 cursor-pointer"
                                             for="standardShip"
@@ -168,6 +178,18 @@
                             </div>
                         </div>
 
+                        */ @endphp 
+
+                        <input class="form-check-input" type="hidden" name="shippingMethod" value="normal" checked>
+
+
+
+                        <input class="form-check-input billing-radio" type="hidden"
+                                                name="billingAddress" id="billingSame" data-target="desc-same" value="1">
+
+
+                         @php /* 
+
                         <div class="mb-5">
                             <h4 class="font-heading mb-1" style="color: var(--c-primary); font-size: 20px;">Billing
                                 address</h4>
@@ -192,6 +214,10 @@
                                     </div>
                                     <div id="desc-same" class="billing-desc" style="display: none;"></div>
                                 </div>
+
+
+
+                               
 
                                 <div class="billing-box">
 
@@ -297,8 +323,17 @@
                                     </div>
                                 </div>
 
+                                
+
+
                             </div>
                         </div>
+
+                        */ @endphp
+
+
+
+                        
 
 
                         <div class="mb-5">
