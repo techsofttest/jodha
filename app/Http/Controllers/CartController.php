@@ -262,6 +262,17 @@ class CartController extends Controller
             'pin_code' => 'required|string|max:20',
             'shippingMethod' => 'required|string',
             'paymentGateway' => 'required|string',
+            
+            // Conditional billing validation
+            'billing_first_name' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
+            'billing_last_name' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
+            'billing_email' => 'required_if:billingAddress,billingDifferent|nullable|email|max:255',
+            'billing_phone' => 'required_if:billingAddress,billingDifferent|nullable|string|max:20',
+            'billing_address' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
+            'billing_city' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
+            'billing_state' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
+            'billing_pin_code' => 'required_if:billingAddress,billingDifferent|nullable|string|max:20',
+            'billing_country' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
         ]);
 
         $cart = session()->get('cart', []);
@@ -276,9 +287,10 @@ class CartController extends Controller
 
             $billingDetails = null;
             if ($request->billingAddress === 'billingDifferent') {
-                $billingDetails = json_encode([
+                $billingDetails = [
                     'first_name' => $request->billing_first_name,
                     'last_name' => $request->billing_last_name,
+                    'email' => $request->billing_email,
                     'address' => $request->billing_address,
                     'apartment' => $request->billing_apartment,
                     'city' => $request->billing_city,
@@ -286,7 +298,7 @@ class CartController extends Controller
                     'pin_code' => $request->billing_pin_code,
                     'country' => $request->billing_country,
                     'phone' => $request->billing_phone,
-                ]);
+                ];
             }
 
             $order = \App\Models\Order::create([

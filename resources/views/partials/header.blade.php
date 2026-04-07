@@ -13,9 +13,20 @@
             </div>
 
             <div class="user-actions d-flex align-items-center gap-4">
+                @auth('customer')
                 <a href="#" class="d-none d-lg-flex">
+                    <i class="fa-regular fa-user"></i> {{ Auth::guard('customer')->user()->name }}
+                </a>
+                <form action="/customer/logout" method="POST" class="d-none d-lg-block">
+                    @csrf
+                    <button type="submit" class="btn btn-link p-0 text-dark text-decoration-none small">Logout</button>
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="d-none d-lg-flex">
                     <i class="fa-regular fa-user"></i> Account
                 </a>
+                @endauth
+
 
                 <!-- <a href="#" class="d-lg-none text-dark mobile-icon">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -132,7 +143,25 @@
 
         <div class="offcanvas-body custom-scrollbar px-4 pt-3 pb-5">
 
-            <a href="login.html"
+            @auth('customer')
+            <div class="d-flex align-items-center justify-content-between p-3 mb-4 text-decoration-none login-card-mobile"
+                style="background-color: var(--c-linen);">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle"
+                        style="width: 38px; height: 38px; border: 1px solid rgba(0, 0, 0, 0.363); color: var(--c-gold);">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="text-black font-heading" style="font-size: 15px; letter-spacing: 0.5px;">{{ Auth::guard('customer')->user()->name }}</span>
+                        <form action="/customer/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="border-0 bg-transparent p-0" style="color: rgba(0,0,0,0.5); font-size: 11px; font-family: var(--f-body); letter-spacing: 0.5px; text-transform: uppercase;">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @else
+            <a href="{{ route('login') }}"
                 class="d-flex align-items-center justify-content-between p-3 mb-4 text-decoration-none login-card-mobile"
                 style="background-color: var(--c-linen);">
                 <div class="d-flex align-items-center gap-3">
@@ -155,6 +184,8 @@
                 </div>
                 <i class="fa-solid fa-chevron-right text-black" style="font-size: 12px; opacity: 0.5;"></i>
             </a>
+            @endauth
+
 
 
             <div class="mobile-highlight-box p-3 mb-4 position-relative overflow-hidden"

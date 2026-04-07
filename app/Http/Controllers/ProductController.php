@@ -7,25 +7,79 @@ use Illuminate\Http\Request;
 use App\Models\Seo;
 use App\Models\Product;
 use App\Models\Partner;
-
+use App\Models\Category;
 
 class ProductController extends Controller
 {
-   
-    public function show()
+    public function index(Request $request)
     {
+        $query = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
+            ->where('prod_isactive', 1);
+
+        // Filter by categories (multiple)
+        if ($request->has('categories')) {
+            $categories = explode(',', $request->get('categories'));
+            $query->whereIn('prod_cat_id', $categories);
+        }
+
+        // Filter by price range
+        if ($request->has('min_price')) {
+            $query->where('prod_price', '>=', $request->get('min_price'));
+        }
+        if ($request->has('max_price')) {
+            $query->where('prod_price', '<=', $request->get('max_price'));
+        }
+
+        // Sorting
+        $sort = $request->get('sort', 'best-selling');
+        switch ($sort) {
+            case 'a-z':
+                $query->orderBy('prod_name', 'asc');
+                break;
+            case 'z-a':
+                $query->orderBy('prod_name', 'desc');
+                break;
+            case 'low-high':
+                $query->orderBy('prod_price', 'asc');
+                break;
+            case 'high-low':
+                $query->orderBy('prod_price', 'desc');
+                break;
+            case 'best-selling':
+            default:
+                $query->latest();
+                break;
+        }
+
+        $products = $query->paginate(12);
+
+        // If AJAX request, return rendered product cards
+        if ($request->ajax()) {
+            $html = '';
+            foreach ($products as $product) {
+                $html .= view('components.product-card', compact('product'))->render();
+            }
+            
+            return response()->json([
+                'html' => $html,
+                'pagination' => (string) $products->links('vendor.pagination.luxury'), // We'll need to create this if it doesn't exist, or use standard
+                'total' => $products->total(),
+            ]);
+        }
+
         $data['seo'] = Seo::find(1);
+        $data['products'] = $products;
+        $data['categories'] = Category::withCount('products')->get();
+        $data['max_range'] = Product::max('prod_price') ?? 100000;
         
-        return view('pages.index',$data);
-
+        return view('pages.products', $data);
     }
-
 
     public function showDetails($slug)
     {
         $product = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
             ->where('prod_slug', $slug)
-            ->where('prod_isactive',1)
+            ->where('prod_isactive', 1)
             ->firstOrFail();
 
         // Related products from the same subcategory, excluding current product
@@ -60,6 +114,4 @@ class ProductController extends Controller
         
         return view('pages.product-detail', $data);
     }
-
-
 }

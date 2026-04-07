@@ -180,15 +180,12 @@
 
                         */ @endphp 
 
+
                         <input class="form-check-input" type="hidden" name="shippingMethod" value="normal" checked>
 
 
 
-                        <input class="form-check-input billing-radio" type="hidden"
-                                                name="billingAddress" id="billingSame" data-target="desc-same" value="1">
-
-
-                         @php /* 
+                        
 
                         <div class="mb-5">
                             <h4 class="font-heading mb-1" style="color: var(--c-primary); font-size: 20px;">Billing
@@ -205,7 +202,7 @@
                                         style="background-color: var(--c-linen); transition: background-color 0.3s ease;">
                                         <div class="form-check luxury-radio m-0">
                                             <input class="form-check-input billing-radio" type="radio"
-                                                name="billingAddress" id="billingSame" data-target="desc-same" checked>
+                                                name="billingAddress" id="billingSame" data-target="desc-same" value="billingSame" checked>
                                             <label class="form-check-label ms-2 cursor-pointer" for="billingSame"
                                                 style="font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--c-primary);">
                                                 Same as shipping address
@@ -226,7 +223,7 @@
                                         <div class="form-check luxury-radio m-0">
                                             <input class="form-check-input billing-radio" type="radio"
                                                 name="billingAddress" id="billingDifferent"
-                                                data-target="desc-different">
+                                                data-target="desc-different" value="billingDifferent">
                                             <label class="form-check-label ms-2 cursor-pointer" for="billingDifferent"
                                                 style="font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--c-primary);">
                                                 Use a different billing address
@@ -238,6 +235,29 @@
                                         style="background-color: #fafafa; border-color: rgba(0,0,0,0.08) !important; display: none;">
 
                                         <div class="row g-4">
+                                            
+                                            <div class="col-md-6">
+                                                <input type="text" name="billing_first_name" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;"
+                                                    placeholder="First name">
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input type="text" name="billing_last_name" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;" placeholder="Last name">
+                                            </div>
+
+                                            <div class="col-12">
+                                                <input type="text" name="billing_address" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;" placeholder="Address">
+                                            </div>
+
+                                            <div class="col-12">
+                                                <input type="text" name="billing_apartment" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;"
+                                                    placeholder="Apartment, suite, etc. (optional)">
+                                            </div>
+
                                             <div class="col-12">
                                                 <label class="text-uppercase text-muted d-block mb-1"
                                                     style="font-family: var(--f-body); font-size: 10px; letter-spacing: 1px;">Country/Region</label>
@@ -259,54 +279,14 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
-                                                <input type="text" name="billing_first_name" class="form-control luxury-input-minimal"
-                                                    style="background: transparent;"
-                                                    placeholder="First name (optional)">
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <input type="text" name="billing_last_name" class="form-control luxury-input-minimal"
-                                                    style="background: transparent;" placeholder="Last name">
-                                            </div>
-
-                                            <div class="col-12">
-                                                <input type="text" name="billing_address" class="form-control luxury-input-minimal"
-                                                    style="background: transparent;" placeholder="Address">
-                                            </div>
-
-                                            <div class="col-12">
-                                                <input type="text" name="billing_apartment" class="form-control luxury-input-minimal"
-                                                    style="background: transparent;"
-                                                    placeholder="Apartment, suite, etc. (optional)">
-                                            </div>
-
                                             <div class="col-md-4">
                                                 <input type="text" name="billing_city" class="form-control luxury-input-minimal"
                                                     style="background: transparent;" placeholder="City">
                                             </div>
 
                                             <div class="col-md-4">
-                                                <input type="hidden" name="billing_state" id="hidden_billing_state">
-                                                <div
-                                                    class="dropdown custom-select-dropdown w-100 h-100 d-flex align-items-end">
-                                                    <button
-                                                        class="btn btn-link w-100 text-start text-decoration-none d-flex justify-content-between align-items-center luxury-input-minimal px-0"
-                                                        type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                                        style="color: var(--c-primary); background: transparent;">
-                                                        <span class="selected-text" id="display_billing_state"
-                                                            style="color: rgba(0,0,0,0.6);">State</span>
-                                                        <i class="fa-solid fa-chevron-down"
-                                                            style="font-size: 10px; color: var(--c-gold);"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu w-100 rounded-0 border-0 shadow-sm mt-1"
-                                                        style="max-height: 200px; overflow-y: auto;">
-                                                        <li><a class="dropdown-item billing-state-selector" href="#" data-value="Delhi">Delhi</a></li>
-                                                        <li><a class="dropdown-item billing-state-selector" href="#" data-value="Karnataka">Karnataka</a></li>
-                                                        <li><a class="dropdown-item billing-state-selector" href="#" data-value="Kerala">Kerala</a></li>
-                                                        <li><a class="dropdown-item billing-state-selector" href="#" data-value="Maharashtra">Maharashtra</a></li>
-                                                    </ul>
-                                                </div>
+                                                <input type="text" name="billing_state" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;" placeholder="State">
                                             </div>
 
                                             <div class="col-md-4">
@@ -318,6 +298,11 @@
                                                 <input type="tel" name="billing_phone" class="form-control luxury-input-minimal"
                                                     style="background: transparent;" placeholder="Phone">
                                             </div>
+
+                                            <div class="col-12">
+                                                <input type="email" name="billing_email" class="form-control luxury-input-minimal"
+                                                    style="background: transparent;" placeholder="Email">
+                                            </div>
                                         </div>
 
                                     </div>
@@ -328,12 +313,6 @@
 
                             </div>
                         </div>
-
-                        */ @endphp
-
-
-
-                        
 
 
                         <div class="mb-5">
@@ -578,13 +557,6 @@
         $(this).addClass('active');
     });
 
-    $('.billing-state-selector').on('click', function(e) {
-        e.preventDefault();
-        const val = $(this).data('value');
-        $('#hidden_billing_state').val(val);
-        $('#display_billing_state').text(val).css('color', 'var(--c-primary)');
-    });
-
     function updateDOMfromCartData(cartData) {
         // ... (existing updateDOMfromCartData logic)
         let htmlCoupon = '';
@@ -715,6 +687,43 @@
         });
     });
 </script>
+
+
+
+
+ <!-- Edit Billing Address dropdown-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Billing Address Accordion Logic
+            const billingRadios = document.querySelectorAll('.billing-radio');
+            const billingDescs = document.querySelectorAll('.billing-desc');
+            const billingHeaders = document.querySelectorAll('.billing-header');
+
+            billingRadios.forEach(radio => {
+                radio.addEventListener('change', function () {
+                    // 1. Hide all descriptions and reset header backgrounds to white
+                    billingDescs.forEach(desc => desc.style.display = 'none');
+                    billingHeaders.forEach(header => header.style.backgroundColor = 'var(--c-white)');
+
+                    // 2. Show the targeted description form
+                    const targetId = this.getAttribute('data-target');
+                    const targetDesc = document.getElementById(targetId);
+                    if (targetDesc && targetId === 'desc-different') {
+                        targetDesc.style.display = 'block';
+                        targetDesc.style.animation = 'fadeInDropdown 0.3s ease forwards';
+                    }
+
+                    // 3. Highlight the parent header background to Cashmere (var(--c-linen))
+                    this.closest('.billing-header').style.backgroundColor = 'var(--c-linen)';
+                });
+            });
+
+        });
+    </script>
+
+
+
 
 
 

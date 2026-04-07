@@ -116,8 +116,7 @@ class ProductForm
                             ),
 
                         TextInput::make('prod_sku_code')
-                            ->label('SKU Code')
-                            ->required(),
+                            ->label('SKU Code'),
 
                         TextInput::make('prod_slug')
                             ->hidden()

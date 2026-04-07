@@ -10,7 +10,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ProductController;
 
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SearchController; 
 
 use App\Http\Controllers\CustomerAuthController;
 
@@ -30,7 +30,7 @@ Route::get('/subcategory/{slug}', [SubCategoryController::class, 'showDetails'])
 Route::get('/collections', [CollectionController::class, 'show'])->name('collections.index');
 Route::get('/collections/{slug}', [CollectionController::class, 'detail'])->name('collections.show');
 
-Route::get('/product', [ProductController::class, 'show'])->name('product.index');
+Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{slug}', [ProductController::class, 'showDetails'])->name('product.show');
 
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
@@ -47,8 +47,12 @@ Route::post('/cart/remove-coupon', [CartController::class, 'removeCoupon'])->nam
 Route::post('/order/place', [CartController::class, 'placeOrder'])->name('order.place');
 Route::get('/order/success', [CartController::class, 'success'])->name('order.success');
 
+Route::get('/login', [CustomerAuthController::class, 'showLoginForm'])->name('login');
+Route::get('/register', [CustomerAuthController::class, 'showRegisterForm'])->name('register');
+
 Route::post('/customer/login', [CustomerAuthController::class, 'login']);
-Route::post('/customer/register', [CustomerAuthController::class, 'register']);
+Route::post('/customer/register', [CustomerAuthController::class, 'sendOTP']); // Changed to sendOTP as that's the first step
+
 
 Route::post('/customer/send-otp', [CustomerAuthController::class, 'sendOTP']);
 Route::post('/customer/verify-otp', [CustomerAuthController::class, 'verifyOTP']);
