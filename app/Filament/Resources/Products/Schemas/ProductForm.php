@@ -131,7 +131,9 @@ class ProductForm
 
             Section::make('Pricing & Inventory')
                 ->schema([
+
                     Grid::make(3)->schema([
+
                         TextInput::make('prod_price')
                             ->label('Regular Price')
                             ->required()
@@ -140,12 +142,14 @@ class ProductForm
 
                         TextInput::make('prod_offer')
                             ->label('Offer')
-                            ->numeric(),
+                            ->numeric()
+                            ->default(0),
 
                         TextInput::make('prod_sale_price')
                             ->label('Sale Price')
                             ->numeric()
-                            ->prefix('₹'),
+                            ->prefix('₹')
+                            ->default(0),
 
                         TextInput::make('prod_stock')
                             ->label('Stock Quantity')
@@ -184,21 +188,15 @@ class ProductForm
 
                                 TextInput::make('price')
                                     ->label('Price')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
+                                    ->numeric(),
 
                                 TextInput::make('offer')
                                     ->label('Offer')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
+                                    ->numeric(),
 
                                 TextInput::make('offer_price')
                                     ->label('Sale Price')
-                                    ->numeric()
-                                    ->default(0)
-                                    ->required(),
+                                    ->numeric(),
                             ]),
                         ])
                         ->addActionLabel('Add Size')
@@ -247,8 +245,7 @@ class ProductForm
                                 ->label('Gallery Image')
                                 ->image()
                                 ->directory('products/gallery')
-                                ->disk('public')
-                                ->required(),
+                                ->disk('public'),
                                 
                         ])
                         ->addActionLabel('Add Image')
