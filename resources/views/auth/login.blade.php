@@ -46,6 +46,9 @@
                             <div class="mb-4">
                                 <input type="password" name="password" class="form-control luxury-input-minimal w-100 py-3" 
                                     placeholder="Password" required>
+                                <div class="text-end mt-2">
+                                    <a href="{{ route('password.request') }}" class="text-muted small text-decoration-none hover-gold transition-all">Forgot your password?</a>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn-luxury-solid w-100 py-3 mb-3" id="loginBtn">

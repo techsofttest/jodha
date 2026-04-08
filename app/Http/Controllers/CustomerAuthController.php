@@ -10,8 +10,94 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 
+use App\Models\CustomerAddress;
+use Illuminate\Support\Facades\DB;
+
 class CustomerAuthController extends Controller
 {
+    public function showForgotForm()
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function sendForgotOTP(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:customers,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error', 
+                'message' => 'Email not found in our records', 
+            ], 422);
+        }
+
+        $otp = 123456; // In production this should be rand(100000, 999999)
+
+        // Store in session
+        session([
+            'forgot_email' => $request->email,
+            'forgot_otp' => $otp,
+            'forgot_otp_expires_at' => now()->addMinutes(10)
+        ]);
+
+        try {
+            Mail::raw("Your password reset OTP is: $otp", function($message) use ($request) {
+                $message->to($request->email)->subject('Password Reset OTP');
+            });
+        } catch (\Exception $e) {
+            // Log error or ignore if development
+        }
+
+        return response()->json(['status' => 'otp_sent']);
+    }
+
+    public function verifyForgotOTP(Request $request)
+    {
+        $expiry = session('forgot_otp_expires_at');
+
+        if (!$expiry || now()->greaterThan($expiry)) {
+            session()->forget(['forgot_otp', 'forgot_email', 'forgot_otp_expires_at']);
+            return response()->json(['status' => 'error', 'message' => 'OTP expired.']);
+        }
+
+        if (session('forgot_otp') != $request->otp) {
+            return response()->json(['status' => 'error', 'message' => 'Invalid OTP']);
+        }
+
+        return response()->json(['status' => 'otp_verified']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $email = session('forgot_email');
+        if (!$email) {
+            return response()->json(['status' => 'error', 'message' => 'Session expired. Please start again.'], 422);
+        }
+
+        $customer = Customer::where('email', $email)->first();
+        if (!$customer) {
+            return response()->json(['status' => 'error', 'message' => 'Customer not found.'], 404);
+        }
+
+        $customer->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        session()->forget(['forgot_otp', 'forgot_email', 'forgot_otp_expires_at']);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Password reset successfully! You can now login.',
+            'redirect' => route('login')
+        ]);
+    }
+
     public function showLoginForm()
     {
         return view('auth.login');

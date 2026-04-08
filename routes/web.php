@@ -14,6 +14,8 @@ use App\Http\Controllers\SearchController;
 
 use App\Http\Controllers\CustomerAuthController;
 
+use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\CartController;
 
 use App\Http\Controllers\ArticalController;
@@ -69,10 +71,10 @@ Route::get('/auth/google/callback', [CustomerAuthController::class, 'handleGoogl
 Route::post('/customer/logout', [CustomerAuthController::class, 'logout']);
 
 Route::middleware('auth:customer')->group(function () {
-
-    // Route::get('/profile', ProfileController::class);
-
-    // Route::get('/orders', OrderController::class);
+    Route::get('/profile/dashboard', [ProfileController::class, 'index'])->name('profile.dashboard');
+    Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
+    Route::get('/profile/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+    Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 });
 
 

@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
+use Razorpay\Api\Api;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
+    private $razorpayId;
+    private $razorpayKey;
+
+    public function __construct()
+    {
+        $this->razorpayId = config('services.razorpay.key');
+        $this->razorpayKey = config('services.razorpay.secret');
+    }
+
 
     /**
      * Get cart contents (AJAX)
@@ -261,7 +272,7 @@ class CartController extends Controller
             'state' => 'required|string|max:255',
             'pin_code' => 'required|string|max:20',
             'shippingMethod' => 'required|string',
-            'paymentGateway' => 'required|string',
+            // 'paymentGateway' => 'required|string', // We know it's Razorpay now
             
             // Conditional billing validation
             'billing_first_name' => 'required_if:billingAddress,billingDifferent|nullable|string|max:255',
@@ -316,7 +327,7 @@ class CartController extends Controller
                 'pin_code' => $request->pin_code,
                 'billing_details' => $billingDetails,
                 'shipping_method' => $request->shippingMethod,
-                'payment_method' => $request->paymentGateway,
+                'payment_method' => 'razorpay',
                 'subtotal' => $cartData['subtotal'],
                 'shipping_cost' => $cartData['total_shipping'],
                 'discount' => $cartData['discount'],
@@ -325,6 +336,17 @@ class CartController extends Controller
                 'status' => 'pending',
                 'payment_status' => 'pending',
             ]);
+
+            // Create Razorpay Order
+            $api = new Api($this->razorpayId, $this->razorpayKey);
+            $razorpayOrder = $api->order->create([
+                'receipt'         => $order->order_number,
+                'amount'          => round($order->grand_total * 100), // Amount in paise
+                'currency'        => 'INR',
+                'payment_capture' => 1 // Auto capture
+            ]);
+
+            $order->update(['notes' => $razorpayOrder['id']]); // Temporarily store rzp_order_id in notes or a meta field
 
             foreach ($cart as $item) {
                 // Determine variant string
@@ -351,19 +373,63 @@ class CartController extends Controller
 
             \Illuminate\Support\Facades\DB::commit();
 
+            return response()->json([
+                'success' => true,
+                'razorpay_order_id' => $razorpayOrder['id'],
+                'amount' => $order->grand_total * 100,
+                'name' => $request->first_name . ' ' . $request->last_name,
+                'email' => $request->email,
+                'contact' => $request->phone,
+                'order_number' => $order->order_number,
+                'key' => $this->razorpayId
+            ]);
+
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\DB::rollBack();
+            return response()->json(['success' => false, 'message' => 'Error: ' . $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Verify payment status (AJAX)
+     */
+    public function verifyPayment(Request $request)
+    {
+        $input = $request->all();
+        $api = new Api($this->razorpayId, $this->razorpayKey);
+
+        try {
+            // Verify signature
+            $attributes = [
+                'razorpay_order_id' => $input['razorpay_order_id'],
+                'razorpay_payment_id' => $input['razorpay_payment_id'],
+                'razorpay_signature' => $input['razorpay_signature']
+            ];
+
+            $api->utility->verifyPaymentSignature($attributes);
+
+            // Fetch order
+            $order = \App\Models\Order::where('order_number', $input['order_number'])->first();
+            if ($order) {
+                $order->update([
+                    'payment_status' => 'paid',
+                    'status' => 'processing', // Move from pending to processing
+                    'notes' => 'Razorpay Payment ID: ' . $input['razorpay_payment_id']
+                ]);
+            }
+
             // Clear cart
             session()->forget('cart');
             session()->forget('coupon');
 
             return response()->json([
                 'success' => true,
-                'message' => 'Order placed successfully!',
+                'message' => 'Payment successful!',
                 'redirect_url' => route('order.success') . '?order=' . $order->order_number
             ]);
 
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\DB::rollBack();
-            return response()->json(['success' => false, 'message' => 'Failed to place order: ' . $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => 'Payment verification failed: ' . $e->getMessage()]);
         }
     }
 

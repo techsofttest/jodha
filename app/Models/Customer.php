@@ -38,6 +38,6 @@ class Customer extends Authenticatable implements MustVerifyEmail
 
     public function addresses()
     {
-        return $this->hasMany(CustomerAddress::class);
+        return $this->hasMany(CustomerAddress::class, 'user_id');
     }
 }

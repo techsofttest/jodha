@@ -14,7 +14,7 @@
 
             <div class="user-actions d-flex align-items-center gap-4">
                 @auth('customer')
-                <a href="#" class="d-none d-lg-flex">
+                <a href="{{ route('profile.dashboard') }}" class="d-none d-lg-flex">
                     <i class="fa-regular fa-user"></i> {{ Auth::guard('customer')->user()->name }}
                 </a>
                 <form action="/customer/logout" method="POST" class="d-none d-lg-block">
@@ -23,7 +23,7 @@
                 </form>
                 @else
                 <a href="{{ route('login') }}" class="d-none d-lg-flex">
-                    <i class="fa-regular fa-user"></i> Account
+                    <i class="fa-regular fa-user"></i> Login
                 </a>
                 @endauth
 

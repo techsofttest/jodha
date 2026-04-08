@@ -346,33 +346,12 @@
                                   
 
                                 </div>
-
-                                <div class="payment-box">
-
-                                    <div class="payment-header p-4 d-flex justify-content-between align-items-center"
-                                        style="background-color: var(--c-white); transition: background-color 0.3s ease;">
-                                        <div class="form-check luxury-radio m-0">
-                                            <input class="form-check-input payment-radio" type="radio"
-                                                name="paymentGateway" id="cod" data-target="desc-cod">
-                                            <label class="form-check-label ms-2 cursor-pointer" for="cod"
-                                                style="font-family: var(--f-body); font-size: 14px; font-weight: 500; color: var(--c-primary);">
-                                                Cash on Delivery (COD)
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <div id="desc-cod" class="payment-desc p-5 text-center border-top"
-                                        style="background-color: #fafafa; border-color: rgba(0,0,0,0.08) !important; display: none;">
-                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
-                                            stroke="currentColor" stroke-width="1" class="text-muted mb-3">
-                                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                                        </svg>
-                                        <p class="text-muted mx-auto mb-0"
-                                            style="font-family: var(--f-body); font-size: 13px; max-width: 300px;">
-                                            Pay with Cash or UPI directly to the delivery executive upon arrival.
-                                        </p>
-                                    </div>
+                                  
                                 </div>
+
+                                {{-- COD Removed --}}
+                                {{-- <div class="payment-box"> ... </div> --}}
+v>
 
                             </div>
                         </div>
@@ -533,6 +512,7 @@
 @section('footer_extras')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
     alertify.set('notifier','position', 'top-center');
@@ -663,13 +643,59 @@
             data: formData + "&_token={{ csrf_token() }}",
             success: function(response) {
                 if (response.success) {
-                    alertify.success(response.message);
-                    // Redirect to success page or handle next step
-                    setTimeout(() => {
-                        window.location.href = response.redirect_url;
-                    }, 2000);
+                    // Trigger Razorpay
+                    var options = {
+                        "key": response.key,
+                        "amount": response.amount,
+                        "currency": "INR",
+                        "name": "Jodha Furniture",
+                        "description": "Payment for order #" + response.order_number,
+                        "image": "{{ asset('images/logo/favicon.png') }}",
+                        "order_id": response.razorpay_order_id,
+                        "handler": function (rzpResponse){
+                            // Verify payment
+                            $.ajax({
+                                url: "{{ route('payment.verify') }}",
+                                type: "POST",
+                                data: {
+                                    _token: "{{ csrf_token() }}",
+                                    razorpay_payment_id: rzpResponse.razorpay_payment_id,
+                                    razorpay_order_id: rzpResponse.razorpay_order_id,
+                                    razorpay_signature: rzpResponse.razorpay_signature,
+                                    order_number: response.order_number
+                                },
+                                success: function(verifyResponse) {
+                                    if(verifyResponse.success) {
+                                        alertify.success(verifyResponse.message);
+                                        setTimeout(() => {
+                                            window.location.href = verifyResponse.redirect_url;
+                                        }, 1000);
+                                    } else {
+                                        alertify.error(verifyResponse.message);
+                                        submitBtn.prop('disabled', false).html(originalBtnText);
+                                    }
+                                }
+                            });
+                        },
+                        "prefill": {
+                            "name": response.name,
+                            "email": response.email,
+                            "contact": response.contact
+                        },
+                        "theme": {
+                            "color": "#9b804e"
+                        },
+                        "modal": {
+                            "ondismiss": function(){
+                                alertify.error('Payment cancelled.');
+                                submitBtn.prop('disabled', false).html(originalBtnText);
+                            }
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
                 } else {
-                    alertify.error(response.message || 'Failed to place order.');
+                    alertify.error(response.message || 'Failed to initiate order.');
                     submitBtn.prop('disabled', false).html(originalBtnText);
                 }
             },
@@ -680,7 +706,7 @@
                         alertify.error(errors[key][0]);
                     });
                 } else {
-                    alertify.error('Something went wrong placing the order.');
+                    alertify.error('Something went wrong initiating the order.');
                 }
                 submitBtn.prop('disabled', false).html(originalBtnText);
             }
