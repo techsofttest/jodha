@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Illuminate\Support\Str;
 
 class JournalForm
@@ -22,6 +23,13 @@ class JournalForm
                     ->afterStateUpdated(function ($state, callable $set) {
                         $set('slug', Str::slug($state));
                     }),
+
+                Select::make('journal_category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->required(),
 
                 TextInput::make('label')
                     ->label('Label')

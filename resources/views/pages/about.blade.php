@@ -586,7 +586,7 @@
                                 <img src="{{asset('images\icons\icons_google.svg')}}" alt="G" width="18">
                             </div>
                             <div class="review-stars">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                     class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                                     class="fa-solid fa-star"></i>
                             </div>

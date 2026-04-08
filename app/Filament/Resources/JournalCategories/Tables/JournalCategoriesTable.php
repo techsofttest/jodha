@@ -1,28 +1,21 @@
 <?php
 
-namespace App\Filament\Resources\Journals\Tables;
+namespace App\Filament\Resources\JournalCategories\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class JournalsTable
+class JournalCategoriesTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('title')
+                TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('label')
-                    ->searchable(),
-                TextColumn::make('date')
-                    ->date()
-                    ->sortable(),
-                ImageColumn::make('image'),
                 TextColumn::make('slug')
                     ->searchable(),
                 TextColumn::make('created_at')
@@ -33,15 +26,9 @@ class JournalsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('category.name')
-                    ->label('Category')
-                    ->sortable()
-                    ->searchable(),
             ])
             ->filters([
-                \Filament\Tables\Filters\SelectFilter::make('journal_category_id')
-                    ->label('Category')
-                    ->relationship('category', 'name'),
+                //
             ])
             ->recordActions([
                 EditAction::make(),
