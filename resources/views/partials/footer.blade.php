@@ -15,7 +15,7 @@
                     <h5 class="footer-heading mb-4">About Us</h5>
                     <ul class="footer-list p-0">
                         <li><a href="{{ route('about') }}">Our Story</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="{{ route('article.index') }}">Blog</a></li>
                         <li><a href="#">Sitemap</a></li>
                     </ul>
                 </div>

@@ -33,8 +33,8 @@ Route::get('/subcategory/{slug}', [SubCategoryController::class, 'showDetails'])
 Route::get('/collections', [CollectionController::class, 'show'])->name('collections.index');
 Route::get('/collections/{slug}', [CollectionController::class, 'detail'])->name('collections.show');
 
-Route::get('/artical', [ArticalController::class, 'index'])->name('artical.index');
-Route::get('/artical/{slug}', [ArticalController::class, 'detail'])->name('artical.show');
+Route::get('/article', [ArticalController::class, 'index'])->name('article.index');
+Route::get('/article/{slug}', [ArticalController::class, 'detail'])->name('article.show');
 
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{slug}', [ProductController::class, 'showDetails'])->name('product.show');

@@ -31,13 +31,13 @@
             <ul class="nav nav-pills d-flex justify-content-start justify-content-md-center flex-nowrap overflow-auto hide-scrollbar gap-4 mb-5 pb-4 px-3 px-md-0"
                 id="journalTabs" role="tablist" style="border-bottom: 1px solid rgba(0,0,0,0.08);">
                 <li class="nav-item" role="presentation">
-                    <a href="{{ route('artical.index') }}" class="nav-link journal-cat-link {{ !request('category') ? 'active' : '' }} bg-transparent rounded-0 p-0 pb-2">
+                    <a href="{{ route('article.index') }}" class="nav-link journal-cat-link {{ !request('category') ? 'active' : '' }} bg-transparent rounded-0 p-0 pb-2">
                         All Stories
                     </a>
                 </li>
                 @foreach ($categories as $category)
                     <li class="nav-item" role="presentation">
-                        <a href="{{ route('artical.index', ['category' => $category->slug]) }}" 
+                        <a href="{{ route('article.index', ['category' => $category->slug]) }}" 
                            class="nav-link journal-cat-link {{ request('category') == $category->slug ? 'active' : '' }} bg-transparent rounded-0 p-0 pb-2">
                             {{ $category->name }}
                         </a>
@@ -56,14 +56,14 @@
                                             class="badge bg-white text-dark position-absolute top-0 start-0 m-3 z-2 rounded-0 shadow-sm text-uppercase x-small px-3 py-2">
                                             {{ $journal->date ? \Carbon\Carbon::parse($journal->date)->format('M d') : $journal->created_at->format('M d') }}
                                         </span>
-                                        <a href="{{ route('artical.show', $journal->slug) }}">
+                                        <a href="{{ route('article.show', $journal->slug) }}">
                                             <img src="{{ asset('storage/'.$journal->image) }}" alt="{{ $journal->title }}"
                                                 class="blog-img w-100 object-fit-cover" style="height: 300px;">
                                         </a>
                                     </div>
                                     <div class="blog-content pt-4 pb-2">
                                         @if ($journal->category)
-                                            <a href="{{ route('artical.index', ['category' => $journal->category->slug]) }}"
+                                            <a href="{{ route('article.index', ['category' => $journal->category->slug]) }}"
                                                 class="text-decoration-none text-gold text-uppercase x-small fw-bold letter-spacing-1">
                                                 {{ $journal->category->name }}
                                             </a>
@@ -73,14 +73,14 @@
                                             </span>
                                         @endif
                                         <h4 class="font-heading mt-2 mb-3">
-                                            <a href="{{ route('artical.show', $journal->slug) }}" class="text-dark text-decoration-none">
+                                            <a href="{{ route('article.show', $journal->slug) }}" class="text-dark text-decoration-none">
                                                 {{ $journal->title }}
                                             </a>
                                         </h4>
                                         <p class="text-muted small mb-3">
                                             {{ Str::limit(strip_tags($journal->content), 120) }}
                                         </p>
-                                        <a href="{{ route('artical.show', $journal->slug) }}"
+                                        <a href="{{ route('article.show', $journal->slug) }}"
                                             class="btn-link text-dark fw-bold text-decoration-none small">Read Article <svg
                                                 width="18" height="18" viewBox="0 0 24 24" fill="none"
                                                 stroke="var(--c-gold)" stroke-width="2" class="ms-1 align-middle">

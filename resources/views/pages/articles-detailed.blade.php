@@ -19,7 +19,7 @@
 
         <div class="container position-relative z-2 text-center text-white mt-5">
             @if ($journal->category)
-                <a href="{{ route('artical.index', ['category' => $journal->category->slug]) }}" 
+                <a href="{{ route('article.index', ['category' => $journal->category->slug]) }}" 
                    class="text-gold text-uppercase letter-spacing-2 text-decoration-none d-block mb-3"
                    style="font-size: 11px; font-weight: 600;">
                     {{ $journal->category->name }}
@@ -87,22 +87,22 @@
                                 <span class="badge bg-white text-dark position-absolute top-0 start-0 m-3 z-2 rounded-0 shadow-sm text-uppercase x-small px-3 py-2">
                                     {{ $related->date ? \Carbon\Carbon::parse($related->date)->format('M d') : $related->created_at->format('M d') }}
                                 </span>
-                                <a href="{{ route('artical.show', $related->slug) }}">
+                                <a href="{{ route('article.show', $related->slug) }}">
                                     <img src="{{ asset('storage/'.$related->image) }}" alt="{{ $related->title }}"
                                         class="blog-img w-100 object-fit-cover" style="height: 280px;">
                                 </a>
                             </div>
                             <div class="blog-content pt-4 pb-2">
-                                <a href="{{ route('artical.index', ['category' => $related->category->slug ?? '']) }}"
+                                <a href="{{ route('article.index', ['category' => $related->category->slug ?? '']) }}"
                                     class="text-decoration-none text-gold text-uppercase x-small fw-bold letter-spacing-1">
                                     {{ $related->category->name ?? $related->label ?? 'Journal' }}
                                 </a>
-                                <h4 class="font-heading mt-2 mb-3"><a href="{{ route('artical.show', $related->slug) }}"
+                                <h4 class="font-heading mt-2 mb-3"><a href="{{ route('article.show', $related->slug) }}"
                                         class="text-dark text-decoration-none">{{ $related->title }}</a></h4>
                                 <p class="text-muted small mb-3">
                                     {{ Str::limit(strip_tags($related->content), 100) }}
                                 </p>
-                                <a href="{{ route('artical.show', $related->slug) }}" class="btn-link text-dark fw-bold text-decoration-none small">Read Article <i
+                                <a href="{{ route('article.show', $related->slug) }}" class="btn-link text-dark fw-bold text-decoration-none small">Read Article <i
                                         class="fa-solid fa-arrow-right ms-1 text-gold"></i></a>
                             </div>
                         </article>
@@ -112,7 +112,7 @@
             
             <div class="row mt-5">
                 <div class="col-12 text-center">
-                    <a href="{{ route('artical.index') }}" class="btn btn-outline-dark rounded-0 px-5 py-3 letter-spacing-1">View All Journal</a>
+                    <a href="{{ route('article.index') }}" class="btn btn-outline-dark rounded-0 px-5 py-3 letter-spacing-1">View All Journal</a>
                 </div>
             </div>
         </div>
