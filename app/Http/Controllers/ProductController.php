@@ -8,11 +8,13 @@ use App\Models\Seo;
 use App\Models\Product;
 use App\Models\Partner;
 use App\Models\Category;
+use App\Models\Collection;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $data['collections'] = Collection::limit(5)->get();
         $query = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
             ->where('prod_isactive', 1);
 

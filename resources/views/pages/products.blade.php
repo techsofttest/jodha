@@ -92,59 +92,16 @@
             <div class="container-fluid px-4 px-lg-5 py-3 mb-4">
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 justify-content-center">
 
+                    @foreach($collections as $collection)
                     <div class="col">
-                        <a href="#" class="collection-link">
+                        <a href="{{ route('collections.show', $collection->col_slug) }}" class="collection-link">
                             <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor01.jpg" alt="Wall Art">
+                                <img src="{{ asset('storage/' . $collection->col_image) }}" alt="{{ $collection->col_name }}">
                             </div>
-                            <h3 class="collection-title">Wall Art</h3>
+                            <h3 class="collection-title">{{ $collection->col_name }}</h3>
                         </a>
                     </div>
-
-                    <div class="col">
-                        <a href="#" class="collection-link">
-                            <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor02.jpg" alt="Photo Frames">
-                            </div>
-                            <h3 class="collection-title">Photo Frames</h3>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#" class="collection-link">
-                            <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor03.jpg" alt="Planters">
-                            </div>
-                            <h3 class="collection-title">Planters</h3>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#" class="collection-link">
-                            <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor04.jpg" alt="Vases">
-                            </div>
-                            <h3 class="collection-title">Vases</h3>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#" class="collection-link">
-                            <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor05.jpg" alt="Candle Holders">
-                            </div>
-                            <h3 class="collection-title">Candle Holders</h3>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="#" class="collection-link">
-                            <div class="collection-img-wrapper">
-                                <img src="assets\images\categories\homedecor\decor06.jpg" alt="Gift Boxes">
-                            </div>
-                            <h3 class="collection-title">Gift Boxes</h3>
-                        </a>
-                    </div>
+                    @endforeach
 
                 </div>
             </div>
