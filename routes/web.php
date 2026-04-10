@@ -53,6 +53,7 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::post('/cart/apply-coupon', [CartController::class, 'applyCoupon'])->name('cart.applyCoupon');
 Route::post('/cart/remove-coupon', [CartController::class, 'removeCoupon'])->name('cart.removeCoupon');
 Route::post('/order/place', [CartController::class, 'placeOrder'])->name('order.place');
+Route::post('/payment/verify', [CartController::class, 'verifyPayment'])->name('payment.verify');
 Route::get('/order/success', [CartController::class, 'success'])->name('order.success');
 
 Route::get('/login', [CustomerAuthController::class, 'showLoginForm'])->name('login');
@@ -70,10 +71,18 @@ Route::get('/auth/google/callback', [CustomerAuthController::class, 'handleGoogl
 
 Route::post('/customer/logout', [CustomerAuthController::class, 'logout']);
 
+// Forgot Password
+Route::get('/forgot-password', [CustomerAuthController::class, 'showForgotForm'])->name('password.request');
+Route::post('/customer/forgot-password/send-otp', [CustomerAuthController::class, 'sendForgotOTP'])->name('password.send-otp');
+Route::post('/customer/forgot-password/verify-otp', [CustomerAuthController::class, 'verifyForgotOTP'])->name('password.verify-otp');
+Route::post('/customer/reset-password', [CustomerAuthController::class, 'resetPassword'])->name('password.update');
+
+
 Route::middleware('auth:customer')->group(function () {
     Route::get('/profile/dashboard', [ProfileController::class, 'index'])->name('profile.dashboard');
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
     Route::get('/profile/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+    Route::post('/profile/orders/{order}/cancel', [ProfileController::class, 'cancel'])->name('profile.orders.cancel');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 });
 

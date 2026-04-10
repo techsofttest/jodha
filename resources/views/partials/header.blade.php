@@ -2,9 +2,10 @@
     <header>
         <div class="top-bar d-flex justify-content-between align-items-center flex-wrap">
 
-            <div class="search-container">
-                <input type="text" class="search-input" placeholder="Search">
+            <div class="search-container position-relative">
+                <input type="text" id="headerSearchInput" class="search-input" placeholder="Search" autocomplete="off">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <div id="searchResults" class="search-results-dropdown shadow-sm d-none"></div>
             </div>
 
             <div class="logo-container">

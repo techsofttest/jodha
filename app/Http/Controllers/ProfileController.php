@@ -23,7 +23,7 @@ class ProfileController extends Controller
             ->sum('grand_total');
 
         // Fetch recent orders
-        $recentOrders = Order::where('user_id', $customer->id)
+        $recentOrders = Order::with(['items.product'])->where('user_id', $customer->id)
             ->latest()
             ->take(5)
             ->get();
@@ -34,8 +34,28 @@ class ProfileController extends Controller
     public function orders()
     {
         $customer = Auth::guard('customer')->user();
-        $orders = Order::where('user_id', $customer->id)->latest()->paginate(10);
+        $orders = Order::with(['items.product'])->where('user_id', $customer->id)->latest()->paginate(10);
         return view('profile.orders', compact('customer', 'orders'));
+    }
+
+    public function cancel(Order $order)
+    {
+        $customer = Auth::guard('customer')->user();
+
+        // Check ownership
+        if ($order->user_id !== $customer->id) {
+            return response()->json(['status' => 'error', 'message' => 'Unauthorized action.'], 403);
+        }
+
+        // Check if already delivered/completed
+        $restrictiveStatuses = ['delivered', 'completed', 'cancelled', 'shipped'];
+        if (in_array($order->status, $restrictiveStatuses)) {
+            return response()->json(['status' => 'error', 'message' => 'This order cannot be cancelled as it is already ' . $order->status . '.'], 400);
+        }
+
+        $order->update(['status' => 'cancelled']);
+
+        return response()->json(['status' => 'success', 'message' => 'Order #'.$order->order_number.' has been cancelled successfully.']);
     }
 
     public function addresses()

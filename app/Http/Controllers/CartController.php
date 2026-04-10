@@ -8,6 +8,7 @@ use App\Models\ProductSize;
 use App\Models\ProductColor;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -313,8 +314,8 @@ class CartController extends Controller
             }
 
             $order = \App\Models\Order::create([
-                'order_number' => 'ORD-' . strtoupper(uniqid()),
-                'user_id' => auth()->id(),
+                'order_number' => 'JOD-' . strtoupper(uniqid()),
+                'user_id' => Auth::guard('customer')->id(),
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,

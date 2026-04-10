@@ -48,7 +48,7 @@
 
         <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
             <h2 class="section-title m-0">{{ $categories[0]->name }}</h2>
-            <a href="#" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <a href="{{ route('category.show', $categories[0]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
@@ -83,8 +83,8 @@
                     <div class="row gx-2">
                         <div class="col-md-2 product-thumbnails d-none d-md-flex flex-column gap-2 pe-lg-3">
                             <div class="thumbnail-wrapper border p-1 rounded-1 active" data-slide-to="0">
-                                <img src="{{ asset('storage/'.$home_product->prod_image) }}"
-                                    class="img-fluid" alt="{{ $home_product->prod_name }}">
+                                <img data-src="{{ asset('storage/'.$home_product->prod_image) }}"
+                                    class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
                             </div>
                             @foreach($home_product->images as $index => $image)
                             <div class="thumbnail-wrapper border p-1 rounded-1" data-slide-to="{{ $index + 1 }}">
@@ -200,7 +200,7 @@
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
             <h2 class="section-title m-0">{{$categories[1]->name}}</h2>
-            <a href="#" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <a href="{{ route('category.show', $categories[1]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
@@ -263,7 +263,7 @@
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
             <h2 class="section-title m-0">{{$categories[2]->name}}</h2>
-            <a href="#" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <a href="{{ route('category.show', $categories[2]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
@@ -291,7 +291,7 @@
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
             <h2 class="section-title m-0">{{$categories[3]->name}}</h2>
-            <a href="#" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <a href="{{ route('category.show', $categories[3]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
@@ -346,7 +346,7 @@
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
             <h2 class="section-title m-0">{{$categories[4]->name}}</h2>
-            <a href="#" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <a href="{{ route('category.show', $categories[4]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">

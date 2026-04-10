@@ -32,6 +32,18 @@
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
         }
+
+        .lazy-image{
+            opacity:0;
+            transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .lazy-image.loaded{
+            opacity:1;
+            transform: translateY(0);
+        }
+
     </style>
 
     @yield('head_extras')
@@ -190,6 +202,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/cart.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css" integrity="sha512-IXuoq1aFd2wXs4NqGskwX2Vb+I8UJ+tGJEu/Dc0zwLNKeQ7CW3Sr6v0yU3z5OQWe3eScVIkER4J9L7byrgR/fA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -199,6 +212,83 @@
 
 
     @yield('footer_extras')
+
+
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+    const images = document.querySelectorAll(".lazy-image");
+
+    const observer = new IntersectionObserver((entries, observer) => {
+
+        entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+                const img = entry.target;
+
+                const realSrc = img.getAttribute("data-src");
+
+                if (realSrc) {
+                    img.src = realSrc;
+
+                    img.onload = () => {
+                        img.classList.add("loaded");
+                    };
+                }
+
+                observer.unobserve(img);
+            }
+
+        });
+
+    }, {
+        rootMargin: "0px 0px 100px 0px",
+        threshold: 0.1
+    });
+
+    images.forEach(img => observer.observe(img));
+
+});
+
+
+
+function equalizeHeights(selector) {
+    const elements = document.querySelectorAll(selector);
+
+    let maxHeight = 0;
+
+    // Reset height first
+    elements.forEach(el => {
+        el.style.height = 'auto';
+    });
+
+    // Find tallest element
+    elements.forEach(el => {
+        if (el.offsetHeight > maxHeight) {
+            maxHeight = el.offsetHeight;
+        }
+    });
+
+    // Apply tallest height to all
+    elements.forEach(el => {
+        el.style.height = maxHeight + 'px';
+    });
+}
+
+// Run after page load
+window.addEventListener('load', function () {
+    equalizeHeights('.product-card');
+});
+
+
+
+
+
+    </script>
 
 
 

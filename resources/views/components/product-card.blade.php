@@ -7,11 +7,12 @@
 
     <div class="product-img-wrapper">
 
-        <img src="{{ asset('storage/'.$product->prod_image) }}"
-             class="img-fluid w-100"
-             alt="{{ $product->prod_name }}"
-             onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';"
-             >
+        <img 
+            data-src="{{ asset('storage/'.$product->prod_image) }}"
+            class="img-fluid w-100 lazy-image"
+            alt="{{ $product->prod_name }}"
+            onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';"
+        >
 
         {{-- SALE badge --}}
         @if(!empty($product->prod_offer))

@@ -16,6 +16,15 @@ class ProductController extends Controller
         $query = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
             ->where('prod_isactive', 1);
 
+        // Search by keyword
+        if ($request->has('search')) {
+            $keyword = $request->get('search');
+            $query->where(function($q) use ($keyword) {
+                $q->where('prod_name', 'LIKE', "%$keyword%")
+                  ->orWhere('prod_sku_code', 'LIKE', "%$keyword%");
+            });
+        }
+
         // Filter by categories (multiple)
         if ($request->has('categories')) {
             $categories = explode(',', $request->get('categories'));

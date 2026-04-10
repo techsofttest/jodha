@@ -14,6 +14,7 @@ class OrdersTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id','desc')
             ->columns([
                 TextColumn::make('order_number')
                     ->searchable()
@@ -26,17 +27,6 @@ class OrdersTable
                 TextColumn::make('grand_total')
                     ->money('INR')
                     ->sortable(),
-               /* TextColumn::make('status')
-                    ->badge()
-                    ->color(function (string $state): string {
-                        return match ($state) {
-                            'pending' => 'warning',
-                            'processing' => 'info',
-                            'completed' => 'success',
-                            'cancelled' => 'danger',
-                            default => 'gray',
-                        };
-                    }), */
                 TextColumn::make('payment_status')
                     ->badge()
                     ->color(function (string $state): string {
@@ -44,6 +34,18 @@ class OrdersTable
                             'pending' => 'warning',
                             'paid' => 'success',
                             'failed' => 'danger',
+                            default => 'gray',
+                        };
+                    }),
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(function (string $state): string {
+                        return match ($state) {
+                            'pending' => 'warning',
+                            'processing' => 'info',
+                            'shipped' => 'primary',
+                            'delivered', 'completed' => 'success',
+                            'cancelled' => 'danger',
                             default => 'gray',
                         };
                     }),

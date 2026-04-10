@@ -8,6 +8,8 @@
  <!-- Checkout Body -->
     <section class="checkout-main-section pb-5" style="background-color: var(--c-white);">
         <div class="container">
+
+            
             <div class="row gx-lg-5 d-flex flex-column flex-lg-row">
 
                 <div class="col-lg-7 pt-4 pt-lg-5 mb-5 mb-lg-0 pe-lg-5 order-2 order-lg-1">
@@ -349,12 +351,8 @@
                                   
                                 </div>
 
-                                {{-- COD Removed --}}
-                                {{-- <div class="payment-box"> ... </div> --}}
-v>
 
                             </div>
-                        </div>
 
                         <!-- Button -->
                         <div class="mobile-sticky-actions d-flex align-items-center justify-content-between mt-5 pt-3">

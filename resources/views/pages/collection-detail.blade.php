@@ -37,7 +37,7 @@
                     <a href="{{ route('collections.index') }}" class="btn-luxury-outline mt-3 px-4 py-2 text-decoration-none">Back to Collections</a>
                 </div>
             @else
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 gx-lg-5 pt-3">
+                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 gx-lg-5 pt-3">
                     @foreach($products as $product)
                         <div class="col">
                             @include('components.product-card', ['product' => $product])
