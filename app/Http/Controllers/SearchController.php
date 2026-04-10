@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\SubCategory;
+use App\Models\Subcategory;
 use App\Models\Collection;
 use App\Models\Product;
 
@@ -35,7 +35,7 @@ class SearchController extends Controller
                 ];
             });
 
-        $subcategories = SubCategory::where('subcat_name', 'LIKE', "%$keyword%")
+        $subcategories = Subcategory::where('subcat_name', 'LIKE', "%$keyword%")
             ->limit(5)
             ->get()
             ->map(function ($sub) {

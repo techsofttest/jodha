@@ -16,7 +16,7 @@
             <div class="user-actions d-flex align-items-center gap-4">
                 @auth('customer')
                 <a href="{{ route('profile.dashboard') }}" class="d-none d-lg-flex">
-                    <i class="fa-regular fa-user"></i> {{ Auth::guard('customer')->user()->name }}
+                    <i class="fa-regular fa-user"></i> {{ explode(' ', Auth::guard('customer')->user()->name)[0] }}
                 </a>
                 <form action="/customer/logout" method="POST" class="d-none d-lg-block">
                     @csrf
@@ -61,7 +61,7 @@
                     
                     <li class="nav-item"><a class="nav-link" href="{{route('home')}}">Home</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="{{route('about')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('product.index')}}">Products</a></li>
                     
                     @foreach($full_categories->take(4) as $category)
                         @if($category->subcategories->count() > 100)
@@ -153,7 +153,7 @@
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="d-flex flex-column">
-                        <span class="text-black font-heading" style="font-size: 15px; letter-spacing: 0.5px;">{{ Auth::guard('customer')->user()->name }}</span>
+                        <span class="text-black font-heading" style="font-size: 15px; letter-spacing: 0.5px;">{{ explode(' ', Auth::guard('customer')->user()->name)[0] }}</span>
                         <form action="/customer/logout" method="POST">
                             @csrf
                             <button type="submit" class="border-0 bg-transparent p-0" style="color: rgba(0,0,0,0.5); font-size: 11px; font-family: var(--f-body); letter-spacing: 0.5px; text-transform: uppercase;">Logout</button>

@@ -40,6 +40,31 @@
                         */ @endphp
 
 
+                        @if(Auth::guard('customer')->check() && count($addresses) > 0)
+                        <div class="mb-5">
+                            <h4 class="font-heading mb-4" style="color: var(--c-primary); font-size: 20px;">Saved Addresses</h4>
+                            <div class="row g-3">
+                                @foreach($addresses as $addr)
+                                <div class="col-md-6">
+                                    <div class="card border p-3 cursor-pointer address-card @if($addr->is_default) border-gold @endif" 
+                                         onclick="fillAddress({{ json_encode($addr) }}, this)"
+                                         style="transition: all 0.3s ease; border-color: rgba(0,0,0,0.1) !important;">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <h6 class="mb-0 fw-bold" style="font-size: 14px;">{{ $addr->name }}</h6>
+                                            @if($addr->is_default)
+                                                <span class="badge bg-gold" style="font-size: 9px;">DEFAULT</span>
+                                            @endif
+                                        </div>
+                                        <p class="mb-0 text-muted small text-truncate">
+                                            {{ $addr->address_line1 }}, {{ $addr->city }}
+                                        </p>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
+
                         <div class="mb-5">
                             <h4 class="font-heading mb-4" style="color: var(--c-primary); font-size: 20px;">Delivery
                                 Address
@@ -486,13 +511,13 @@
                         </div>
 
                         <div class="d-none d-lg-flex flex-wrap gap-3 mt-5 pt-3 border-top-delicate-dark">
-                            <a href="#" class="text-muted text-decoration-none"
+                            <a href="{{ route('policy.refund') }}" class="text-muted text-decoration-none"
                                 style="font-family: var(--f-body); font-size: 11px;">Refund policy</a>
-                            <a href="#" class="text-muted text-decoration-none"
+                            <a href="{{ route('policy.shipping') }}" class="text-muted text-decoration-none"
                                 style="font-family: var(--f-body); font-size: 11px;">Shipping policy</a>
-                            <a href="#" class="text-muted text-decoration-none"
+                            <a href="{{ route('policy.privacy') }}" class="text-muted text-decoration-none"
                                 style="font-family: var(--f-body); font-size: 11px;">Privacy policy</a>
-                            <a href="#" class="text-muted text-decoration-none"
+                            <a href="{{ route('policy.terms') }}" class="text-muted text-decoration-none"
                                 style="font-family: var(--f-body); font-size: 11px;">Terms of service</a>
                         </div>
 
@@ -744,11 +769,47 @@
             });
 
         });
+        });
     </script>
 
+    <script>
+        function fillAddress(addr, element) {
+            // Remove active class from all address cards
+            $('.address-card').removeClass('border-gold').css('border-color', 'rgba(0,0,0,0.1)');
+            $(element).addClass('border-gold').css('border-color', 'var(--c-gold)');
 
+            // Fill the form
+            $('input[name="address"]').val(addr.address_line1);
+            $('input[name="apartment"]').val(addr.address_line2 || '');
+            $('input[name="city"]').val(addr.city);
+            $('input[name="state"]').val(addr.state);
+            $('input[name="pin_code"]').val(addr.postal_code);
+            $('input[name="phone"]').val(addr.phone);
+            
+            // Handle country
+            const country = addr.country || 'India';
+            $('#hidden_country').val(country);
+            $('#display_country').text(country);
+            
+            // Highlight active country in list
+            $('.country-selector').removeClass('active');
+            $(`.country-selector[data-value="${country}"]`).addClass('active');
 
+            alertify.success(`Address "${addr.name}" selected`);
+        }
+    </script>
 
-
-
+    <style>
+        .address-card:hover {
+            border-color: var(--c-gold) !important;
+            background-color: var(--c-linen);
+        }
+        .border-gold {
+            border-color: var(--c-gold) !important;
+            background-color: var(--c-linen);
+        }
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
 @endsection

@@ -54,11 +54,11 @@
         <div class="d-flex flex-column gap-3">
             <button class="btn-luxury-solid w-100" onclick="window.location.href='{{ route('cart.index') }}'">View Cart</button>
 
-            <button class="btn-luxury-outline w-100 d-flex justify-content-between align-items-center px-4">
-                <a href="{{route('checkout.index')}}">Checkout</a>
+            <a href="{{route('checkout.index')}}" class="btn-luxury-outline w-100 d-flex justify-content-between align-items-center px-4">
+                <span>Checkout</span>
                 <span class="text-muted" style="font-size: 10px;">•</span>
                 <span id="cartCheckoutTotal">₹0.00</span>
-            </button>
+            </a>
         </div>
 
     </div>

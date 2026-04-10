@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -61,8 +62,82 @@ class ProfileController extends Controller
     public function addresses()
     {
         $customer = Auth::guard('customer')->user();
-        $addresses = $customer->addresses;
+        $addresses = CustomerAddress::where('user_id', $customer->id)->latest()->get();
         return view('profile.addresses', compact('customer', 'addresses'));
+    }
+
+    public function storeAddress(Request $request)
+    {
+        $customer = Auth::guard('customer')->user();
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address_line1' => 'required|string|max:255',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'country' => 'required|string|max:100',
+            'postal_code' => 'required|string|max:20',
+        ]);
+
+        $isDefault = $request->has('is_default') ? 1 : 0;
+        
+        if ($isDefault) {
+            CustomerAddress::where('user_id', $customer->id)->update(['is_default' => 0]);
+        }
+
+        CustomerAddress::create(array_merge($request->all(), [
+            'user_id' => $customer->id,
+            'is_default' => $isDefault
+        ]));
+
+        return response()->json(['status' => 'success', 'message' => 'Address saved successfully.']);
+    }
+
+    public function updateAddress(Request $request, CustomerAddress $address)
+    {
+        $customer = Auth::guard('customer')->user();
+        if ($address->user_id !== $customer->id) abort(403);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address_line1' => 'required|string|max:255',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
+            'country' => 'required|string|max:100',
+            'postal_code' => 'required|string|max:20',
+        ]);
+
+        $isDefault = $request->has('is_default') ? 1 : 0;
+        
+        if ($isDefault) {
+            CustomerAddress::where('user_id', $customer->id)->update(['is_default' => 0]);
+        }
+
+        $address->update(array_merge($request->all(), ['is_default' => $isDefault]));
+
+        return response()->json(['status' => 'success', 'message' => 'Address updated successfully.']);
+    }
+
+    public function deleteAddress(CustomerAddress $address)
+    {
+        $customer = Auth::guard('customer')->user();
+        if ($address->user_id !== $customer->id) abort(403);
+        
+        $address->delete();
+        return response()->json(['status' => 'success', 'message' => 'Address deleted successfully.']);
+    }
+
+    public function setDefaultAddress(CustomerAddress $address)
+    {
+        $customer = Auth::guard('customer')->user();
+        if ($address->user_id !== $customer->id) abort(403);
+
+        CustomerAddress::where('user_id', $customer->id)->update(['is_default' => 0]);
+        $address->update(['is_default' => 1]);
+
+        return response()->json(['status' => 'success', 'message' => 'Default address updated.']);
     }
 
     public function changePassword(Request $request)

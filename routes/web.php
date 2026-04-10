@@ -18,12 +18,22 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\CartController;
 
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ArticalController;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+
+Route::get('/privacy-policy', [PolicyController::class, 'privacy'])->name('policy.privacy');
+Route::get('/refund-policy', [PolicyController::class, 'refund'])->name('policy.refund');
+Route::get('/shipping-policy', [PolicyController::class, 'shipping'])->name('policy.shipping');
+Route::get('/terms-and-conditions', [PolicyController::class, 'terms'])->name('policy.terms');
+Route::get('/sitemap', [PolicyController::class, 'sitemap'])->name('sitemap');
+Route::get('/faq', [PolicyController::class, 'faq'])->name('faq');
 
 
 Route::get('/category', [CategoryController::class, 'show'])->name('category.index');
@@ -81,7 +91,11 @@ Route::post('/customer/reset-password', [CustomerAuthController::class, 'resetPa
 Route::middleware('auth:customer')->group(function () {
     Route::get('/profile/dashboard', [ProfileController::class, 'index'])->name('profile.dashboard');
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
-    Route::get('/profile/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+    Route::get('/addresses', [ProfileController::class, 'addresses'])->name('profile.addresses');
+    Route::post('/addresses', [ProfileController::class, 'storeAddress'])->name('profile.addresses.store');
+    Route::put('/addresses/{address}', [ProfileController::class, 'updateAddress'])->name('profile.addresses.update');
+    Route::delete('/addresses/{address}', [ProfileController::class, 'deleteAddress'])->name('profile.addresses.delete');
+    Route::post('/addresses/{address}/default', [ProfileController::class, 'setDefaultAddress'])->name('profile.addresses.default');
     Route::post('/profile/orders/{order}/cancel', [ProfileController::class, 'cancel'])->name('profile.orders.cancel');
     Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
 });

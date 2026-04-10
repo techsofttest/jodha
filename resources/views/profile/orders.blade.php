@@ -11,7 +11,7 @@
                         <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; border: 1px solid var(--c-gold);">
                             <i class="fa-solid fa-user fa-2x text-gold"></i>
                         </div>
-                        <h5 class="font-heading mb-1">{{ $customer->name }}</h5>
+                        <h5 class="font-heading mb-1">{{ explode(' ', $customer->name)[0] }}</h5>
                         <p class="text-muted small mb-0">{{ $customer->email }}</p>
                     </div>
                     

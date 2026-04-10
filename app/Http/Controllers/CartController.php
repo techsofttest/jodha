@@ -51,7 +51,12 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
         $cartData = $this->buildCartData($cart);
 
-        return view('pages.checkout', compact('cartData'));
+        $addresses = [];
+        if (Auth::guard('customer')->check()) {
+            $addresses = \App\Models\CustomerAddress::where('user_id', Auth::guard('customer')->id())->latest()->get();
+        }
+
+        return view('pages.checkout', compact('cartData', 'addresses'));
     }
 
 

@@ -667,7 +667,7 @@
                         Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals
                     </p>
 
-                    <form class="newsletter-form">
+                    <form id="newsletterForm" class="newsletter-form">
                         <div class="input-group">
                             <input type="email" class="form-control newsletter-input font-jost"
                                 placeholder="Enter your email" required>
@@ -752,6 +752,48 @@
                 }
             });
         }
+
+        // Newsletter subscription
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+
+                submitBtn.disabled = true;
+                submitBtn.innerText = 'Subscribing...';
+
+                fetch('{{ route("newsletter.subscribe") }}', {
+                    method: 'POST',
+                    body: JSON.stringify({ email: emailInput.value }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alertify.success(data.message);
+                        emailInput.value = '';
+                    } else {
+                        alertify.error(data.message);
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alertify.error('An error occurred. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalBtnText;
+                });
+            });
+        }
     });
-    </script>
-    @endsection
+</script>
+@endsection
