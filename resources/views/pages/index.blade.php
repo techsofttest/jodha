@@ -43,12 +43,12 @@
 
 
 
-    @if(isset($categories[0]))
+    @if(isset($home_collections[0]))
     <section class="product-section py-5">
 
         <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{ $categories[0]->name }}</h2>
-            <a href="{{ route('category.show', $categories[0]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <h2 class="section-title m-0">{{ $home_collections[0]->col_name }}</h2>
+            <a href="{{ route('collections.show', $home_collections[0]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
@@ -56,7 +56,7 @@
 
 
 
-                @foreach($categories[0]->products as $product)
+                @foreach($home_collections[0]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
@@ -194,19 +194,19 @@
 
 
 
-     @if(isset($categories[1]))
+     @if(isset($home_collections[1]))
     <section class="product-section py-5">
 
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$categories[1]->name}}</h2>
-            <a href="{{ route('category.show', $categories[1]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <h2 class="section-title m-0">{{$home_collections[1]->col_name}}</h2>
+            <a href="{{ route('collections.show', $home_collections[1]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
 
-                @foreach($categories[1]->products as $product)
+                @foreach($home_collections[1]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
@@ -257,19 +257,19 @@
 
     
 
-    @if(isset($categories[2]))
+    @if(isset($home_collections[2]))
 
     <section class="product-section py-5">
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$categories[2]->name}}</h2>
-            <a href="{{ route('category.show', $categories[2]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <h2 class="section-title m-0">{{$home_collections[2]->col_name}}</h2>
+            <a href="{{ route('collections.show', $home_collections[2]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
 
-                @foreach($categories[2]->products as $product)
+                @foreach($home_collections[2]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
@@ -286,18 +286,18 @@
 
 
 
-    @if(isset($categories[3]))
+    @if(isset($home_collections[3]))
     <section class="product-section py-5">
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$categories[3]->name}}</h2>
-            <a href="{{ route('category.show', $categories[3]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <h2 class="section-title m-0">{{$home_collections[3]->col_name}}</h2>
+            <a href="{{ route('collections.show', $home_collections[3]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
 
-                @foreach($categories[3]->products as $product)
+                @foreach($home_collections[3]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
@@ -341,18 +341,18 @@
 
 
 
-    @if(isset($categories[4]))
+    @if(isset($home_collections[4]))
     <section class="product-section py-5">
         <div
             class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$categories[4]->name}}</h2>
-            <a href="{{ route('category.show', $categories[4]->slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            <h2 class="section-title m-0">{{$home_collections[4]->col_name}}</h2>
+            <a href="{{ route('collections.show', $home_collections[4]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
 
-                @foreach($categories[4]->products as $product)
+                @foreach($home_collections[4]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 

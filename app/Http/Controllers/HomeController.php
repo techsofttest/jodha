@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $data['seo'] = Seo::find(1);
 
-        $data['categories'] = Category::with(['products' => function ($q) {
+        $data['home_collections'] = Collection::with(['products' => function ($q) {
         $q->where('prod_isactive', 1)
           ->latest()
           ->take(8);
