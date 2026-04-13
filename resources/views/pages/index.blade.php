@@ -52,7 +52,7 @@
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
 
 
@@ -118,14 +118,14 @@
                 <p class="brand-text text-muted mb-4">{{ $home_product->subcategory ? $home_product->subcategory->subcat_name : 'Jodha' }}</p>
 
                 <div class="price-container mb-4">
-                    @if($home_product->prod_sale_price)
+                    @if($home_product->prod_sale_price && $home_product->prod_price > $home_product->prod_sale_price)
                         <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price, 2) }}</span>
                         <span class="grid-old-price text-muted fw-light ms-2 text-decoration-line-through">₹{{ number_format($home_product->prod_price, 2) }}</span>
                         @if($home_product->prod_offer)
                             <span class="grid-discount text-gold fw-light ms-2">Save {{ $home_product->prod_offer }}%</span>
                         @endif
                     @else
-                        <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_price, 2) }}</span>
+                        <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price ?: $home_product->prod_price, 2) }}</span>
                     @endif
                 </div>
 
@@ -204,7 +204,7 @@
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
                 @foreach($home_collections[1]->products as $product)
 
@@ -267,7 +267,7 @@
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
                 @foreach($home_collections[2]->products as $product)
 
@@ -295,7 +295,7 @@
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
                 @foreach($home_collections[3]->products as $product)
 
@@ -350,7 +350,7 @@
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-4">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
                 @foreach($home_collections[4]->products as $product)
 

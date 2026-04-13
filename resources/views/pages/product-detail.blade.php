@@ -32,13 +32,13 @@
 
                                 {{-- Main product image as first thumbnail --}}
                                 <div class="thumb-item active" data-bs-target="#productGallery" data-bs-slide-to="0">
-                                    <img src="{{ asset('storage/'.$product->prod_image) }}" alt="{{ $product->prod_name }}">
+                                    <img onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" src="{{ asset('storage/'.$product->prod_image) }}" alt="{{ $product->prod_name }}">
                                 </div>
 
                                 {{-- Additional product images --}}
                                 @foreach($product->images as $index => $image)
                                 <div class="thumb-item" data-bs-target="#productGallery" data-bs-slide-to="{{ $index + 1 }}">
-                                    <img src="{{ asset('storage/'.$image->image_path) }}" alt="{{ $product->prod_name }} - Image {{ $index + 2 }}">
+                                    <img onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" src="{{ asset('storage/'.$image->image_path) }}" alt="{{ $product->prod_name }} - Image {{ $index + 2 }}">
                                 </div>
                                 @endforeach
 
@@ -70,14 +70,14 @@
                             <div class="carousel-inner h-100" style="background-color: var(--c-linen);">
                                 {{-- Main product image --}}
                                 <div class="carousel-item active h-100">
-                                    <img src="{{ asset('storage/'.$product->prod_image) }}"
+                                    <img onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" src="{{ asset('storage/'.$product->prod_image) }}"
                                         class="d-block w-100 h-100 product-main-img" alt="{{ $product->prod_name }}"
                                         style="object-fit: cover;">
                                 </div>
                                 {{-- Additional images --}}
                                 @foreach($product->images as $image)
                                 <div class="carousel-item h-100">
-                                    <img src="{{ asset('storage/'.$image->image_path) }}"
+                                    <img onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" src="{{ asset('storage/'.$image->image_path) }}"
                                         class="d-block w-100 h-100 product-main-img" alt="{{ $product->prod_name }}"
                                         style="object-fit: cover;">
                                 </div>
@@ -200,7 +200,7 @@
 
                         <div class="price-block mb-4 pb-4 border-bottom-delicate">
                             <div class="d-flex align-items-center gap-3">
-                                @if(!empty($product->prod_sale_price))
+                                @if(!empty($product->prod_sale_price) && $product->prod_price > $product->prod_sale_price)
                                     <span class="fs-3 fw-bold" style="color: var(--c-primary);">₹{{ number_format($product->prod_sale_price, 2) }}</span>
                                     <span class="fs-5 text-decoration-line-through text-muted">₹{{ number_format($product->prod_price, 2) }}</span>
                                     @if(!empty($product->prod_offer))
@@ -208,7 +208,7 @@
                                         style="font-size: 10px; letter-spacing: 1px;">SAVE {{ $product->prod_offer }}%</span>
                                     @endif
                                 @else
-                                    <span class="fs-3 fw-bold" style="color: var(--c-primary);">₹{{ number_format($product->prod_price, 2) }}</span>
+                                    <span class="fs-3 fw-bold" style="color: var(--c-primary);">₹{{ number_format($product->prod_sale_price ?: $product->prod_price, 2) }}</span>
                                 @endif
                             </div>
                             <p class="text-muted mt-2" style="font-size: 11px;">Inclusive of all taxes. Shipping

@@ -425,7 +425,7 @@
                                     <div class="position-relative me-3 flex-shrink-0">
                                         <div
                                             style="width: 64px; height: 64px; border: 1px solid rgba(0,0,0,0.1); background-color: var(--c-white); padding: 5px;">
-                                            <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}"
+                                            <img onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" src="{{ $item['image'] }}" alt="{{ $item['name'] }}"
                                                 style="width: 100%; height: 100%; object-fit: cover;">
                                         </div>
                                         <span

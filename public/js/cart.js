@@ -260,7 +260,7 @@ const JodhaCart = {
         return `
             <div class="cart-page-item d-flex gap-3 gap-md-4 py-4 border-bottom-delicate" data-cart-key="${item.cart_key}">
                 <a href="${item.url}" class="cart-img-wrap flex-shrink-0" style="width: 100px; height: 100px;">
-                    <img src="${item.image}" alt="${item.name}" class="w-100 h-100 object-fit-cover rounded">
+                    <img onerror="this.onerror=null;this.src='images/placeholder.png';" src="${item.image}" alt="${item.name}" class="w-100 h-100 object-fit-cover rounded">
                 </a>
 
                 <div class="cart-item-info d-flex flex-column justify-content-between w-100">
@@ -303,7 +303,7 @@ const JodhaCart = {
         return `
             <div class="cart-item d-flex gap-4 mb-4 pb-4 border-bottom-delicate" data-cart-key="${item.cart_key}">
                 <a href="${item.url}" class="cart-item-img-wrapper flex-shrink-0">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <img onerror="this.onerror=null;this.src='images/placeholder.png';" src="${item.image}" alt="${item.name}" class="cart-item-img">
                 </a>
 
                 <div class="cart-item-details d-flex flex-column justify-content-between w-100">

@@ -44,6 +44,23 @@
             transform: translateY(0);
         }
 
+        @media(max-width: 767px) {
+            .mobile-swipe-row {
+                flex-wrap: nowrap !important;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .mobile-swipe-row::-webkit-scrollbar {
+                display: none;
+            }
+            .mobile-swipe-row > .col {
+                flex: 0 0 75%;
+                max-width: 75%;
+            }
+        }
     </style>
 
     @yield('head_extras')

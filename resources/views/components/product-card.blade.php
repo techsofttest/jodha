@@ -64,7 +64,7 @@
         <div class="grid-price-row">
 
             {{-- SALE PRICE --}}
-            @if(!empty($product->prod_sale_price))
+            @if(!empty($product->prod_sale_price) && $product->prod_price > $product->prod_sale_price)
 
                 <span class="grid-current-price">
                     ₹{{ number_format($product->prod_sale_price,2) }}
@@ -80,11 +80,11 @@
                 </span>
                 @endif
 
-            {{-- NORMAL PRICE --}}
+            {{-- NORMAL PRICE (OR EQUAL) --}}
             @else
 
                 <span class="grid-current-price">
-                    ₹{{ number_format($product->prod_price,2) }}
+                    ₹{{ number_format($product->prod_sale_price ?: $product->prod_price,2) }}
                 </span>
 
             @endif
