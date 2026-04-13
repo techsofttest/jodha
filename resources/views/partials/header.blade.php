@@ -206,6 +206,13 @@
                         Home <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                     </a>
 
+
+                    <a href="{{route('product.index')}}"
+                        class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
+                        style="font-size: 17px;">
+                        All Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                    </a>
+
                     @foreach($full_categories as $category)
                        
                             <a href="{{ route('category.show', $category->slug) }}"
