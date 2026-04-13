@@ -218,41 +218,40 @@
 
     <script>
 
-        document.addEventListener("DOMContentLoaded", function () {
+        let lazyObserver;
+        function initLazyLoad() {
+            const images = document.querySelectorAll(".lazy-image:not(.observed)");
 
-    const images = document.querySelectorAll(".lazy-image");
-
-    const observer = new IntersectionObserver((entries, observer) => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                const img = entry.target;
-
-                const realSrc = img.getAttribute("data-src");
-
-                if (realSrc) {
-                    img.src = realSrc;
-
-                    img.onload = () => {
-                        img.classList.add("loaded");
-                    };
-                }
-
-                observer.unobserve(img);
+            if (!lazyObserver) {
+                lazyObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const realSrc = img.getAttribute("data-src");
+                            if (realSrc) {
+                                img.src = realSrc;
+                                img.onload = () => {
+                                    img.classList.add("loaded");
+                                };
+                            }
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: "0px 0px 100px 0px",
+                    threshold: 0.1
+                });
             }
 
+            images.forEach(img => {
+                img.classList.add('observed');
+                lazyObserver.observe(img);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            initLazyLoad();
         });
-
-    }, {
-        rootMargin: "0px 0px 100px 0px",
-        threshold: 0.1
-    });
-
-    images.forEach(img => observer.observe(img));
-
-});
 
 
 

@@ -232,6 +232,11 @@
                             productGrid.innerHTML = data.html;
                             document.getElementById('pagination-container').innerHTML = data.pagination;
                             productGrid.style.opacity = '1';
+                            
+                            // Re-initialize lazy loading for new products
+                            if (typeof initLazyLoad === 'function') initLazyLoad();
+                            if (typeof equalizeHeights === 'function') equalizeHeights('.product-card');
+
                             attachPaginationLinks();
                             updateActiveFiltersUI();
                         });

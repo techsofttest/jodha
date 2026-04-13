@@ -8,6 +8,7 @@ use App\Models\Subcategory;
 use App\Models\Collection;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
+use App\Models\Color;
 use App\Models\ProductImage;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -121,15 +122,19 @@ class ProductsImport implements ToCollection, WithStartRow
                 );
             }
 
-            // Handle Color (Column I -> 8)
+            // Handle Color (Column I -> 8, comma separated)
             $colorValue = trim($row[8] ?? '');
             if ($colorValue) {
-                ProductColor::updateOrCreate(
-                    ['product_id' => $product->id, 'color_name' => $colorValue],
-                    [
-                        'color_code' => '#000000', // Default code
-                    ]
-                );
+                $colors = array_filter(array_map('trim', explode(',', $colorValue)));
+                foreach ($colors as $colorName) {
+                    $colorCode = Color::whereRaw('LOWER(name) = ?', [strtolower($colorName)])->value('color_code') ?? '#000000';
+                    ProductColor::updateOrCreate(
+                        ['product_id' => $product->id, 'color_name' => $colorName],
+                        [
+                            'color_code' => $colorCode,
+                        ]
+                    );
+                }
             }
 
             // Handle Gallery Images (Column K -> 10, comma separated)

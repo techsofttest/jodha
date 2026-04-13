@@ -64,7 +64,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('product.index')}}">Products</a></li>
                     
                     @foreach($full_categories->take(4) as $category)
-                        @if($category->subcategories->count() > 100)
+                        @if($category->subcategories->count() > 0)
                             <li class="nav-item dropdown mega-dropdown">
                                 <a class="nav-link d-flex align-items-center gap-1" href="{{ route('category.show', $category->slug) }}">
                                     {{ $category->name }} <i class="fa-solid fa-angle-down" style="font-size: 10px;"></i>
@@ -90,7 +90,7 @@
                                                 <div class="col-3 d-none d-xl-block px-4 border-start">
                                                     <div class="featured-product p-0 border-0">
                                                         <div class="product-img-placeholder mb-3" style="aspect-ratio: 4/5; overflow: hidden;"> 
-                                                            <img src="{{ asset('storage/'.$featured->prod_image) }}" alt="{{ $featured->prod_name }}" class="w-100 h-100 object-fit-cover transition-transform">
+                                                            <img src="{{ asset('storage/'.$featured->prod_image) }}" onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" alt="{{ $featured->prod_name }}" class="w-100 h-100 object-fit-cover transition-transform">
                                                         </div>
                                                         @if($featured->prod_hotdeal) <span class="sale-badge">SALE</span> @endif
                                                         <div class="product-details p-0">
