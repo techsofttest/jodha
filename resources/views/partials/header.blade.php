@@ -1,5 +1,21 @@
     <!-- header -->
     <header>
+
+    <style>
+
+        .mega-menu .product-card
+        {
+            height:unset !important;
+        }
+
+        .mega-menu .product-img-wrapper
+        {
+            height:100px !important;
+        }
+
+    </style>
+
+
         <div class="top-bar d-flex justify-content-between align-items-center flex-wrap">
 
             <div class="search-container position-relative">
@@ -88,16 +104,7 @@
                                             @if($featured_products->count() > 0)
                                                 @php $featured = $featured_products->first(); @endphp
                                                 <div class="col-3 d-none d-xl-block px-4 border-start">
-                                                    <div class="featured-product p-0 border-0">
-                                                        <div class="product-img-placeholder mb-3" style="aspect-ratio: 4/5; overflow: hidden;"> 
-                                                            <img src="{{ asset('storage/'.$featured->prod_image) }}" onerror="this.onerror=null;this.src='{{ asset('images/placeholder.png') }}';" alt="{{ $featured->prod_name }}" class="w-100 h-100 object-fit-cover transition-transform">
-                                                        </div>
-                                                        @if($featured->prod_hotdeal) <span class="sale-badge">SALE</span> @endif
-                                                        <div class="product-details p-0">
-                                                            <div class="product-title" style="font-size: 13px; line-height: 1.4;">{{ $featured->prod_name }}</div>
-                                                            <a href="{{ route('product.show', $featured->prod_slug) }}" class="btn-link mt-2 d-inline-block text-decoration-none" style="font-size: 11px; color: var(--c-gold); font-weight: 600; letter-spacing: 1px;">DISCOVER MORE</a>
-                                                        </div>
-                                                    </div>
+                                                    @include('components.product-card', ['product' => $featured])
                                                 </div>
                                             @endif
                                         </div>

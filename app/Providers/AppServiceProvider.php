@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
                   ->orWhere('prod_hotdeal', 1)
                   ->orWhere('prod_new_arrival', 1);
         })
-        ->select('id','prod_name','prod_image','prod_slug','prod_trending','prod_hotdeal','prod_new_arrival')
+        ->select('id','prod_name','prod_image','prod_slug','prod_trending','prod_hotdeal','prod_new_arrival', 'prod_price', 'prod_sale_price', 'prod_offer')
         ->orderByRaw('(prod_trending + prod_hotdeal + prod_new_arrival) DESC')
         ->get();
         $allCollections = Collection::select('id', 'col_name', 'col_slug')->get();
