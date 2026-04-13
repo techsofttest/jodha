@@ -127,9 +127,11 @@
 
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
+
                     const gridBtns = document.querySelectorAll('.grid-btn');
                     const productGrid = document.getElementById('product-grid');
-                    
+                    const productItems = document.querySelectorAll('#product-grid .product-item');
+
                     // Layout switching
                     if (gridBtns.length > 0 && productGrid) {
                         gridBtns.forEach(btn => {
@@ -139,15 +141,22 @@
                                 this.classList.add('active');
 
                                 const layout = this.getAttribute('data-layout');
-                                productGrid.classList.remove('list-view', 'large-grid', 'standard-grid');
+                                productGrid.classList.remove('list-view');
 
-                                if (layout === 'list') {
-                                    productGrid.classList.add('list-view');
-                                } else if (layout === 'large') {
-                                    productGrid.classList.add('large-grid');
-                                } else {
-                                    productGrid.classList.add('standard-grid');
-                                }
+                                productItems.forEach(item => {
+                                    item.classList.remove('col-12', 'col-6', 'col-4', 'col-lg-12', 'col-lg-6', 'col-lg-4');
+
+                                    if (layout === 'list') {
+                                        item.classList.add('col-12', 'col-lg-12');
+                                        productGrid.classList.add('list-view');
+                                    }
+                                    else if (layout === 'large') {
+                                        item.classList.add('col-12', 'col-lg-6');
+                                    }
+                                    else if (layout === 'standard') {
+                                        item.classList.add('col-6', 'col-lg-4');
+                                    }
+                                });
                             });
                         });
                     }
@@ -430,9 +439,49 @@
 
 
 
+@endsection
 
 
 
+@section('footer_extra')
+
+
+
+<script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const gridBtns = document.querySelectorAll('.grid-btn');
+                    const productGrid = document.getElementById('product-grid');
+                    const productItems = document.querySelectorAll('#product-grid .product-item');
+
+                    if (gridBtns.length > 0 && productGrid) {
+                        gridBtns.forEach(btn => {
+                            btn.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                gridBtns.forEach(b => b.classList.remove('active'));
+                                this.classList.add('active');
+
+                                const layout = this.getAttribute('data-layout');
+                                productGrid.classList.remove('list-view');
+
+                                productItems.forEach(item => {
+                                    item.classList.remove('col-12', 'col-6', 'col-4', 'col-lg-12', 'col-lg-6', 'col-lg-4');
+
+                                    if (layout === 'list') {
+                                        item.classList.add('col-12', 'col-lg-12');
+                                        productGrid.classList.add('list-view');
+                                    }
+                                    else if (layout === 'large') {
+                                        item.classList.add('col-12', 'col-lg-6');
+                                    }
+                                    else if (layout === 'standard') {
+                                        item.classList.add('col-6', 'col-lg-4');
+                                    }
+                                });
+                            });
+                        });
+                    }
+                });
+            </script>
 
 
 

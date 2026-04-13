@@ -1,6 +1,6 @@
 
 
-<div class="col">
+<div class="col product-item">
 
 <a href="{{ route('product.show', $product->prod_slug) }}"
    class="product-card card-with-hover text-decoration-none">
