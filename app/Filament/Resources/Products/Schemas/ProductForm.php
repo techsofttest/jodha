@@ -9,6 +9,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Repeater;
+use App\Models\Color;
 
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
@@ -82,7 +83,6 @@ class ProductForm
                                     }
                                 }
                             )
-                            ->required()
                             ->searchable()
                             ->preload()
                             ->live()
@@ -102,7 +102,6 @@ class ProductForm
                                     }
                                 }
                             )
-                            ->required()
                             ->searchable()
                             ->preload(),
 
@@ -181,7 +180,7 @@ class ProductForm
                                     ->label('Size')
                                     ->required(),
 
-                                TextInput::make('stock')
+                                /*TextInput::make('stock')
                                     ->label('Stock')
                                     ->numeric()
                                     ->default(0),
@@ -196,7 +195,7 @@ class ProductForm
 
                                 TextInput::make('offer_price')
                                     ->label('Sale Price')
-                                    ->numeric(),
+                                    ->numeric(), */
                             ]),
                         ])
                         ->addActionLabel('Add Size')
@@ -205,19 +204,26 @@ class ProductForm
 
             Section::make('Product Colors')
                 ->collapsible()
+                ->columns(1)
                 ->schema([
                     Repeater::make('colors')
                         ->relationship()
                         ->schema([
-                            Grid::make(2)->schema([
-                                TextInput::make('color_name')
-                                    ->label('Color Name')
-                                    ->required(),
+                            Select::make('color_name')
+                                ->label('Color Name')
+                                ->options(Color::pluck('name', 'name'))
+                                ->searchable()
+                                ->preload()
+                                ->live()
+                                ->afterStateUpdated(function ($state, $set) {
+                                    $color = Color::where('name', $state)->first();
+                                    $set('color_code', $color?->color_code);
+                                })
+                                ->required(),
 
-                                TextInput::make('color_code')
-                                    ->label('Color Code (#HEX)')
-                                    ->placeholder('#FF0000'),
-                            ]),
+                            TextInput::make('color_code')
+                                ->hidden()
+                                ->dehydrated(),
                         ])
                         ->addActionLabel('Add Color')
                         ->defaultItems(0),

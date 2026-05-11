@@ -10,6 +10,11 @@ class EditJournal extends EditRecord
 {
     protected static string $resource = JournalResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Edit Article';
+    }
+
     protected function getHeaderActions(): array
     {
         return [

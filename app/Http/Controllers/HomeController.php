@@ -40,6 +40,7 @@ class HomeController extends Controller
     {
         $data['partners'] = \App\Models\Partner::all();
         $data['recognitions'] = \App\Models\Recognition::all();
+        $data['cms'] = \App\Models\Cms::find(2);
         return view('pages.about', $data);
     }
 

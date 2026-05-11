@@ -20,7 +20,13 @@ class JournalResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Journals';
+    protected static ?string $navigationLabel = 'Articles';
+
+    protected static ?string $pluralLabel = 'Articles';
+
+    protected static ?string $singularLabel = 'Article';
+
+    protected static ?string $recordTitleAttribute = 'Articles';
 
     protected static ?int $navigationSort = 7;
 

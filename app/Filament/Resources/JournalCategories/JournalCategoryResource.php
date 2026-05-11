@@ -20,6 +20,12 @@ class JournalCategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    protected static ?string $navigationLabel = 'Article Categories';
+
+    protected static ?string $pluralLabel = 'Article Categories';
+
+    protected static ?string $singularLabel = 'Article Category';
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

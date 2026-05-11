@@ -13,7 +13,13 @@ class ListJournals extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Add Article'),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Articles';
     }
 }

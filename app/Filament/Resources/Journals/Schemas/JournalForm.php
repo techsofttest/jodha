@@ -18,7 +18,7 @@ class JournalForm
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('Journal title')
+                    ->label('Article title')
                     ->live(onBlur: true) // triggers update when user leaves field
                     ->afterStateUpdated(function ($state, callable $set) {
                         $set('slug', Str::slug($state));
