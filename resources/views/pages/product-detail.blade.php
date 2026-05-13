@@ -191,6 +191,7 @@
 
                         <h1 class="display-5 font-heading mb-2" style="color: var(--c-primary);">{{ $product->prod_name }}</h1>
 
+                        @if($product->prod_sku_code)
                         <div class="d-flex align-items-center flex-wrap mb-4">
                             
                             <span class="text-muted"
@@ -199,6 +200,7 @@
                             </span>
 
                         </div>
+                        @endif
 
                         <div class="price-block mb-4 pb-4 border-bottom-delicate">
                             <div class="d-flex align-items-center gap-3">

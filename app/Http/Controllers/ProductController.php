@@ -93,28 +93,14 @@ class ProductController extends Controller
             ->where('prod_isactive', 1)
             ->firstOrFail();
 
-        // Related products from the same subcategory, excluding current product
+        // Related products from the same category, excluding current product
         $relatedProducts = Product::with(['colors'])
-            ->where('prod_subcat_id', $product->prod_subcat_id)
+            ->where('prod_cat_id', $product->prod_cat_id)
             ->where('id', '!=', $product->id)
             ->where('prod_isactive', true)
+            ->inRandomOrder()
             ->limit(5)
             ->get();
-
-        // If less than 5 related products, fill with products from the same category
-        if ($relatedProducts->count() < 5) {
-            $remaining = 5 - $relatedProducts->count();
-            $excludeIds = $relatedProducts->pluck('id')->push($product->id)->toArray();
-
-            $categoryProducts = Product::with(['colors'])
-                ->where('prod_cat_id', $product->prod_cat_id)
-                ->whereNotIn('id', $excludeIds)
-                ->where('prod_isactive', true)
-                ->limit($remaining)
-                ->get();
-
-            $relatedProducts = $relatedProducts->merge($categoryProducts);
-        }
 
         $partners = Partner::all();
 
