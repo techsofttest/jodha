@@ -24,7 +24,10 @@ class ProductsTable
 
             ImageColumn::make('prod_image')
                 ->label('Image')
-                ->square(),
+                ->disk('public')
+                ->size(50)
+                ->square()
+                ->visibility('public'),
 
             /* ================= PRODUCT ================= */
 
