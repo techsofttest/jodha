@@ -62,7 +62,8 @@ class CollectionForm
                 FileUpload::make('col_image')
                     ->label('Image')
                     ->disk('public')
-                    ->image(),
+                    ->image()
+                    ->required(),
                 // TextInput::make('col_slug')
                 //     ->required(),
                 TextInput::make('meta_title')
