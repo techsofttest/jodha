@@ -139,21 +139,26 @@ class ProductForm
                             ->numeric()
                             ->prefix('₹'),
 
-                        TextInput::make('prod_offer')
-                            ->label('Offer')
-                            ->numeric()
-                            ->default(0),
-
                         TextInput::make('prod_sale_price')
                             ->label('Sale Price')
                             ->numeric()
                             ->prefix('₹')
-                            ->default(0),
+                            ->default(0)
+                            ->dehydrateStateUsing(fn ($state) => $state == 0 ? null : $state),
+
+                        TextInput::make('prod_offer')
+                            ->label('Offer (%)')
+                            ->numeric()
+                            ->default(0)
+                            ->hidden()
+                            ->dehydrated(),
 
                         TextInput::make('prod_stock')
                             ->label('Stock Quantity')
                             ->numeric()
-                            ->default(0),
+                            ->default(0)
+                            ->hidden(),
+                        
                         TextInput::make('shipping_cost')
                             ->label('Shipping Cost')
                             ->numeric()
@@ -162,7 +167,8 @@ class ProductForm
 
                         TextInput::make('prod_expected_delivery')
                             ->label('Expected Delivery (Days)')
-                            ->numeric(),
+                            ->numeric()
+                            ->hidden(),
                     ]),
 
 
@@ -175,7 +181,7 @@ class ProductForm
                     Repeater::make('sizes')
                         ->relationship()
                         ->schema([
-                            Grid::make(3)->schema([
+                            Grid::make(1)->schema([
                                 TextInput::make('size')
                                     ->label('Size')
                                     ->required(),
@@ -204,30 +210,46 @@ class ProductForm
 
             Section::make('Product Colors')
                 ->collapsible()
-                ->columns(1)
                 ->schema([
                     Repeater::make('colors')
                         ->relationship()
                         ->schema([
-                            Select::make('color_name')
-                                ->label('Color Name')
-                                ->options(Color::pluck('name', 'name'))
-                                ->searchable()
-                                ->preload()
-                                ->live()
-                                ->afterStateUpdated(function ($state, $set) {
-                                    $color = Color::where('name', $state)->first();
-                                    $set('color_code', $color?->color_code);
-                                })
-                                ->required(),
+                            Grid::make(2)->schema([
+                                Select::make('color_name')
+                                    ->label('Color Name')
+                                    ->options(Color::pluck('name', 'name'))
+                                    ->searchable()
+                                    ->preload()
+                                    ->live()
+                                    ->afterStateUpdated(function ($state, $set) {
+                                        if ($state) {
+                                            $colorCode = Color::where('name', $state)->value('color_code');
+                                            if ($colorCode && !str_starts_with($colorCode, '#')) {
+                                                $colorCode = '#' . $colorCode;
+                                            }
+                                            $set('color_code', $colorCode);
+                                        }
+                                    })
+                                    ->required(),
 
-                            TextInput::make('color_code')
-                                ->hidden()
-                                ->dehydrated(),
+                                TextInput::make('color_code')
+                                    ->label('Hex Code')
+                                    ->readonly()
+                                    ->dehydrated()
+                                    ->afterStateHydrated(function ($set, $get, $state) {
+                                        if (!$state && $get('color_name')) {
+                                            $colorCode = Color::where('name', $get('color_name'))->value('color_code');
+                                            if ($colorCode && !str_starts_with($colorCode, '#')) {
+                                                $colorCode = '#' . $colorCode;
+                                            }
+                                            $set('color_code', $colorCode);
+                                        }
+                                    }),
+                            ]),
                         ])
                         ->addActionLabel('Add Color')
                         ->defaultItems(0),
-                ]),
+                ])->columnSpanFull(),
       
 
             /* ================= MEDIA ================= */
@@ -238,7 +260,7 @@ class ProductForm
                         ->label('Main Product Image')
                         ->disk('public')
                         ->image()->required(),
-                ]),
+                ])->columnSpanFull(),
 
 
             Section::make('Product Gallery')

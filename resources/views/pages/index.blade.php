@@ -121,8 +121,8 @@
                     @if($home_product->prod_sale_price && $home_product->prod_price > $home_product->prod_sale_price)
                         <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price, 2) }}</span>
                         <span class="grid-old-price text-muted fw-light ms-2 text-decoration-line-through">₹{{ number_format($home_product->prod_price, 2) }}</span>
-                        @if($home_product->prod_offer)
-                            <span class="grid-discount text-gold fw-light ms-2">Save {{ $home_product->prod_offer }}%</span>
+                        @if($home_product->offer_percentage > 0)
+                            <span class="grid-discount text-gold fw-light ms-2">Save {{ $home_product->offer_percentage }}%</span>
                         @endif
                     @else
                         <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price ?: $home_product->prod_price, 2) }}</span>

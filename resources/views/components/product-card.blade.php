@@ -15,7 +15,7 @@
         >
 
         {{-- SALE badge --}}
-        @if(!empty($product->prod_offer))
+        @if($product->offer_percentage > 0)
             <span class="grid-sale-badge">SALE</span>
         @endif
 
@@ -74,9 +74,9 @@
                     ₹{{ number_format($product->prod_price,2) }}
                 </span>
 
-                @if(!empty($product->prod_offer))
+                @if($product->offer_percentage > 0)
                 <span class="grid-discount">
-                    Save {{ $product->prod_offer }}%
+                    Save {{ $product->offer_percentage }}%
                 </span>
                 @endif
 

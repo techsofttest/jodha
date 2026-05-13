@@ -80,6 +80,15 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
+    public function getOfferPercentageAttribute()
+    {
+        if ($this->prod_price > 0 && $this->prod_sale_price > 0) {
+            return round((($this->prod_price - $this->prod_sale_price) / $this->prod_price) * 100);
+        }
+
+        return 0;
+    }
+
     public function reviews()
     {
         return $this->hasMany(ProductReview::class, 'review_product_id');

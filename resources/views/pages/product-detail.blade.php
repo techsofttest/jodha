@@ -203,9 +203,9 @@
                                 @if(!empty($product->prod_sale_price) && $product->prod_price > $product->prod_sale_price)
                                     <span class="fs-3 fw-bold" style="color: var(--c-primary);">₹{{ number_format($product->prod_sale_price, 2) }}</span>
                                     <span class="fs-5 text-decoration-line-through text-muted">₹{{ number_format($product->prod_price, 2) }}</span>
-                                    @if(!empty($product->prod_offer))
+                                    @if($product->offer_percentage > 0)
                                     <span class="badge bg-gold text-dark rounded-0 px-2 py-1"
-                                        style="font-size: 10px; letter-spacing: 1px;">SAVE {{ $product->prod_offer }}%</span>
+                                        style="font-size: 10px; letter-spacing: 1px;">SAVE {{ $product->offer_percentage }}%</span>
                                     @endif
                                 @else
                                     <span class="fs-3 fw-bold" style="color: var(--c-primary);">₹{{ number_format($product->prod_sale_price ?: $product->prod_price, 2) }}</span>
