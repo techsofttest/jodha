@@ -15,7 +15,12 @@ class CollectionsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
+                ImageColumn::make('col_image')
+                    ->label('Image')
+                    ->disk('public')
+                    ->square(),
 
                 TextColumn::make('col_name')
                  ->label('Collection')
@@ -29,7 +34,6 @@ class CollectionsTable
                      ->label('SubCategory')
                     ->sortable(),
 
-                ImageColumn::make('col_image'),
                 TextColumn::make('col_slug')
                     ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('meta_title')
