@@ -6,6 +6,7 @@ use App\Filament\Resources\Newsletters\Pages\ListNewsletters;
 use App\Filament\Resources\Newsletters\Tables\NewslettersTable;
 use App\Models\Newsletter;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -17,9 +18,9 @@ class NewsletterResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedEnvelope;
 
-    protected static ?string $recordTitleAttribute = 'email';
+    protected static string|UnitEnum|null $navigationGroup = 'Ecommerce';
 
-    protected static ?int $navigationSort = 15;
+    protected static ?int $navigationSort = 4;
 
     public static function table(Table $table): Table
     {

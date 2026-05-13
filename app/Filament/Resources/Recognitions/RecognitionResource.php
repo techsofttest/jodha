@@ -9,6 +9,7 @@ use App\Filament\Resources\Recognitions\Schemas\RecognitionForm;
 use App\Filament\Resources\Recognitions\Tables\RecognitionsTable;
 use App\Models\Recognition;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,11 +19,11 @@ class RecognitionResource extends Resource
 {
     protected static ?string $model = Recognition::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
 
-    protected static ?string $recordTitleAttribute = 'Recognitions';
+    protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Schema $schema): Schema
     {

@@ -9,6 +9,7 @@ use App\Filament\Resources\JournalCategories\Schemas\JournalCategoryForm;
 use App\Filament\Resources\JournalCategories\Tables\JournalCategoriesTable;
 use App\Models\JournalCategory;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,7 +19,11 @@ class JournalCategoryResource extends Resource
 {
     protected static ?string $model = JournalCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedListBullet;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Master data';
+
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $navigationLabel = 'Article Categories';
 

@@ -9,6 +9,7 @@ use App\Filament\Resources\Journals\Schemas\JournalForm;
 use App\Filament\Resources\Journals\Tables\JournalsTable;
 use App\Models\Journal;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,17 +19,11 @@ class JournalResource extends Resource
 {
     protected static ?string $model = Journal::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
 
-    protected static ?string $navigationLabel = 'Articles';
+    protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?string $pluralLabel = 'Articles';
-
-    protected static ?string $singularLabel = 'Article';
-
-    protected static ?string $recordTitleAttribute = 'Articles';
-
-    protected static ?int $navigationSort = 7;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

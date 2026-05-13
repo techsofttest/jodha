@@ -6,9 +6,26 @@ use App\Filament\Resources\Products\ProductResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
+use App\Models\Category;
+use Filament\Schemas\Components\Tabs\Tab;
+
 class ListProducts extends ListRecords
 {
     protected static string $resource = ProductResource::class;
+
+    public function getTabs(): array
+    {
+        $tabs = ['all' => Tab::make('All Products')];
+
+        $categories = Category::all();
+
+        foreach ($categories as $category) {
+            $tabs[$category->slug] = Tab::make($category->name)
+                ->modifyQueryUsing(fn($query) => $query->where('prod_cat_id', $category->id));
+        }
+
+        return $tabs;
+    }
 
     protected function getHeaderActions(): array
     {
