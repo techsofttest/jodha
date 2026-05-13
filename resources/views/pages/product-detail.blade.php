@@ -53,10 +53,12 @@
                             class="carousel slide luxury-carousel position-relative flex-grow-1 h-100"
                             data-bs-ride="false">
 
+                            {{-- 
                             <button class="hover-action-btn btn-lg-circle position-absolute z-3" title="Add to Wishlist"
                                 style="top: 20px; right: 20px;">
                                 <i class="fa-regular fa-heart"></i>
                             </button>
+                            --}}
 
                             <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#productGallery" data-bs-slide-to="0"

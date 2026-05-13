@@ -63,8 +63,8 @@
 
                         <p class="text-center mt-4" style="font-size: 12px; color: #999; font-family: var(--f-body);">
                             By continuing, you agree to our
-                            <a href="#" class="text-decoration-underline text-dark">Terms of Service</a> and
-                            <a href="#" class="text-decoration-underline text-dark">Privacy Policy</a>.
+                            <a href="{{ route('policy.terms') }}" class="text-decoration-underline text-dark">Terms of Service</a> and
+                            <a href="{{ route('policy.privacy') }}" class="text-decoration-underline text-dark">Privacy Policy</a>.
                         </p>
                     </div>
 
