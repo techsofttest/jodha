@@ -35,7 +35,8 @@
                 <div class="col-6 col-md-3 col-lg-2">
                     <h5 class="footer-heading mb-4">Get in touch</h5>
                     <div class="contact-info mb-4">
-                        <p class="font-jost"><i class="fa-solid fa-phone me-2"></i> 9746605500</p>
+                        <p class="font-jost"><i class="fa-solid fa-phone me-2"></i> +91 9895599002</p>
+                         <p class="font-jost"><i class="fa-solid fa-phone me-2"></i> +91 9847300077</p>
                     </div>
 
                     <h5 class="footer-heading mb-3">Follow us</h5>

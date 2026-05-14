@@ -27,7 +27,7 @@
             <div class="text-center mb-5 pb-lg-5">
                 <span class="text-gold text-uppercase letter-spacing-3 d-block mb-3"
                     style="font-size: 10px; font-weight: 600;">At Your Service</span>
-                <h2 class="font-heading display-5 mb-0 fw-light" style="color: var(--c-primary);">Reach Out to Jodha
+                <h2 class="font-heading display-5 mb-0 fw-light" style="color: var(--c-primary);">Reach Out to Jodha Furniture
                 </h2>
             </div>
 
@@ -46,15 +46,18 @@
                         </div>
 
                         <h6 class="font-heading text-uppercase letter-spacing-2 mb-3"
-                            style="font-size: 13px; color: var(--c-primary);">Flagship Store</h6>
+                            style="font-size: 13px; color: var(--c-primary);">Address</h6>
 
                         <div class="admin-safe-content flex-grow-1"
                             style="font-family: var(--f-body); font-size: 13px; line-height: 2; color: #777;">
-                            Kowdiar, Trivandrum
+                            Jodha Furniture<br>
+                            Ashborn Collective Pvt Ltd<br>
+                            8th Cross Road Opp. French Toast<br>
+                            Panampilly Nagar - 682036<br>
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">
-                            <a href="#"
+                            <a target="_blank" href="https://share.google/h9CdMKRy7EwnXBUGE"
                                 class="text-dark text-decoration-none text-uppercase letter-spacing-2 luxury-link"
                                 style="font-size: 10px; font-weight: 500;">Get Directions</a>
                         </div>
@@ -79,13 +82,16 @@
 
                         <div class="admin-safe-content flex-grow-1 d-flex flex-column"
                             style="font-family: var(--f-body); font-size: 13px; line-height: 2; color: #777;">
-                            <a href="tel:+919746605500" class="text-dark text-decoration-none hover-gold transition-all"
-                                style="font-size: 14px;">+91-9746605500</a>
-                            <span style="font-size: 11px; opacity: 0.8;">10 AM to 10 PM (Mon-Sun)</span>
+                            <a href="tel:+919895599002" class="text-dark text-decoration-none hover-gold transition-all"
+                                style="font-size: 14px;">+91 9895599002</a>
+                            <a href="tel:+919847300077" class="text-dark text-decoration-none hover-gold transition-all"
+                                style="font-size: 14px;">+919847300077</a>
+                            <span style="font-size: 11px; opacity: 0.8;">10:30 Am - 7:00 Pm<br>Sun - Mon
+                            </span>
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">
-                            <a href="tel:+919746605500"
+                            <a href="tel:+919895599002"
                                 class="text-dark text-decoration-none text-uppercase letter-spacing-2 luxury-link"
                                 style="font-size: 10px; font-weight: 500;">Call Now</a>
                         </div>
@@ -109,8 +115,8 @@
 
                         <div class="admin-safe-content flex-grow-1"
                             style="font-family: var(--f-body); font-size: 13px; line-height: 2; color: #777;">
-                            <a href="mailto:bhavana@jodhafurniture.com"
-                                class="text-dark text-decoration-none hover-gold transition-all">bhavana@jodhafurniture.com</a>
+                            <a href="mailto:jodhahomesmarketing@gmail.com"
+                                class="text-dark text-decoration-none hover-gold transition-all">jodhahomesmarketing@gmail.com</a>
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">

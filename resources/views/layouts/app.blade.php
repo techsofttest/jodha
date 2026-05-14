@@ -9,6 +9,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <title>Jodha Furnitures | Shop Premium Furniture and Home Decor In Kochi</title>
+
     @yield('head_metas')
 
 
