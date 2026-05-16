@@ -14,7 +14,7 @@
                 Insights & Inspiration
             </span>
             <h1 class="font-heading mb-4 animate-reveal delay-1" style="color: var(--c-primary); font-size: 52px;">The
-                Jodha Journal</h1>
+                Jodha Furniture Journal</h1>
             <div class="mx-auto" style="max-width: 600px;">
                 <p class="text-muted animate-reveal delay-2" style="font-family: var(--f-body); line-height: 1.8;">
                     A collection of stories, design guides, and heritage insights curated for the modern connoisseur.
