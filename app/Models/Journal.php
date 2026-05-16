@@ -12,16 +12,14 @@ class Journal extends Model
 
     protected static function booted()
     {
-        static::creating(function ($journal) {
-            if (empty($journal->slug)) {
-                $journal->slug = Str::slug($journal->title);
+        static::saving(function ($journal) {
+            $slug = Str::slug($journal->title);
+            $originalSlug = $slug;
+            $count = 1;
+            while (static::where('slug', $slug)->where('id', '!=', $journal->id)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
-        });
-
-        static::updating(function ($journal) {
-            if (empty($journal->slug)) {
-                $journal->slug = Str::slug($journal->title);
-            }
+            $journal->slug = $slug;
         });
     }
 

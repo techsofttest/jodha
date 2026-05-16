@@ -29,10 +29,14 @@ class Collection extends Model
     protected static function booted()
     {
 
-        static::creating(function ($collection) {
-            if (empty($collection->col_slug)) {
-                $collection->col_slug = Str::slug($collection->col_name);
+        static::saving(function ($collection) {
+            $slug = Str::slug($collection->col_name);
+            $originalSlug = $slug;
+            $count = 1;
+            while (static::where('col_slug', $slug)->where('id', '!=', $collection->id)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
+            $collection->col_slug = $slug;
         });
     }
 }

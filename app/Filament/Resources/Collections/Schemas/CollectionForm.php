@@ -53,6 +53,7 @@ class CollectionForm
                 TextInput::make('col_slug')
                     ->label('Slug')
                     ->hidden() // hides from UI
+                    ->unique(ignoreRecord: true)
                     ->dehydrated(), // still saved to DB F
 
                 Textarea::make('col_description')

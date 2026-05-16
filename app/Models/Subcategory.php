@@ -22,10 +22,14 @@ class Subcategory extends Model
 
     protected static function booted()
     {
-        static::creating(function ($subcategory) {
-            if (empty($subcategory->subcat_slug)) {
-                $subcategory->subcat_slug = Str::slug($subcategory->subcat_name);
+        static::saving(function ($subcategory) {
+            $slug = Str::slug($subcategory->subcat_name);
+            $originalSlug = $slug;
+            $count = 1;
+            while (static::where('subcat_slug', $slug)->where('id', '!=', $subcategory->id)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
+            $subcategory->subcat_slug = $slug;
         });
     }
 }

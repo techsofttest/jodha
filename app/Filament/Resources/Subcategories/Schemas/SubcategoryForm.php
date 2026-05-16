@@ -32,6 +32,7 @@ class SubcategoryForm
 
                 TextInput::make('subcat_slug')
                     ->hidden() // hides from UI
+                    ->unique(ignoreRecord: true)
                     ->dehydrated(), // still saved to DB F
 
                 Textarea::make('subcat_description')

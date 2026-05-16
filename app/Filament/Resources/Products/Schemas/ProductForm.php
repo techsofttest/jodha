@@ -119,6 +119,7 @@ class ProductForm
 
                         TextInput::make('prod_slug')
                             ->hidden()
+                            ->unique(ignoreRecord: true)
                             ->dehydrated(),
 
                     ])->columnSpanFull(),

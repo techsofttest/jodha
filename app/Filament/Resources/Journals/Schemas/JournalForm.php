@@ -44,6 +44,7 @@ class JournalForm
                     ->required(),
                 TextInput::make('slug')
                     ->hidden() // hides from UI
+                    ->unique(ignoreRecord: true)
                     ->dehydrated(), // still saved to DB
 
                 TextInput::make('meta_title')

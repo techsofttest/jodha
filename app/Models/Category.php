@@ -12,10 +12,14 @@ class Category extends Model
 
     protected static function booted()
     {
-        static::creating(function ($category) {
-            if (empty($category->slug)) {
-                $category->slug = Str::slug($category->name);
+        static::saving(function ($category) {
+            $slug = Str::slug($category->name);
+            $originalSlug = $slug;
+            $count = 1;
+            while (static::where('slug', $slug)->where('id', '!=', $category->id)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
             }
+            $category->slug = $slug;
         });
     }
 

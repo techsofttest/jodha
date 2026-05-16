@@ -52,13 +52,15 @@ class Product extends Model
 
     protected static function booted()
     {
-        static::creating(function ($product) {
-            if (empty($product->prod_slug)) {
-                $product->prod_slug = Str::slug($product->prod_name);
-            }
-        });
-
         static::saving(function ($product) {
+            $slug = Str::slug($product->prod_name);
+            $originalSlug = $slug;
+            $count = 1;
+            while (static::where('prod_slug', $slug)->where('id', '!=', $product->id)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+            $product->prod_slug = $slug;
+
             if ($product->prod_home) {
                 static::where('id', '!=', $product->id)->update(['prod_home' => false]);
             }
