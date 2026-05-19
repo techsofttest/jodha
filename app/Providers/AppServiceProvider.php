@@ -48,6 +48,24 @@ class AppServiceProvider extends ServiceProvider
         ->orderBy('id')
         ->get();
 
+        $targetNames = ['Decor & Lignting', 'Decor & Lighting', 'Office', 'Inlay Gallery'];
+        $headerCategories = Category::with(['subcategories.collections'])
+            ->whereIn('cat_name', $targetNames)
+            ->get()
+            ->sortBy(function($model) use ($targetNames) {
+                return array_search($model->cat_name, $targetNames);
+            })->values();
+
+        if ($headerCategories->count() < 3) {
+            $missing = 3 - $headerCategories->count();
+            $fallbacks = Category::with(['subcategories.collections'])
+                ->whereNotIn('id', $headerCategories->pluck('id'))
+                ->orderBy('id', 'desc')
+                ->take($missing)
+                ->get();
+            $headerCategories = $headerCategories->concat($fallbacks);
+        }
+
         $featuredProducts = Product::where(function ($q) {
                 $q->where('prod_trending', 1)
                   ->orWhere('prod_hotdeal', 1)
@@ -60,6 +78,7 @@ class AppServiceProvider extends ServiceProvider
 
         $view->with([
             'full_categories' => $categories,
+            'header_categories' => $headerCategories,
             'featured_products' => $featuredProducts,
             'all_collections' => $allCollections
         ]);

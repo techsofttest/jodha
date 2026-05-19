@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">
-                            <a target="_blank" href="https://share.google/h9CdMKRy7EwnXBUGE"
+                            <a target="_blank" href="https://www.google.com/maps/place/Jodha+furniture/@9.961038,76.2937277,17z/data=!3m1!4b1!4m6!3m5!1s0x3b08739d309be081:0xed6c313c04a4fb64!8m2!3d9.961038!4d76.2937277!16s%2Fg%2F11ymjzsfw6!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D"
                                 class="text-dark text-decoration-none text-uppercase letter-spacing-2 luxury-link"
                                 style="font-size: 10px; font-weight: 500;">Get Directions</a>
                         </div>

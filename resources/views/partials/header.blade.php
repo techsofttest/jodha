@@ -79,7 +79,19 @@
 
                     <li class="nav-item"><a class="nav-link" href="{{route('product.index')}}">Products</a></li>
                     
-                    @foreach($full_categories->take(4) as $category)
+                    <li class="nav-item dropdown standard-dropdown">
+                        <a class="nav-link active-link" href="javascript:void(0);">Furniture <i
+                                class="fa-solid fa-angle-down"></i></a>
+
+                        <ul class="dropdown-menu shadow-sm">
+                            @foreach($all_collections as $col)
+                                <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </li>
+
+
+                    @foreach($header_categories->take(4) as $category)
                         @if($category->subcategories->count() > 0)
                             <li class="nav-item dropdown mega-dropdown">
                                 <a class="nav-link d-flex align-items-center gap-1" href="{{ route('category.show', $category->slug) }}">
@@ -118,16 +130,7 @@
                         @endif
                     @endforeach
 
-                    <li class="nav-item dropdown standard-dropdown">
-                        <a class="nav-link active-link" href="#">Collections <i
-                                class="fa-solid fa-angle-down"></i></a>
-
-                        <ul class="dropdown-menu shadow-sm">
-                            @foreach($all_collections as $col)
-                                <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
+                    
 
                     <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact</a></li>
                 
@@ -210,10 +213,31 @@
                     <a href="{{route('product.index')}}"
                         class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
                         style="font-size: 17px;">
-                        All Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                     </a>
 
-                    @foreach($full_categories as $category)
+
+                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
+                    id="submenu-collections">
+                    <a href="#"
+                        class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
+                        style="font-size: 17px;">
+                        <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
+                        <span style="text-decoration: underline; text-underline-offset: 6px;">Furniture</span>
+                    </a>
+                    
+                    @foreach($all_collections as $col)
+                        <a href="{{ route('collections.show', $col->col_slug) }}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                            style="font-size: 16px;">
+                            {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+                    @endforeach
+                </div>
+
+
+
+                    @foreach($header_categories as $category)
                        
                             <a href="{{ route('category.show', $category->slug) }}"
                                 class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
@@ -237,7 +261,7 @@
                     
                 </div>
 
-                @foreach($full_categories as $category)
+                @foreach($header_categories as $category)
                     @if($category->subcategories->count() > 0)
                         <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
                             id="submenu-{{ $category->slug }}">
@@ -266,23 +290,7 @@
                     @endif
                 @endforeach
 
-                <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
-                    id="submenu-collections">
-                    <a href="#"
-                        class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
-                        style="font-size: 17px;">
-                        <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
-                        <span style="text-decoration: underline; text-underline-offset: 6px;">Collections</span>
-                    </a>
-                    
-                    @foreach($all_collections as $col)
-                        <a href="{{ route('collections.show', $col->col_slug) }}"
-                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
-                            style="font-size: 16px;">
-                            {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
-                        </a>
-                    @endforeach
-                </div>
+                
 
             </div>
 
@@ -291,7 +299,7 @@
                 <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
                     
 
-                @foreach($full_categories as $category)
+                @foreach($header_categories as $category)
                 
                 <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Coffee
                             {{ $category->name }}</a></li>

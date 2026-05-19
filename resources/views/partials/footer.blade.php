@@ -42,7 +42,9 @@
                     <h5 class="footer-heading mb-3">Follow us</h5>
                     <div class="social-links d-flex gap-3">
                         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/ashborn_furniture?igsh=MWZvZGx4dTQxMGlocw%3D%3D&utm_source=qr
+https://www.instagram.com/jodhafurniture.official_store?igsh=MWxjcTd0a2VpNTI2aw==
+" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
 

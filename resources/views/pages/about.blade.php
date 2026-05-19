@@ -8,9 +8,7 @@
     <section class="about-hero position-relative vh-100 overflow-hidden d-flex align-items-center">
 
         <div class="hero-bg-fixed">
-            <video autoplay muted loop playsinline class="w-100 h-100 object-fit-cover shadow-inset">
-                <source src="assets/videos/about banner/about-banner1.mp4" type="video/mp4">
-            </video>
+            <img src="{{ asset('storage/' . ($cms->image ?? '')) }}" class="w-100 h-100 object-fit-cover shadow-inset" alt="About Us">
             <div class="video-overlay"
                 style="background: linear-gradient(to bottom, rgba(26, 21, 20, 0.4), rgba(26, 21, 20, 0.7));"></div>
         </div>
