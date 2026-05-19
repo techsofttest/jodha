@@ -50,10 +50,10 @@ class AppServiceProvider extends ServiceProvider
 
         $targetNames = ['Decor & Lignting', 'Decor & Lighting', 'Office', 'Inlay Gallery'];
         $headerCategories = Category::with(['subcategories.collections'])
-            ->whereIn('cat_name', $targetNames)
+            ->whereIn('name', $targetNames)
             ->get()
             ->sortBy(function($model) use ($targetNames) {
-                return array_search($model->cat_name, $targetNames);
+                return array_search($model->name, $targetNames);
             })->values();
 
         if ($headerCategories->count() < 3) {
