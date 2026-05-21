@@ -16,7 +16,7 @@
                     <ul class="footer-list p-0">
                         <li><a href="{{ route('about') }}">Our Story</a></li>
                         <li><a href="{{ route('article.index') }}">Article</a></li>
-                        <li><a href="{{ route('sitemap') }}">Sitemap</a></li>
+                        <!--<li><a href="{{ route('sitemap') }}">Sitemap</a></li>-->
                     </ul>
                 </div>
 
