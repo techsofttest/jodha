@@ -77,14 +77,28 @@
                     
                     <li class="nav-item"><a class="nav-link" href="{{route('home')}}">Home</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="{{route('product.index')}}">Products</a></li>
+                    @if($featured_collections->count() > 0)
+                        <li class="nav-item dropdown standard-dropdown">
+                            <a class="nav-link" href="javascript:void(0);">Products <i
+                                    class="fa-solid fa-angle-down"></i></a>
+
+                            <ul class="dropdown-menu shadow-sm">
+                                <li><a class="dropdown-item" href="{{ route('product.index') }}">All Products</a></li>
+                                @foreach($featured_collections as $col)
+                                    <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{route('product.index')}}">Products</a></li>
+                    @endif
                     
                     <li class="nav-item dropdown standard-dropdown">
                         <a class="nav-link active-link" href="javascript:void(0);">Furniture <i
                                 class="fa-solid fa-angle-down"></i></a>
 
                         <ul class="dropdown-menu shadow-sm">
-                            @foreach($all_collections as $col)
+                            @foreach($non_featured_collections as $col)
                                 <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
                             @endforeach
                         </ul>
@@ -210,11 +224,19 @@
                     </a>
 
 
-                    <a href="{{route('product.index')}}"
-                        class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
-                        style="font-size: 17px;">
-                        Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
-                    </a>
+                    @if($featured_collections->count() > 0)
+                        <a href="#"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
+                            data-target="submenu-products-featured" style="font-size: 17px;">
+                            Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+                    @else
+                        <a href="{{route('product.index')}}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
+                            style="font-size: 17px;">
+                            Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+                    @endif
 
 
                     <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
@@ -226,7 +248,7 @@
                         <span style="text-decoration: underline; text-underline-offset: 6px;">Furniture</span>
                     </a>
                     
-                    @foreach($all_collections as $col)
+                    @foreach($non_featured_collections as $col)
                         <a href="{{ route('collections.show', $col->col_slug) }}"
                             class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
                             style="font-size: 16px;">
@@ -289,6 +311,33 @@
                         </div>
                     @endif
                 @endforeach
+
+                @if($featured_collections->count() > 0)
+                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
+                        id="submenu-products-featured">
+
+                        <a href="#"
+                            class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
+                            style="font-size: 17px;">
+                            <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
+                            <span style="text-decoration: underline; text-underline-offset: 6px;">Products</span>
+                        </a>
+
+                        <a href="{{ route('product.index') }}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                            style="font-size: 16px;">
+                            All Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+
+                        @foreach($featured_collections as $col)
+                            <a href="{{ route('collections.show', $col->col_slug) }}"
+                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                                style="font-size: 16px;">
+                                {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 
 

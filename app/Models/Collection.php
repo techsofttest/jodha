@@ -8,7 +8,11 @@ use Illuminate\Support\Str;
 class Collection extends Model
 {
     //
-    protected $fillable = ['col_cat_id', 'col_subcat_id', 'col_name', 'col_image', 'col_description', 'col_slug', 'meta_title', 'meta_description', 'meta_keywords'];
+    protected $fillable = ['col_cat_id', 'col_subcat_id', 'col_name', 'col_image', 'col_description', 'col_slug', 'col_is_featured', 'meta_title', 'meta_description', 'meta_keywords'];
+
+    protected $casts = [
+        'col_is_featured' => 'boolean',
+    ];
 
     public function category()
     {

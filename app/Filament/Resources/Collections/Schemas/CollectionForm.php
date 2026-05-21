@@ -8,6 +8,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 
 class CollectionForm
 {
@@ -55,6 +56,10 @@ class CollectionForm
                     ->hidden() // hides from UI
                     ->unique(ignoreRecord: true)
                     ->dehydrated(), // still saved to DB F
+
+                Toggle::make('col_is_featured')
+                    ->label('Featured')
+                    ->default(false),
 
                 Textarea::make('col_description')
                     ->label('Description')

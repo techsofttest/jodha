@@ -34,6 +34,10 @@ class CollectionsTable
                      ->label('SubCategory')
                     ->sortable(),
 
+                \Filament\Tables\Columns\ToggleColumn::make('col_is_featured')
+                    ->label('Featured')
+                    ->sortable(),
+
                 TextColumn::make('col_slug')
                     ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('meta_title')
