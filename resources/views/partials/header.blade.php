@@ -83,7 +83,7 @@
                                     class="fa-solid fa-angle-down"></i></a>
 
                             <ul class="dropdown-menu shadow-sm">
-                                <li><a class="dropdown-item" href="{{ route('product.index') }}">All Products</a></li>
+                                
                                 @foreach($featured_collections as $col)
                                     <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
                                 @endforeach
@@ -323,11 +323,7 @@
                             <span style="text-decoration: underline; text-underline-offset: 6px;">Products</span>
                         </a>
 
-                        <a href="{{ route('product.index') }}"
-                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
-                            style="font-size: 16px;">
-                            All Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
-                        </a>
+
 
                         @foreach($featured_collections as $col)
                             <a href="{{ route('collections.show', $col->col_slug) }}"
