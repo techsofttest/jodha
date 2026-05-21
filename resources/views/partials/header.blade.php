@@ -106,36 +106,22 @@
 
 
                     @foreach($header_categories->take(4) as $category)
-                        @if($category->subcategories->count() > 0)
-                            <li class="nav-item dropdown mega-dropdown">
-                                <a class="nav-link d-flex align-items-center gap-1" href="{{ route('category.show', $category->slug) }}">
+                        @php
+                            $categoryCollections = $category->subcategories->flatMap(function($subcat) {
+                                return $subcat->collections;
+                            });
+                        @endphp
+                        @if($categoryCollections->count() > 0)
+                            <li class="nav-item dropdown standard-dropdown">
+                                <a class="nav-link d-flex align-items-center gap-1" href="javascript:void(0);">
                                     {{ $category->name }} <i class="fa-solid fa-angle-down" style="font-size: 10px;"></i>
                                 </a>
 
-                                <div class="dropdown-menu mega-menu w-100 shadow-sm">
-                                    <div class="container-fluid px-5">
-                                        <div class="row">
-                                            @foreach($category->subcategories as $subcat)
-                                                <div class="col menu-col">
-                                                    <h6 class="text-uppercase" style="font-size: 11px; letter-spacing: 1px; color: var(--c-gold); margin-bottom: 15px;">{{ $subcat->subcat_name }}</h6>
-                                                    <ul class="menu-list">
-                                                        @foreach($subcat->collections as $collection)
-                                                            <li><a href="{{ route('collections.show', $collection->col_slug) }}">{{ $collection->col_name }}</a></li>
-                                                        @endforeach
-                                                        <li><a href="{{ route('subcategory.show', $subcat->subcat_slug) }}" class="fw-bold mt-2 d-inline-block" style="color: var(--c-primary);">View All</a></li>
-                                                    </ul>
-                                                </div>
-                                            @endforeach
-
-                                            @if($featured_products->count() > 0)
-                                                @php $featured = $featured_products->first(); @endphp
-                                                <div class="col-3 d-none d-xl-block px-4 border-start">
-                                                    @include('components.product-card', ['product' => $featured])
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
+                                <ul class="dropdown-menu shadow-sm">
+                                    @foreach($categoryCollections as $col)
+                                        <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
+                                    @endforeach
+                                </ul>
                             </li>
                         @else
                             <li class="nav-item">
@@ -260,7 +246,23 @@
 
 
                     @foreach($header_categories as $category)
-                       
+                        @php
+                            $categoryCollections = $category->subcategories->flatMap(function($subcat) {
+                                return $subcat->collections;
+                            });
+                        @endphp
+                        @if($categoryCollections->count() > 0)
+                            <a href="#"
+                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
+                                data-target="submenu-{{ $category->slug }}" style="font-size: 17px;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->name }}"
+                                        class="rounded object-fit-cover" style="width: 40px; height: 40px;">
+                                    {{ $category->name }}
+                                </div>
+                                <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                            </a>
+                        @else
                             <a href="{{ route('category.show', $category->slug) }}"
                                 class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
                                 style="font-size: 17px;">
@@ -271,7 +273,7 @@
                                 </div>
                                 <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                             </a>
-                       
+                        @endif
                     @endforeach
 
                     <a href="{{route('collections.index')}}"
@@ -284,7 +286,12 @@
                 </div>
 
                 @foreach($header_categories as $category)
-                    @if($category->subcategories->count() > 0)
+                    @php
+                        $categoryCollections = $category->subcategories->flatMap(function($subcat) {
+                            return $subcat->collections;
+                        });
+                    @endphp
+                    @if($categoryCollections->count() > 0)
                         <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
                             id="submenu-{{ $category->slug }}">
 
@@ -301,11 +308,11 @@
                                 View all <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                             </a>
                             
-                            @foreach($category->subcategories as $subcat)
-                                <a href="{{ route('subcategory.show', $subcat->subcat_slug) }}"
+                            @foreach($categoryCollections as $col)
+                                <a href="{{ route('collections.show', $col->col_slug) }}"
                                     class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
                                     style="font-size: 16px;">
-                                    {{ $subcat->subcat_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                                    {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                                 </a>
                             @endforeach
                         </div>
