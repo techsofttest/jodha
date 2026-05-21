@@ -209,7 +209,6 @@
                         Home <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                     </a>
 
-
                     @if($featured_collections->count() > 0)
                         <a href="#"
                             class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
@@ -224,26 +223,19 @@
                         </a>
                     @endif
 
-
-                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
-                    id="submenu-collections">
-                    <a href="#"
-                        class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
-                        style="font-size: 17px;">
-                        <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
-                        <span style="text-decoration: underline; text-underline-offset: 6px;">Furniture</span>
-                    </a>
-                    
-                    @foreach($non_featured_collections as $col)
-                        <a href="{{ route('collections.show', $col->col_slug) }}"
-                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
-                            style="font-size: 16px;">
-                            {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                    @if($non_featured_collections->count() > 0)
+                        <a href="#"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
+                            data-target="submenu-furniture" style="font-size: 17px;">
+                            Furniture <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                         </a>
-                    @endforeach
-                </div>
-
-
+                    @else
+                        <a href="{{route('collections.index')}}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
+                            style="font-size: 17px;">
+                            Furniture <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+                    @endif
 
                     @foreach($header_categories as $category)
                         @php
@@ -276,14 +268,65 @@
                         @endif
                     @endforeach
 
-                    <a href="{{route('collections.index')}}"
-                        class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
-                        data-target="submenu-collections" style="font-size: 17px;">
-                        Collections <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                    <a href="{{route('contact')}}"
+                        class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
+                        style="font-size: 17px;">
+                        Contact <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                     </a>
-
-                    
                 </div>
+
+                @if($featured_collections->count() > 0)
+                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
+                        id="submenu-products-featured">
+
+                        <a href="#"
+                            class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
+                            style="font-size: 17px;">
+                            <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
+                            <span style="text-decoration: underline; text-underline-offset: 6px;">Products</span>
+                        </a>
+
+                        <a href="{{ route('product.index') }}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                            style="font-size: 16px;">
+                            All Products <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+
+                        @foreach($featured_collections as $col)
+                            <a href="{{ route('collections.show', $col->col_slug) }}"
+                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                                style="font-size: 16px;">
+                                {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if($non_featured_collections->count() > 0)
+                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
+                        id="submenu-furniture">
+                        <a href="#"
+                            class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
+                            style="font-size: 17px;">
+                            <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
+                            <span style="text-decoration: underline; text-underline-offset: 6px;">Furniture</span>
+                        </a>
+
+                        <a href="{{ route('collections.index') }}"
+                            class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                            style="font-size: 16px;">
+                            All Furniture <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        </a>
+                        
+                        @foreach($non_featured_collections as $col)
+                            <a href="{{ route('collections.show', $col->col_slug) }}"
+                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
+                                style="font-size: 16px;">
+                                {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 @foreach($header_categories as $category)
                     @php
@@ -318,32 +361,6 @@
                         </div>
                     @endif
                 @endforeach
-
-                @if($featured_collections->count() > 0)
-                    <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"
-                        id="submenu-products-featured">
-
-                        <a href="#"
-                            class="d-flex align-items-center mb-4 text-dark text-decoration-none font-heading drilldown-back"
-                            style="font-size: 17px;">
-                            <i class="fa-solid fa-chevron-left me-3" style="font-size: 14px;"></i>
-                            <span style="text-decoration: underline; text-underline-offset: 6px;">Products</span>
-                        </a>
-
-
-
-                        @foreach($featured_collections as $col)
-                            <a href="{{ route('collections.show', $col->col_slug) }}"
-                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-3 font-heading"
-                                style="font-size: 16px;">
-                                {{ $col->col_name }} <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
-                            </a>
-                        @endforeach
-                    </div>
-                @endif
-
-                
-
             </div>
 
             <div class="mobile-nav-section pt-3 mb-4">
