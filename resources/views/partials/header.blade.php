@@ -351,50 +351,10 @@
 
                 @endforeach
                 
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Side
-                            Tables</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Sideboards & Cabinets</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Chest
-                            Of Drawer</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Bone
-                            Inlay</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Tissue
-                            Boxes</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Trays</a></li>
                 </ul>
             </div>
 
-            <div class="mobile-nav-section pt-3 mb-4">
-                <h6 class="font-heading mb-3 mt-4" style="font-size: 15px; font-weight: 600;">About Us</h6>
-                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                    <li><a href="{{ route('about') }}" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Our Story</a></li>
-                    <li><a href="journal.html" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Blog</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Sitemap</a></li>
-                </ul>
-            </div>
-
-            <div class="mobile-nav-section pt-3 mb-5">
-                <h6 class="font-heading mb-3 mt-4" style="font-size: 15px; font-weight: 600;">Help & Information</h6>
-                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Privacy
-                            Policy</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Return
-                            Policy</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">Shipping Policy</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Terms &
-                            Conditions</a></li>
-                    <li><a href="{{ route('contact') }}" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Contact
-                            Us</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none font-heading"
-                            style="font-size: 16px;">FAQs</a></li>
-                </ul>
-            </div>
+            
 
             <div class="mobile-footer mt-5 pt-4 border-top" style="border-color: rgba(0,0,0,0.08) !important;">
 
