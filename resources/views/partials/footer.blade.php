@@ -23,10 +23,10 @@
                 <div class="col-6 col-md-3 col-lg-2">
                     <h5 class="footer-heading mb-4">Help & Information</h5>
                     <ul class="footer-list p-0">
-                        <!--<li><a href="{{ route('policy.privacy') }}">Privacy Policy</a></li>-->
                         <li><a href="{{ route('policy.refund') }}">Return Policy</a></li>
+                        <!--<li><a href="{{ route('policy.privacy') }}">Privacy Policy</a></li>
                         <li><a href="{{ route('policy.shipping') }}">Shipping Policy</a></li>
-                        <li><a href="{{ route('policy.terms') }}">Terms & Conditions</a></li>
+                        <li><a href="{{ route('policy.terms') }}">Terms & Conditions</a></li>-->
                         <li><a href="{{ route('contact') }}">Contact Us</a></li>
                         <li><a href="{{ route('faq') }}">FAQs</a></li>
                     </ul>

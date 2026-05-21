@@ -16,7 +16,7 @@ class CollectionController extends Controller
     {
         $data['seo'] = Seo::find(1);
 
-        $data['collections'] = Collection::orderBy('col_name')->get();
+        $data['collections'] = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
         
         return view('pages.collections',$data);
 

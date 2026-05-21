@@ -47,6 +47,7 @@ class SearchController extends Controller
             });
 
         $collections = Collection::where('col_name', 'LIKE', "%$keyword%")
+            ->orderBy('col_order', 'asc')
             ->limit(5)
             ->get()
             ->map(function ($col) {

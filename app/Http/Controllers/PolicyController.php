@@ -18,7 +18,7 @@ class PolicyController extends Controller
     public function sitemap()
     {
         $categories = Category::with('subcategories')->orderBy('name')->get();
-        $collections = Collection::orderBy('col_name')->get();
+        $collections = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
         return view('pages.sitemap', compact('categories', 'collections'));
     }
 

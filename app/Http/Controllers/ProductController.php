@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $data['collections'] = Collection::limit(5)->get();
+        $data['collections'] = Collection::orderBy('col_order', 'asc')->limit(5)->get();
         $query = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
             ->where('prod_isactive', 1);
 

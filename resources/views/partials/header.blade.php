@@ -26,7 +26,7 @@
 
             <div class="logo-container">
                 <a href="{{route('home')}}" class="brand-logo"><img src="{{asset('images\logo\brand-logo-nobg.png')}}" alt=""
-                        style="width: 150px;"></a>
+                        style="width: 180px;"></a>
             </div>
 
             <div class="user-actions d-flex align-items-center gap-4">
@@ -109,7 +109,7 @@
                         @php
                             $categoryCollections = $category->subcategories->flatMap(function($subcat) {
                                 return $subcat->collections;
-                            });
+                            })->sortBy('col_order');
                         @endphp
                         @if($categoryCollections->count() > 0)
                             <li class="nav-item dropdown standard-dropdown">
@@ -130,9 +130,7 @@
                         @endif
                     @endforeach
 
-                    
-
-                    <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" target="_blank" href="https://wa.me/919895599002">Customization</a></li>
                 
                 </ul>
             </div>
@@ -147,7 +145,7 @@
         style="background-color: #f8f6f2; width: 340px;">
 
         <div class="offcanvas-header align-items-center pt-4 pb-2 px-4">
-            <img src="{{asset('images/logo/brand-logo-nobg.png')}}" alt="" style="width: 150px;">
+            <img src="{{asset('images/logo/brand-logo-nobg.png')}}" alt="" style="width: 180px;">
             <button type="button" class="btn-close shadow-none p-0 m-0" data-bs-dismiss="offcanvas" aria-label="Close"
                 style="filter: grayscale(1); opacity: 0.6; font-size: 14px;"></button>
         </div>
@@ -241,7 +239,7 @@
                         @php
                             $categoryCollections = $category->subcategories->flatMap(function($subcat) {
                                 return $subcat->collections;
-                            });
+                            })->sortBy('col_order');
                         @endphp
                         @if($categoryCollections->count() > 0)
                             <a href="#"
@@ -268,10 +266,10 @@
                         @endif
                     @endforeach
 
-                    <a href="{{route('contact')}}"
+                    <a target="_blank" href="https://wa.me/919895599002"
                         class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
                         style="font-size: 17px;">
-                        Contact <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
+                        Customization <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                     </a>
                 </div>
 
@@ -332,7 +330,7 @@
                     @php
                         $categoryCollections = $category->subcategories->flatMap(function($subcat) {
                             return $subcat->collections;
-                        });
+                        })->sortBy('col_order');
                     @endphp
                     @if($categoryCollections->count() > 0)
                         <div class="nav-panel sub-panel transition-transform w-100 position-absolute top-0 start-0 p-3 h-100"

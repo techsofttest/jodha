@@ -74,7 +74,9 @@ class AppServiceProvider extends ServiceProvider
         ->select('id','prod_name','prod_image','prod_slug','prod_trending','prod_hotdeal','prod_new_arrival', 'prod_price', 'prod_sale_price', 'prod_offer')
         ->orderByRaw('(prod_trending + prod_hotdeal + prod_new_arrival) DESC')
         ->get();
-        $allCollections = Collection::select('id', 'col_name', 'col_slug', 'col_is_featured')->get();
+        $allCollections = Collection::select('id', 'col_name', 'col_slug', 'col_is_featured', 'col_order')
+            ->orderBy('col_order', 'asc')
+            ->get();
         $featuredCollections = $allCollections->where('col_is_featured', true);
         $nonFeaturedCollections = $allCollections->where('col_is_featured', false);
 

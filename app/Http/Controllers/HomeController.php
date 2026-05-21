@@ -22,11 +22,12 @@ class HomeController extends Controller
           ->latest()
           ->take(8);
         }])
+        ->orderBy('col_order', 'asc')
         ->take(5)
         ->get()
         ->values(); 
 
-        $data['collections'] = Collection::orderBy('col_name')->get();
+        $data['collections'] = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
 
         $data['home_product'] = \App\Models\Product::with(['sizes', 'colors', 'images', 'category', 'subcategory'])
             ->where('prod_home', 1)

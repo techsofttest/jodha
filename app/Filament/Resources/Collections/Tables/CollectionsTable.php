@@ -15,7 +15,8 @@ class CollectionsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->defaultSort('id', 'desc')
+            ->reorderable('col_order')
+            ->defaultSort('col_order', 'asc')
             ->columns([
                 ImageColumn::make('col_image')
                     ->label('Image')

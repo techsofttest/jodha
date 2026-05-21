@@ -17,7 +17,7 @@ class Subcategory extends Model
 
     public function collections()
     {
-        return $this->hasMany(Collection::class, 'col_subcat_id');
+        return $this->hasMany(Collection::class, 'col_subcat_id')->orderBy('col_order', 'asc');
     }
 
     protected static function booted()
