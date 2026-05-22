@@ -226,9 +226,7 @@ class ProductForm
                             Grid::make(2)->schema([
                                 Select::make('color_name')
                                     ->label('Color Name')
-                                    ->options(Color::pluck('name', 'name')->mapWithKeys(function ($name) {
-                                        return [Str::lower($name) => $name];
-                                    }))
+                                    ->options(Color::pluck('name', 'name'))
                                     ->searchable()
                                     ->preload()
                                     ->live()
