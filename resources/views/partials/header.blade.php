@@ -105,28 +105,11 @@
 
 
                     @foreach($header_categories->take(4) as $category)
-                        @php
-                            $categoryCollections = $category->subcategories->flatMap(function($subcat) {
-                                return $subcat->collections;
-                            })->sortBy('col_order');
-                        @endphp
-                        @if($categoryCollections->count() > 0)
-                            <li class="nav-item dropdown standard-dropdown">
-                                <a class="nav-link d-flex align-items-center gap-1" href="javascript:void(0);">
-                                    {{ $category->name }} <i class="fa-solid fa-angle-down" style="font-size: 10px;"></i>
-                                </a>
-
-                                <ul class="dropdown-menu shadow-sm">
-                                    @foreach($categoryCollections as $col)
-                                        <li><a class="dropdown-item" href="{{ route('collections.show', $col->col_slug) }}">{{ $col->col_name }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </li>
-                        @else
+                       
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
                             </li>
-                        @endif
+                      
                     @endforeach
 
                     <li class="nav-item"><a class="nav-link" target="_blank" href="https://wa.me/919895599002">Customization</a></li>
@@ -235,23 +218,7 @@
                     @endif
 
                     @foreach($header_categories as $category)
-                        @php
-                            $categoryCollections = $category->subcategories->flatMap(function($subcat) {
-                                return $subcat->collections;
-                            })->sortBy('col_order');
-                        @endphp
-                        @if($categoryCollections->count() > 0)
-                            <a href="#"
-                                class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading drilldown-trigger"
-                                data-target="submenu-{{ $category->slug }}" style="font-size: 17px;">
-                                <div class="d-flex align-items-center gap-3">
-                                    <img src="{{ asset('storage/'.$category->image) }}" alt="{{ $category->name }}"
-                                        class="rounded object-fit-cover" style="width: 40px; height: 40px;">
-                                    {{ $category->name }}
-                                </div>
-                                <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
-                            </a>
-                        @else
+                        
                             <a href="{{ route('category.show', $category->slug) }}"
                                 class="d-flex justify-content-between align-items-center text-dark text-decoration-none py-2 mb-2 font-heading"
                                 style="font-size: 17px;">
@@ -262,7 +229,6 @@
                                 </div>
                                 <i class="fa-solid fa-chevron-right text-muted" style="font-size: 12px;"></i>
                             </a>
-                        @endif
                     @endforeach
 
                     <a target="_blank" href="https://wa.me/919895599002"

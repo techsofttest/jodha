@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
         ->orderBy('id')
         ->get();
 
-        $targetNames = ['Decor & Lignting', 'Decor & Gifting', 'Office', 'Inlay Gallery'];
+        $targetNames = ['Decor & Gifting', 'Office', 'Inlay Gallery'];
         $headerCategories = Category::with(['subcategories.collections'])
             ->whereIn('name', $targetNames)
             ->get()
