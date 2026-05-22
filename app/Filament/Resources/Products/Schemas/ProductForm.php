@@ -226,13 +226,15 @@ class ProductForm
                             Grid::make(2)->schema([
                                 Select::make('color_name')
                                     ->label('Color Name')
-                                    ->options(Color::pluck('name', 'name'))
+                                    ->options(Color::pluck('name', 'name')->mapWithKeys(function ($name) {
+                                        return [Str::lower($name) => $name];
+                                    }))
                                     ->searchable()
                                     ->preload()
                                     ->live()
                                     ->afterStateUpdated(function ($state, $set) {
                                         if ($state) {
-                                            $colorCode = Color::where('name', $state)->value('color_code');
+                                            $colorCode = Color::whereRaw('LOWER(name) = ?', [Str::lower($state)])->value('color_code');
                                             if ($colorCode && !str_starts_with($colorCode, '#')) {
                                                 $colorCode = '#' . $colorCode;
                                             }
@@ -247,7 +249,7 @@ class ProductForm
                                     ->dehydrated()
                                     ->afterStateHydrated(function ($set, $get, $state) {
                                         if (!$state && $get('color_name')) {
-                                            $colorCode = Color::where('name', $get('color_name'))->value('color_code');
+                                            $colorCode = Color::whereRaw('LOWER(name) = ?', [Str::lower($get('color_name'))])->value('color_code');
                                             if ($colorCode && !str_starts_with($colorCode, '#')) {
                                                 $colorCode = '#' . $colorCode;
                                             }
@@ -272,7 +274,7 @@ class ProductForm
                 ])->columnSpanFull(),
 
 
-            Section::make('Product Gallery')
+            /*Section::make('Product Gallery')
                 ->collapsible()
                 ->schema([
                     Repeater::make('images')
@@ -287,7 +289,7 @@ class ProductForm
                         ])
                         ->addActionLabel('Add Image')
                         ->defaultItems(0),
-                ])->columnSpanFull(),
+                ])->columnSpanFull(),*/
 
             /* ================= DETAILS ================= */
 
