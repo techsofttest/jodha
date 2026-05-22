@@ -268,21 +268,42 @@
             <div class="row g-0 gallery-grid">
 
 
-            <div class="col-12 px-2 col-md-4 gallery-item">
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
                 <div class="gallery-card">
-                    <img src="{{asset('images/about-us/jodha2.png')}}" alt="Creation 1" class="gallery-img">
+                    <img src="{{asset('images/about-us/jodha2.jpeg')}}" alt="Creation 1" class="gallery-img">
                 </div>
             </div>
 
-            <div class="col-12 px-2 col-md-4 gallery-item">
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
                 <div class="gallery-card">
-                    <img src="{{asset('images/about-us/jodha3.png')}}" alt="Creation 2" class="gallery-img">
+                    <img src="{{asset('images/about-us/jodha3.jpeg')}}" alt="Creation 2" class="gallery-img">
                 </div>
             </div>
 
-            <div class="col-12 px-2 col-md-4 gallery-item">
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
                 <div class="gallery-card">
-                    <img src="{{asset('images/about-us/jodha4.png')}}" alt="Creation 3" class="gallery-img">
+                    <img src="{{asset('images/about-us/jodha4.jpeg')}}" alt="Creation 3" class="gallery-img">
+                </div>
+            </div>
+
+
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha5.jpeg')}}" alt="Creation 3" class="gallery-img">
+                </div>
+            </div>
+
+
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha6.jpeg')}}" alt="Creation 3" class="gallery-img">
+                </div>
+            </div>
+
+
+            <div class="col-12 px-2 my-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha7.jpeg')}}" alt="Creation 3" class="gallery-img">
                 </div>
             </div>
 
