@@ -129,7 +129,7 @@
                             </div>
                         </div>
 
-                        @if($product->prod_material)
+                        @if($product->material || $product->prod_material)
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -141,7 +141,12 @@
                                 data-bs-parent="#productDetailsAccordion">
                                 <div class="accordion-body text-muted"
                                     style="font-family: var(--f-body); font-size: 13.5px; line-height: 1.8;">
-                                    {!! $product->prod_material !!}
+                                    @if($product->material)
+                                        <p class="mb-2"><strong>{{ $product->material->name }}</strong></p>
+                                    @endif
+                                    @if($product->prod_material)
+                                        {!! $product->prod_material !!}
+                                    @endif
                                 </div>
                             </div>
                         </div>

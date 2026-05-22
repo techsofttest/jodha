@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Partner;
 use App\Models\Category;
 use App\Models\Collection;
+use App\Models\Material;
 
 class ProductController extends Controller
 {
@@ -84,6 +85,20 @@ class ProductController extends Controller
         $data['max_range'] = Product::max('prod_price') ?? 100000;
         
         return view('pages.products', $data);
+    }
+
+    public function materialDetail($slug)
+    {
+        $material = Material::where('slug', $slug)->firstOrFail();
+
+        $data['seo'] = Seo::find(1);
+        $data['material'] = $material;
+        $data['products'] = Product::with(['category', 'subcategory', 'collection', 'images', 'colors', 'sizes'])
+            ->where('material_id', $material->id)
+            ->where('prod_isactive', 1)
+            ->get();
+
+        return view('pages.material-detail', $data);
     }
 
     public function showDetails($slug)

@@ -136,11 +136,15 @@
                         <span class="attr-value text-muted">{{ $home_product->prod_sku_code }}</span>
                     </div>
                     @endif
-                    @if($home_product->prod_material)
+                    @if($home_product->material || $home_product->prod_material)
                     <div class="attr-row mb-3 fw-light">
                         <span class="attr-label text-dark me-2">Material :</span>
                         <div class="attr-value text-muted d-inline-block pdp-attr-content">
-                            {!! Str::limit(strip_tags($home_product->prod_material), 100) !!}
+                            @if($home_product->material)
+                                {{ $home_product->material->name }}
+                            @else
+                                {!! Str::limit(strip_tags($home_product->prod_material), 100) !!}
+                            @endif
                         </div>
                     </div>
                     @endif

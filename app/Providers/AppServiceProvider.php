@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Subcategory;
 use App\Models\Collection;
 use App\Models\Product;
+use App\Models\Material;
 
 
 
@@ -56,16 +57,6 @@ class AppServiceProvider extends ServiceProvider
                 return array_search($model->name, $targetNames);
             })->values();
 
-        if ($headerCategories->count() < 3) {
-            $missing = 3 - $headerCategories->count();
-            $fallbacks = Category::with(['subcategories.collections'])
-                ->whereNotIn('id', $headerCategories->pluck('id'))
-                ->orderBy('id', 'desc')
-                ->take($missing)
-                ->get();
-            $headerCategories = $headerCategories->concat($fallbacks);
-        }
-
         $featuredProducts = Product::where(function ($q) {
                 $q->where('prod_trending', 1)
                   ->orWhere('prod_hotdeal', 1)
@@ -77,16 +68,17 @@ class AppServiceProvider extends ServiceProvider
         $allCollections = Collection::select('id', 'col_name', 'col_slug', 'col_is_featured', 'col_order')
             ->orderBy('col_order', 'asc')
             ->get();
-        $featuredCollections = $allCollections->where('col_is_featured', true);
-        $nonFeaturedCollections = $allCollections->where('col_is_featured', false);
+        $materials = Material::orderBy('order', 'asc')->get();
+        //$featuredCollections = $allCollections->where('col_is_featured', true);
+        $nonFeaturedCollections = $allCollections;
 
         $view->with([
             'full_categories' => $categories,
             'header_categories' => $headerCategories,
             'featured_products' => $featuredProducts,
             'all_collections' => $allCollections,
-            'featured_collections' => $featuredCollections,
-            'non_featured_collections' => $nonFeaturedCollections
+            'non_featured_collections' => $nonFeaturedCollections,
+            'materials' => $materials,
         ]);
     }
 );

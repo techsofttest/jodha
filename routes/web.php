@@ -49,6 +49,7 @@ Route::get('/article', [ArticalController::class, 'index'])->name('article.index
 Route::get('/article/{slug}', [ArticalController::class, 'detail'])->name('article.show');
 
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
+Route::get('/products/material/{slug}', [ProductController::class, 'materialDetail'])->name('product.material.show');
 Route::get('/products/{slug}', [ProductController::class, 'showDetails'])->name('product.show');
 
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');

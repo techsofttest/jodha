@@ -105,6 +105,14 @@ class ProductForm
                             ->searchable()
                             ->preload(),
 
+                        Select::make('material_id')
+                        ->label('Material')
+                        ->relationship('material', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->nullable()
+                        ->columnSpanFull(),
+
                         TextInput::make('prod_name')
                             ->label('Product Name')
                             ->required()

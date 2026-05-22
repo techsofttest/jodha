@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -12,6 +13,7 @@ class Product extends Model
         'prod_cat_id',
         'prod_subcat_id',
         'prod_col_id',
+        'material_id',
         'prod_name',
         'prod_slug',
         'prod_description',
@@ -48,6 +50,11 @@ class Product extends Model
     public function collection()
     {
         return $this->belongsTo(Collection::class, 'prod_col_id');
+    }
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class, 'material_id');
     }
 
     protected static function booted()

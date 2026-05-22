@@ -122,7 +122,7 @@
 
 
     <!-- Featured In -->
-    <section class="featured-in-section">
+    <section class="featured-in-section my-4">
         <div class="container">
 
             <div class="text-center mb-5">
@@ -146,6 +146,155 @@
             </div>
         </div>
     </section>
+
+
+
+
+    <style>
+
+
+        /* Gallery Grid */
+.gallery-grid {
+    overflow: hidden;
+}
+
+.gallery-item {
+    overflow: hidden;
+}
+
+.gallery-card {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-card:hover .gallery-img {
+    transform: scale(1.07);
+}
+
+/* Overlay */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.55) 0%,
+        rgba(0, 0, 0, 0.0) 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+}
+
+.gallery-card:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-label {
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--c-gold, #c9a96e);
+    padding-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .gallery-card {
+        height: 320px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .gallery-card {
+        height: 400px;
+    }
+}
+
+
+.gallery-card {
+    height: 500px;
+    overflow: hidden;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 767.98px) {
+    .gallery-card {
+        height: 320px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .gallery-card {
+        height: 400px;
+    }
+}
+
+
+    </style>
+
+
+
+    <!-- Trusted Partners -->
+    <section class="partners-section py-1">
+        <div class="container px-0">
+
+            <div class="text-center mb-5">
+                <span class="text-gold text-uppercase letter-spacing-3 text-small d-block mb-3">Gallery</span>
+                <h2 class="font-heading" style="color: var(--c-primary); font-size: 2.5rem; font-weight: 400;">
+                    A Glimpse Into Our Creations
+                </h2>
+            </div>
+
+
+            <div class="row g-0 gallery-grid">
+
+
+            <div class="col-12 px-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha2.png')}}" alt="Creation 1" class="gallery-img">
+                </div>
+            </div>
+
+            <div class="col-12 px-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha3.png')}}" alt="Creation 2" class="gallery-img">
+                </div>
+            </div>
+
+            <div class="col-12 px-2 col-md-4 gallery-item">
+                <div class="gallery-card">
+                    <img src="{{asset('images/about-us/jodha4.png')}}" alt="Creation 3" class="gallery-img">
+                </div>
+            </div>
+
+
+            </div>
+
+
+        </div>
+    </section>
+
+
+
 
 
 
