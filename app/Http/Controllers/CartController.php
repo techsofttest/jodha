@@ -245,6 +245,37 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => 'This coupon has expired.']);
         }
 
+        // Check if this user/email has already used the coupon (one-time per user)
+        $emailToCheck = null;
+        $userId = null;
+        if (Auth::guard('customer')->check()) {
+            $userId = Auth::guard('customer')->id();
+            $emailToCheck = Auth::guard('customer')->user()->email;
+        } else {
+            // allow caller to pass an email for validation (guest checkout)
+            $emailToCheck = $request->input('email');
+        }
+
+        if ($emailToCheck || $userId) {
+            $orderQuery = \App\Models\Order::where('coupon_code', $coupon->coupon_code);
+            $orderQuery->where(function($q) use ($emailToCheck, $userId) {
+                if ($userId) {
+                    $q->where('user_id', $userId);
+                }
+                if ($emailToCheck) {
+                    $q->orWhere('email', $emailToCheck);
+                }
+            });
+
+            $alreadyUsed = $orderQuery->exists();
+            if ($alreadyUsed) {
+                return response()->json(['success' => false, 'message' => 'This coupon code has already been used by your account/email.']);
+            }
+        } else {
+            // No way to validate usage without an email or logged-in user
+            return response()->json(['success' => false, 'message' => 'Please provide your email (or login) to validate this coupon.']);
+        }
+
         session()->put('coupon', [
             'code' => $coupon->coupon_code,
             'type' => $coupon->coupon_type,

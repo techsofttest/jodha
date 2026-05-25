@@ -19,15 +19,15 @@
             <span class="grid-sale-badge">SALE</span>
         @endif
 
-        <!--<div class="card-hover-actions">
-            <button class="hover-action-btn" title="Quick View">
+        <div class="card-hover-actions">
+          <!--  <button class="hover-action-btn" title="Quick View">
                 <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
+            </button>-->
 
-            <button class="hover-action-btn" title="Add to Cart">
+            <button href="{{ route('product.show', $product->prod_slug) }}" class="hover-action-btn" title="Add to Cart" role="button">
                 <i class="fa-solid fa-plus"></i>
             </button>
-        </div>-->
+        </div>
 
     </div>
 

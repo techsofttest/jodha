@@ -605,6 +605,14 @@
     function applyCoupon() {
         // ... (existing applyCoupon logic)
         const code = document.getElementById('couponCodeInput').value;
+        // include email for one-time-per-user validation
+        const email = document.querySelector('input[name="email"]').value || '';
+        const isLoggedIn = {{ Auth::guard('customer')->check() ? 'true' : 'false' }};
+
+        if (!isLoggedIn && !email) {
+            alertify.error('Please enter your email before applying a coupon');
+            return;
+        }
         if(!code) {
             alertify.error('Please enter a coupon code');
             return;
@@ -615,7 +623,8 @@
             type: "POST",
             data: {
                 _token: "{{ csrf_token() }}",
-                coupon_code: code
+                coupon_code: code,
+                email: email
             },
             success: function(response) {
                 if(response.success) {
@@ -768,7 +777,6 @@
                 });
             });
 
-        });
         });
     </script>
 

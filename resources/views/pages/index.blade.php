@@ -153,13 +153,23 @@
                 @if($home_product->colors->count() > 0)
                 <div class="variant-section mb-4">
                     <p class="variant-label text-muted fw-light mb-2">Color</p>
-                    <div class="variant-options d-flex gap-2 fw-light">
-                        <select id="pdpColorSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;background:var(--bg-color);">
+                    <div class="variant-options d-flex gap-2 fw-light align-items-center">
+
+                        {{-- Hidden select preserved for existing logic --}}
+                        <select id="pdpColorSelect" class="d-none" aria-hidden="true">
                             <option value="" disabled selected>Select Color</option>
                             @foreach($home_product->colors as $color)
                                 <option value="{{ $color->id }}">{{ $color->color_name }}</option>
                             @endforeach
                         </select>
+
+                        {{-- Visible pills --}}
+                        <div id="homePdpColorPills" class="d-flex flex-wrap gap-2">
+                            @foreach($home_product->colors as $color)
+                            <button type="button" class="home-color-pill btn-color-pill" data-color-id="{{ $color->id }}" data-color-name="{{ $color->color_name }}" title="{{ $color->color_name }}" style="background: transparent; color: #222; border:2px solid #bbb; padding:6px 12px; border-radius:20px;">{{ $color->color_name }}</button>
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
                 @endif
@@ -715,6 +725,33 @@
                 thumbWrappers.forEach(t => t.classList.remove('active'));
                 const activeThumb = document.querySelector(`.thumbnail-wrapper[data-slide-to="${index}"]`);
                 if (activeThumb) activeThumb.classList.add('active');
+            });
+        }
+
+        // Initialize featured product color pills (keeps hidden select in sync)
+        const colorPillsContainer = document.getElementById('homePdpColorPills');
+        const colorSelectHidden = document.getElementById('pdpColorSelect');
+        if (colorPillsContainer && colorSelectHidden) {
+            const pills = Array.from(colorPillsContainer.querySelectorAll('.home-color-pill'));
+
+            // Ensure label exists and set initial active from hidden select
+            pills.forEach(p => {
+                if (!p.textContent.trim()) p.textContent = p.dataset.colorName || p.title || '';
+            });
+
+            if (colorSelectHidden.value) {
+                const activeP = colorPillsContainer.querySelector('.home-color-pill[data-color-id="' + colorSelectHidden.value + '"]');
+                if (activeP) activeP.style.borderColor = 'var(--c-primary)';
+            }
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    const id = this.dataset.colorId;
+                    if (!id) return;
+                    colorSelectHidden.value = id;
+                    pills.forEach(x => x.style.borderColor = '#bbb');
+                    this.style.borderColor = 'var(--c-primary)';
+                });
             });
         }
 

@@ -244,13 +244,30 @@
                         <div class="mb-4">
                             <label class="text-uppercase mb-2 d-block"
                                 style="font-family: var(--f-body); font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--c-primary);">Colors</label>
-                            <div class="d-flex flex-wrap gap-2">
-                                <select id="pdpColorSelect" class="form-select rounded-0 border-dark" style="width: auto; min-width: 150px; font-family: var(--f-body); font-size: 13px; font-weight: 500;">
+                            <div class="d-flex flex-wrap gap-2 align-items-center">
+
+                                {{-- Hidden select preserved for existing JS validation/behavior --}}
+                                <select id="pdpColorSelect" class="d-none" aria-hidden="true">
                                     <option value="" disabled selected>Select Color</option>
                                     @foreach($product->colors as $color)
                                     <option value="{{ $color->id }}">{{ $color->color_name }}</option>
                                     @endforeach
                                 </select>
+
+                                {{-- Visible color pills --}}
+                                <div id="pdpColorPills" class="d-flex flex-wrap gap-2">
+                                    @foreach($product->colors as $color)
+                                    <button type="button"
+                                        class="color-pill btn-color-pill"
+                                        data-color-id="{{ $color->id }}"
+                                        data-color-name="{{ $color->color_name }}"
+                                        title="{{ $color->color_name }}"
+                                        style="background-color: transparent; color: #222; border:2px solid #bbb; padding:6px 12px; border-radius:20px; min-width:auto;">
+                                        {{ $color->color_name }}
+                                    </button>
+                                    @endforeach
+                                </div>
+
                             </div>
                         </div>
                         @endif
@@ -529,7 +546,7 @@
 
 
 @section('footer_extras')
-<script>
+    <script>
 document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('pdpAddToCart');
     if (addBtn) {
@@ -545,6 +562,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Initialize color pills and keep hidden select in sync (preserves existing validation)
+    const colorPillsContainer = document.getElementById('pdpColorPills');
+    const colorSelectHidden = document.getElementById('pdpColorSelect');
+    if (colorPillsContainer && colorSelectHidden) {
+        const pills = Array.from(colorPillsContainer.querySelectorAll('.color-pill'));
+
+        // Ensure pill text is visible (data-color-name) and set initial active state if select has value
+        if (colorSelectHidden.value) {
+            const activeP = colorPillsContainer.querySelector('.color-pill[data-color-id="' + colorSelectHidden.value + '"]');
+            if (activeP) activeP.style.borderColor = 'var(--c-primary)';
+        }
+
+        pills.forEach(pill => {
+            // ensure label exists (fallback)
+            if (!pill.textContent.trim()) {
+                const name = pill.dataset.colorName || pill.title || '';
+                pill.textContent = name;
+            }
+
+            pill.addEventListener('click', function() {
+                const id = this.dataset.colorId;
+                if (!id) return;
+                // set hidden select value
+                colorSelectHidden.value = id;
+
+                // visual active state: reset borders and highlight selected
+                pills.forEach(x => x.style.borderColor = '#bbb');
+                this.style.borderColor = 'var(--c-primary)';
+            });
+        });
+    }
+
     function handleCartAction(btn, type) {
         const productId = btn.dataset.productId;
         const quantity = parseInt(document.getElementById('pdpQuantity').value) || 1;
@@ -553,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const sizeSelect = document.getElementById('pdpSizeSelect');
         const sizeId = sizeSelect ? sizeSelect.value : null;
 
-        // Get selected color if any
+        // Get selected color if any (hidden select preserved)
         const colorSelect = document.getElementById('pdpColorSelect');
         const colorId = colorSelect ? colorSelect.value : null;
 
