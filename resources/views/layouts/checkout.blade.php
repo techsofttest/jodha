@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="col-12 col-md-4 text-center">
-                    <a href="index.html" class="text-decoration-none">
+                    <a href="{{url('/')}}" class="text-decoration-none">
                         <img src="{{asset('images\logo\brand-logo-nobg.png')}}" class="mb-0" height="60px">
                     </a>
                 </div>

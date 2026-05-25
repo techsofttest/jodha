@@ -71,6 +71,9 @@ class ProfileController extends Controller
         $customer = Auth::guard('customer')->user();
         
         $request->validate([
+            'first_name' => 'nullable|string|max:100',
+            'last_name' => 'nullable|string|max:100',
+            'email' => 'nullable|email|max:255',
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'address_line1' => 'required|string|max:255',
@@ -100,6 +103,9 @@ class ProfileController extends Controller
         if ($address->user_id !== $customer->id) abort(403);
 
         $request->validate([
+            'first_name' => 'nullable|string|max:100',
+            'last_name' => 'nullable|string|max:100',
+            'email' => 'nullable|email|max:255',
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'address_line1' => 'required|string|max:255',

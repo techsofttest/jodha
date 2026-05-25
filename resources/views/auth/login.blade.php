@@ -86,14 +86,28 @@
                         <span class="text-gold text-uppercase letter-spacing-3 mb-3 d-block"
                             style="font-family: var(--f-body); font-weight: 600; font-size: 12px;">The Privilege
                             Club</span>
+                        @php
+                            $__lastCoupon = \App\Models\Coupon::latest()->first();
+                            $__couponCode = $__lastCoupon->coupon_code ?? 'JODHA20';
+                            $__couponLabel = '';
+                            if ($__lastCoupon) {
+                                if ($__lastCoupon->coupon_type == 1) {
+                                    $__couponLabel = $__lastCoupon->coupon_amount . '% Off';
+                                } else {
+                                    $__couponLabel = '₹' . number_format($__lastCoupon->coupon_amount, 2) . ' Off';
+                                }
+                            } else {
+                                $__couponLabel = '20% Off';
+                            }
+                        @endphp
+
                         <h1 class="display-4 font-heading mb-4">Exclusive Offers <br> Available Now</h1>
                         <div class="offer-code-badge d-inline-block py-3 px-5 border border-white-50">
                             <p class="mb-1 small text-uppercase opacity-75">Use Code At Checkout</p>
-                            <h3 class="mb-0 letter-spacing-3 text-gold">JODHA20</h3>
+                            <h3 class="mb-0 letter-spacing-3 text-gold">{{ $__couponCode }}</h3>
                         </div>
                         <p class="mt-4 opacity-75"
-                            style="font-family: var(--f-body); font-size: 15px; font-weight: 300;">Enjoy 20% Off our
-                            Royal Collections </p>
+                            style="font-family: var(--f-body); font-size: 15px; font-weight: 300;">Enjoy {{ $__couponLabel }}</p>
                     </div>
 
                 </div>

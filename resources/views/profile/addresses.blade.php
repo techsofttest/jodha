@@ -126,6 +126,18 @@
                             <input type="text" name="name" id="name" class="form-control luxury-input-minimal" required>
                         </div>
                         <div class="col-md-6">
+                            <label class="small text-muted mb-2 uppercase-tracking">First Name</label>
+                            <input type="text" name="first_name" id="first_name" class="form-control luxury-input-minimal">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small text-muted mb-2 uppercase-tracking">Last Name</label>
+                            <input type="text" name="last_name" id="last_name" class="form-control luxury-input-minimal">
+                        </div>
+                        <div class="col-12">
+                            <label class="small text-muted mb-2 uppercase-tracking">Email</label>
+                            <input type="email" name="email" id="email" class="form-control luxury-input-minimal">
+                        </div>
+                        <div class="col-md-6">
                             <label class="small text-muted mb-2 uppercase-tracking">Phone Number</label>
                             <input type="text" name="phone" id="phone" class="form-control luxury-input-minimal" required>
                         </div>
@@ -272,11 +284,11 @@ document.getElementById('addressForm').addEventListener('submit', function(e) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.status === 'success') {
-            alertify.success(data.message);
+        if (data && (data.status === 'success' || data.success)) {
+            alertify.success(data.message || 'Saved');
             setTimeout(() => location.reload(), 1000);
         } else {
-            alertify.error(data.message || 'Something went wrong');
+            alertify.error((data && data.message) || 'Something went wrong');
         }
         btn.disabled = false;
         btn.innerText = originalText;

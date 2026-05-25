@@ -45,9 +45,29 @@
                             <h4 class="font-heading mb-4" style="color: var(--c-primary); font-size: 20px;">Saved Addresses</h4>
                             <div class="row g-3">
                                 @foreach($addresses as $addr)
+                                @php
+                                    $__user = \Illuminate\Support\Facades\Auth::guard('customer')->user();
+                                    $__first = $__user ? explode(' ', trim($__user->name))[0] : '';
+                                    $__last = '';
+                                    if ($__user) {
+                                        $__last = trim(str_replace($__first, '', trim($__user->name)));
+                                    }
+                                    $__email = $__user ? $__user->email : '';
+                                @endphp
                                 <div class="col-md-6">
-                                    <div class="card border p-3 cursor-pointer address-card @if($addr->is_default) border-gold @endif" 
-                                         onclick="fillAddress({{ json_encode($addr) }}, this)"
+                                     <div class="card border p-3 cursor-pointer address-card @if($addr->is_default) border-gold @endif"
+                                         data-name="{{ $addr->name ?? '' }}"
+                                         data-first-name="{{ $addr->first_name ?? $__first }}"
+                                         data-last-name="{{ $addr->last_name ?? $__last }}"
+                                         data-email="{{ $addr->email ?? $__email }}"
+                                         data-address-line1="{{ $addr->address_line1 ?? '' }}"
+                                         data-address-line2="{{ $addr->address_line2 ?? '' }}"
+                                         data-city="{{ $addr->city ?? '' }}"
+                                         data-state="{{ $addr->state ?? '' }}"
+                                         data-postal-code="{{ $addr->postal_code ?? '' }}"
+                                         data-phone="{{ $addr->phone ?? '' }}"
+                                         data-country="{{ $addr->country ?? 'India' }}"
+                                         onclick="fillAddress({ name: this.dataset.name, first_name: this.dataset.firstName, last_name: this.dataset.lastName, email: this.dataset.email, address_line1: this.dataset.addressLine1, address_line2: this.dataset.addressLine2, city: this.dataset.city, state: this.dataset.state, postal_code: this.dataset.postalCode, phone: this.dataset.phone, country: this.dataset.country }, this)"
                                          style="transition: all 0.3s ease; border-color: rgba(0,0,0,0.1) !important;">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <h6 class="mb-0 fw-bold" style="font-size: 14px;">{{ $addr->name }}</h6>
@@ -787,6 +807,11 @@
             $(element).addClass('border-gold').css('border-color', 'var(--c-gold)');
 
             // Fill the form
+            // shipping name/individual fields
+            if (typeof addr.first_name !== 'undefined') $('input[name="first_name"]').val(addr.first_name);
+            if (typeof addr.last_name !== 'undefined') $('input[name="last_name"]').val(addr.last_name);
+            if (typeof addr.email !== 'undefined') $('input[name="email"]').val(addr.email);
+
             $('input[name="address"]').val(addr.address_line1);
             $('input[name="apartment"]').val(addr.address_line2 || '');
             $('input[name="city"]').val(addr.city);
