@@ -516,7 +516,7 @@
                             <div class="d-flex justify-content-between mb-4 pb-4 border-bottom-delicate-dark"
                                 style="font-family: var(--f-body); font-size: 13px; color: var(--c-body);">
                                 <span>Shipping</span>
-                                <span id="ledgerShipping" class="fw-bold" style="font-size: 13px;">{{ $cartData['total_shipping_formatted'] }}</span>
+                                <span id="ledgerShipping" class="fw-bold" style="font-size: 13px;">@if(isset($cartData['total_shipping']) && $cartData['total_shipping'] < 1) Free @else {{ $cartData['total_shipping_formatted'] }} @endif</span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-end mb-1">
@@ -605,7 +605,11 @@
         $('#couponContainer').html(htmlCoupon);
 
         $('#ledgerSubtotal').text(cartData.subtotal_formatted);
-        $('#ledgerShipping').text(cartData.total_shipping_formatted);
+        if (typeof cartData.total_shipping !== 'undefined' && Number(cartData.total_shipping) < 1) {
+            $('#ledgerShipping').text('Free');
+        } else {
+            $('#ledgerShipping').text(cartData.total_shipping_formatted);
+        }
         
         if (cartData.discount && cartData.discount > 0) {
             $('#ledgerDiscountWrapper').html(`
