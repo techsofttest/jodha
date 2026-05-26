@@ -9,7 +9,21 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Jodha Furnitures | Shop Premium Furniture and Home Decor In Kochi</title>
+    <title>@yield('title', 'Shop Premium Furniture and Home Decor Online in India - Ashborn Furniture')</title>
+
+    <meta name="description" content="@yield('meta_description', 'Buy luxury furniture and home decor items online at best prices in India at Jodha Furniture. Explore elegant designs with EMI and COD options available. Shop Now!')">
+
+    <link rel="canonical" href="@yield('canonical', url()->current())">
+
+<meta property="og:site_name" content="Ashborn Furniture">
+<meta property="og:url" content="{{url()->current()}}">
+<meta property="og:title" content="Shop Premium Furniture and Home Decor Online in India - Jodha Furniture">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Buy luxury furniture and home decor items online at best prices in India at Ashborn Furniture. Explore elegant designs with EMI and COD options available. Shop Now!"><meta name="twitter:site" content="@">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shop Premium Furniture and Home Decor Online in India - Jodha Furniture">
+<meta name="twitter:description" content="Buy luxury furniture and home decor items online at best prices in India at Ashborn Furniture. Explore elegant designs with EMI and COD options available. Shop Now!">
+    
 
     @yield('head_metas')
 

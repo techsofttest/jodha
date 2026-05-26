@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 
+@section('title', $meta_title ?? 'Shop Premium Furniture and Home Decor Online in India - Ashborn Furniture')
+@section('meta_description', $meta_description ?? 'Buy luxury furniture and home decor items online at best prices in India at Jodha Furniture. Explore elegant designs with EMI and COD options available. Shop Now!')
+@section('canonical', $canonical ?? url()->current())
+
+
+
 @section('content')
 
       <section class="hero-section"> 
@@ -88,8 +94,8 @@
                             </div>
                             @foreach($home_product->images as $index => $image)
                             <div class="thumbnail-wrapper border p-1 rounded-1" data-slide-to="{{ $index + 1 }}">
-                                <img src="{{ asset('storage/'.$image->image_path) }}"
-                                    class="img-fluid" alt="{{ $home_product->prod_name }}">
+                                <img data-src="{{ asset('storage/'.$image->image_path) }}"
+                                    class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
                             </div>
                             @endforeach
                         </div>
@@ -102,8 +108,8 @@
                                     </div>
                                     @foreach($home_product->images as $index => $image)
                                     <div class="carousel-item">
-                                        <img src="{{ asset('storage/'.$image->image_path) }}"
-                                            class="img-fluid rounded-1 w-100" alt="{{ $home_product->prod_name }}">
+                                        <img data-src="{{ asset('storage/'.$image->image_path) }}"
+                                            class="img-fluid rounded-1 w-100 lazy-image" alt="{{ $home_product->prod_name }}">
                                     </div>
                                     @endforeach
                                 </div>
@@ -248,7 +254,7 @@
                     <a href="{{ route('collections.show',['slug' => $collection->col_slug]) }}" class="collection-link">
 
                         <div class="collection-img-wrapper">
-                            <img src="{{ asset('storage/'.$collection->col_image) }}"
+                            <img class="lazy-image" data-src="{{ asset('storage/'.$collection->col_image) }}"
                                 alt="{{ $collection->col_name }}">
                         </div>
 
