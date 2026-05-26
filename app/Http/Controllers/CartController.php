@@ -9,6 +9,7 @@ use App\Models\ProductColor;
 use Razorpay\Api\Api;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends Controller
 {
@@ -453,6 +454,16 @@ class CartController extends Controller
                     'status' => 'processing', // Move from pending to processing
                     'notes' => 'Razorpay Payment ID: ' . $input['razorpay_payment_id']
                 ]);
+            }
+
+            // Send order confirmation email
+            try {
+                $items = \App\Models\OrderItem::where('order_id', $order->id)->get();
+                Mail::send('emails.order_success', ['order' => $order, 'items' => $items], function($m) use ($order) {
+                    $m->to($order->email)->subject('Order Confirmation - ' . config('app.name'));
+                });
+            } catch (\Exception $e) {
+                // ignore email failures
             }
 
             // Clear cart

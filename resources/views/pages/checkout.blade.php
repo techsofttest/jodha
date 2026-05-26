@@ -154,8 +154,9 @@
                                 </div>
 
                                 <div class="col-12 mb-2">
-                                    <input type="tel" name="phone" class="form-control luxury-input-minimal" placeholder="Phone"
+                                    <input id="phone" inputmode="numeric" pattern="\d*" type="tel" name="phone" class="form-control luxury-input-minimal" placeholder="Phone"
                                         required>
+                                    <div id="phoneError" class="small text-danger d-none">Only numbers allowed</div>
                                 </div>
 
 
@@ -834,6 +835,47 @@
 
             alertify.success(`Address "${addr.name}" selected`);
         }
+    </script>
+
+    <script>
+        (function(){
+            const $phone = $('input[name="phone"]');
+            const $phoneErr = $('#phoneError');
+
+            // Strip non-digits on input and show a short error when cleaned
+            $phone.on('input', function(e){
+                const orig = $(this).val();
+                const cleaned = orig.replace(/\D/g, '');
+                if (orig !== cleaned) {
+                    $(this).val(cleaned);
+                    $phoneErr.removeClass('d-none');
+                    clearTimeout(this._phoneErrTimer);
+                    this._phoneErrTimer = setTimeout(() => $phoneErr.addClass('d-none'), 2000);
+                }
+            });
+
+            // Prevent non-numeric keypresses (allow control keys)
+            $phone.on('keydown', function(e){
+                const allowedKeys = [8,9,13,27,35,36,37,38,39,40,46];
+                if (allowedKeys.indexOf(e.keyCode) !== -1) return;
+                if ((e.ctrlKey || e.metaKey) && (e.keyCode === 65 || e.keyCode === 67 || e.keyCode === 86)) return;
+                if (e.key && /^[0-9]$/.test(e.key)) return;
+                e.preventDefault();
+            });
+
+            // Handle paste - insert only digits
+            $phone.on('paste', function(e){
+                const paste = (e.originalEvent || e).clipboardData.getData('text');
+                if (/\D/.test(paste)) {
+                    e.preventDefault();
+                    const cleaned = paste.replace(/\D/g, '');
+                    document.execCommand('insertText', false, cleaned);
+                    $phoneErr.removeClass('d-none');
+                    clearTimeout(this._phoneErrTimer);
+                    this._phoneErrTimer = setTimeout(() => $phoneErr.addClass('d-none'), 2000);
+                }
+            });
+        })();
     </script>
 
     <style>

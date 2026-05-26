@@ -27,6 +27,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
+Route::post('/contact/send', [\App\Http\Controllers\ContactController::class, 'send'])->name('contact.send');
 
 Route::get('/privacy-policy', [PolicyController::class, 'privacy'])->name('policy.privacy');
 Route::get('/refund-policy', [PolicyController::class, 'refund'])->name('policy.refund');

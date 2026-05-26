@@ -33,7 +33,11 @@ class CustomerAuthController extends Controller
             ], 422);
         }
 
-        $otp = 123456; // In production this should be rand(100000, 999999)
+        try {
+            $otp = random_int(100000, 999999);
+        } catch (\Exception $e) {
+            $otp = rand(100000, 999999);
+        }
 
         // Store in session
         session([
@@ -43,7 +47,13 @@ class CustomerAuthController extends Controller
         ]);
 
         try {
-            Mail::raw("Your password reset OTP is: $otp", function($message) use ($request) {
+            Mail::send('emails.otp', [
+                'otp' => $otp,
+                'name' => '',
+                'subject' => 'Password Reset OTP',
+                'message_intro' => 'Your password reset OTP is',
+                'expires' => '10 minutes'
+            ], function($message) use ($request) {
                 $message->to($request->email)->subject('Password Reset OTP');
             });
         } catch (\Exception $e) {
@@ -162,9 +172,11 @@ class CustomerAuthController extends Controller
         }
 
 
-        //$otp = rand(100000, 999999);
-
-        $otp = 123456;
+        try {
+            $otp = random_int(100000, 999999);
+        } catch (\Exception $e) {
+            $otp = rand(100000, 999999);
+        }
 
         // Store in session
         session([
@@ -175,7 +187,13 @@ class CustomerAuthController extends Controller
 
 
         try {
-            Mail::raw("Your verification OTP is: $otp", function($message) use ($request) {
+            Mail::send('emails.otp', [
+                'otp' => $otp,
+                'name' => $request->name,
+                'subject' => 'Email Verification OTP',
+                'message_intro' => 'Your verification OTP is',
+                'expires' => '5 minutes'
+            ], function($message) use ($request) {
                 $message->to($request->email)->subject('Email Verification OTP');
             });
         } catch (\Exception $e) {
@@ -212,6 +230,15 @@ class CustomerAuthController extends Controller
 
         Auth::guard('customer')->login($customer);
         session()->forget(['otp', 'register_data', 'otp_expires_at']);
+
+        // Send welcome/registration email
+        try {
+            Mail::send('emails.registration_success', ['user' => $customer], function($message) use ($customer) {
+                $message->to($customer->email)->subject('Welcome to ' . config('app.name'));
+            });
+        } catch (\Exception $e) {
+            // ignore
+        }
 
         return response()->json([
             'status' => 'registered',

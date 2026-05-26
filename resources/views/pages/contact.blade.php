@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">
-                            <a href="mailto:bhavana@jodhafurniture.com"
+                            <a href="mailto:jodhahomesmarketing@gmail.com"
                                 class="text-dark text-decoration-none text-uppercase letter-spacing-2 luxury-link"
                                 style="font-size: 10px; font-weight: 500;">Drop a Note</a>
                         </div>
@@ -159,12 +159,17 @@
                             </p>
                         </div>
 
-                        <form class="luxury-form text-start px-lg-3">
+                        <form class="luxury-form text-start px-lg-3" method="POST" action="{{ route('contact.send') }}">
+                            @csrf
+
+                            @if(session('success'))
+                                <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
                             <div class="row g-5">
 
                                 <div class="col-md-6">
                                     <div class="position-relative luxury-input-group">
-                                        <input type="text" class="luxury-input w-100" id="fullName" placeholder=" "
+                                        <input type="text" name="name" class="luxury-input w-100" id="fullName" placeholder=" "
                                             required>
                                         <label for="fullName">Full Name</label>
                                     </div>
@@ -172,7 +177,7 @@
 
                                 <div class="col-md-6">
                                     <div class="position-relative luxury-input-group">
-                                        <input type="email" class="luxury-input w-100" id="emailAddress" placeholder=" "
+                                        <input type="email" name="email" class="luxury-input w-100" id="emailAddress" placeholder=" "
                                             required>
                                         <label for="emailAddress">Email Address</label>
                                     </div>
@@ -180,35 +185,23 @@
 
                                 <div class="col-md-12">
                                     <div class="position-relative luxury-input-group">
-                                        <input type="tel" class="luxury-input w-100" id="phoneNumber" placeholder=" ">
+                                        <input type="tel" name="phone" class="luxury-input w-100" id="phoneNumber" placeholder=" ">
                                         <label for="phoneNumber">Telephone (Optional)</label>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="position-relative luxury-input-group">
-                                        <textarea class="luxury-input w-100" id="message" placeholder=" "
+                                        <textarea class="luxury-input w-100" name="message" id="message" placeholder=" "
                                             style="height: 120px; resize: none;" required></textarea>
                                         <label for="message">Your Message</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 mt-4 pt-2">
-                                    <div class="form-check luxury-checkbox d-flex align-items-center gap-3">
-                                        <input class="form-check-input mt-0 shadow-none" type="checkbox"
-                                            id="privacyPolicy" required style="width: 16px; height: 16px;">
-                                        <label class="form-check-label text-muted" for="privacyPolicy"
-                                            style="font-size: 11px; letter-spacing: 0.5px;">
-                                            I accept the <a href="#"
-                                                class="text-dark position-relative hover-underline">Privacy Policy</a>
-                                            and <a href="#" class="text-dark position-relative hover-underline">Terms of
-                                                Service</a>.
-                                        </label>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="col-md-12 mt-5 text-center">
-                                    <button type="submit"
+                                        <button type="submit"
                                         class="btn btn-dark rounded-0 px-5 py-3 w-100 text-uppercase letter-spacing-2 d-flex justify-content-center align-items-center gap-3 transition-all luxury-submit-btn"
                                         style="font-size: 12px; font-weight: 500;">
                                         Send Message
