@@ -9,20 +9,43 @@
 
 @section('content')
 
+
+<link rel="preload"
+      as="image"
+      href="{{ asset('images/banner/gridimages.webp') }}">
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const images = document.querySelectorAll(".lazy-upgrade");
+
+    images.forEach((img) => {
+        const highRes = new Image();
+
+        highRes.src = img.dataset.src;
+
+        highRes.onload = function () {
+            img.src = highRes.src;
+        };
+    });
+
+});
+</script>
+
       <section class="hero-section"> 
         <div id="mainHeroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{asset('images\banner\gridimages.webp')}}" class="d-block w-100 hero-img"
+                    <img src="{{asset('images\banner\gridimages-min.webp')}}" data-src="{{asset('images\banner\gridimages.webp')}}" class="d-block w-100 hero-img lazy-upgrade"
                         alt="Elegant Living Room Setup">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('images\banner\living-room2.jpg')}}" class="d-block w-100 hero-img"
+                    <img src="{{asset('images\banner\living-room2-min.jpg')}}" data-src="{{asset('images\banner\living-room2.jpg')}}" class="d-block w-100 hero-img lazy-upgrade"
                         alt="Luxury Home Decor">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('images\banner\living-room3.jpg')}}" class="d-block w-100 hero-img"
+                    <img src="{{asset('images\banner\living-room3-min.jpg')}}" data-src="{{asset('images\banner\living-room3.jpg')}}" class="d-block w-100 hero-img lazy-upgrade"
                         alt="Modern Furniture">
                 </div>
             </div>
