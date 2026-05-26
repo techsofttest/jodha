@@ -127,9 +127,11 @@ class ProductsImport implements ToCollection, WithStartRow
             if ($colorValue) {
                 $colors = array_filter(array_map('trim', explode(',', $colorValue)));
                 foreach ($colors as $colorName) {
-                    $colorCode = Color::whereRaw('LOWER(name) = ?', [strtolower($colorName)])->value('color_code') ?? '#000000';
+                    $masterColor = Color::whereRaw('LOWER(name) = ?', [strtolower($colorName)])->first();
+                    $dbColorName = $masterColor ? $masterColor->name : $colorName;
+                    $colorCode = $masterColor ? ($masterColor->color_code ?? '#000000') : '#000000';
                     ProductColor::updateOrCreate(
-                        ['product_id' => $product->id, 'color_name' => $colorName],
+                        ['product_id' => $product->id, 'color_name' => $dbColorName],
                         [
                             'color_code' => $colorCode,
                         ]

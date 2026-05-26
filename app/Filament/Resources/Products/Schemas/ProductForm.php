@@ -230,6 +230,14 @@ class ProductForm
                                     ->searchable()
                                     ->preload()
                                     ->live()
+                                    ->afterStateHydrated(function ($state, $set) {
+                                        if ($state) {
+                                            $masterColor = Color::whereRaw('LOWER(name) = ?', [Str::lower($state)])->first();
+                                            if ($masterColor) {
+                                                $set('color_name', $masterColor->name);
+                                            }
+                                        }
+                                    })
                                     ->afterStateUpdated(function ($state, $set) {
                                         if ($state) {
                                             $colorCode = Color::whereRaw('LOWER(name) = ?', [Str::lower($state)])->value('color_code');

@@ -36,7 +36,7 @@
             line-height: 1.6;
         }
         .content h2 {
-            color: #2b9346;
+            color: #D1B246;
             margin-top: 0;
         }
         .footer {
@@ -48,7 +48,7 @@
         }
         .button {
             display: inline-block;
-            background-color: #2b9346;
+            background-color: #D1B246;
             color: #ffffff !important;
             text-decoration: none;
             padding: 12px 25px;
@@ -58,7 +58,6 @@
         }
         .info-box {
             background-color: #f8f9fa;
-            border-left: 4px solid #2b9346;
             padding: 15px;
             margin: 20px 0;
         }
@@ -76,15 +75,14 @@
     <div class="email-container">
         <!-- Header -->
         <div class="header">
-            <img src="{{ asset('images/logo/brand-logo.png') }}" alt="Logo" style="max-width: 150px; margin-top: 10px;">
+            <img src="{{ asset('images/logo/brand-logo-nobg.png') }}" alt="Logo" style="max-width: 150px; margin-top: 10px;">
         </div>
 
         <!-- Content -->
         <div class="content">
 
             @yield('content')
-            
-        <p>Best Regards,<br>{{ config('app.name') }}</p>
+        
         </div>
 
         <!-- Footer -->

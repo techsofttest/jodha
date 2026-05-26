@@ -351,7 +351,7 @@ class CartController extends Controller
             }
 
             $order = \App\Models\Order::create([
-                'order_number' => 'JOD-' . strtoupper(uniqid()),
+                'order_number' => 'TEMP-' . time() . '-' . rand(1000, 9999),
                 'user_id' => Auth::guard('customer')->id(),
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -373,6 +373,11 @@ class CartController extends Controller
                 'grand_total' => $cartData['grand_total'],
                 'status' => 'pending',
                 'payment_status' => 'pending',
+            ]);
+
+            // Update order_number with sequential zero-padded ID (e.g. JOD-000023)
+            $order->update([
+                'order_number' => 'JOD-' . str_pad($order->id, 6, '0', STR_PAD_LEFT)
             ]);
 
             // Create Razorpay Order
