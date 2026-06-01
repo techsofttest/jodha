@@ -9,6 +9,243 @@ const JodhaCart = {
     init() {
         this.loadCart();
         this.bindCartIcon();
+        this.bindQuickAdd();
+    },
+
+    /**
+     * Bind quick add to cart buttons (+ button on product cards)
+     */
+    bindQuickAdd() {
+        document.body.addEventListener('click', async (e) => {
+            const btn = e.target.closest('.js-add-to-cart-btn');
+            if (!btn) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const productId = btn.dataset.productId;
+            const hasVariants = btn.dataset.hasVariants === 'true';
+
+            if (!hasVariants) {
+                // Add directly to cart
+                this.addToCart(productId, 1);
+            } else {
+                // Open variant selector popup
+                this.openVariantModal(productId);
+            }
+        });
+    },
+
+    /**
+     * Open dynamic variant selector modal
+     */
+    async openVariantModal(productId) {
+        const modalEl = document.getElementById('quickVarModal');
+        if (!modalEl) return;
+        
+        const modalBody = document.getElementById('quickVarModalBody');
+        if (!modalBody) return;
+
+        // Show elegant loading spinner
+        modalBody.innerHTML = `
+            <div class="text-center py-5">
+                <div class="spinner-border text-dark" role="status" style="width: 2.5rem; height: 2.5rem; border-width: 0.2em;">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        `;
+
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+
+        try {
+            const res = await fetch(`/products/${productId}/quick-info`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                this.renderVariantModalContent(data.product, modalEl, modal);
+            } else {
+                modalBody.innerHTML = `<div class="alert alert-danger font-marcellus text-center">Failed to load product details.</div>`;
+            }
+        } catch (err) {
+            console.error('Error fetching quick info:', err);
+            modalBody.innerHTML = `<div class="alert alert-danger font-marcellus text-center">Something went wrong. Please try again.</div>`;
+        }
+    },
+
+    /**
+     * Render the variant selector modal content and handle user selection/actions
+     */
+    renderVariantModalContent(product, modalEl, modal) {
+        const modalBody = document.getElementById('quickVarModalBody');
+        if (!modalBody) return;
+
+        // Colors pills html
+        let colorsHtml = '';
+        if (product.colors && product.colors.length > 0) {
+            colorsHtml = `
+                <div class="mb-4">
+                    <label class="text-uppercase mb-2 d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--c-primary);">Colors</label>
+                    <div id="quickModalColorPills" class="d-flex flex-wrap gap-2">
+                        ${product.colors.map((color, index) => `
+                            <button type="button" class="quick-color-pill btn-color-pill" 
+                                    data-color-id="${color.id}" 
+                                    data-color-name="${color.color_name}" 
+                                    title="${color.color_name}" 
+                                    style="background-color: transparent; color: #222; border: 2px solid ${index === 0 ? 'var(--c-primary)' : '#bbb'}; font-weight: ${index === 0 ? '600' : 'normal'}; padding: 6px 14px; border-radius: 20px; font-size: 12px; transition: all 0.2s ease;">
+                                ${color.color_name}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Sizes selection html
+        let sizesHtml = '';
+        if (product.sizes && product.sizes.length > 0) {
+            sizesHtml = `
+                <div class="mb-4">
+                    <label class="text-uppercase mb-2 d-block" style="font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: var(--c-primary);">Sizes</label>
+                    <select id="quickModalSizeSelect" class="form-select rounded-0 border-dark" style="width: 100%; font-size: 13px; font-weight: 500; padding: 10px 15px; box-shadow: none;">
+                        ${product.sizes.map((size, index) => `
+                            <option value="${size.id}" data-price="${size.offer_price || size.price}" ${index === 0 ? 'selected' : ''}>
+                                ${size.size}
+                            </option>
+                        `).join('')}
+                    </select>
+                </div>
+            `;
+        }
+
+        modalBody.innerHTML = `
+            <div class="row g-4 align-items-center">
+                <div class="col-md-5">
+                    <div class="quick-modal-img-wrap" style="aspect-ratio: 4/5; overflow: hidden; background-color: var(--c-linen);">
+                        <img src="${product.prod_image}" alt="${product.prod_name}" class="w-100 h-100 object-fit-cover" onerror="this.onerror=null;this.src='/images/placeholder.png';">
+                    </div>
+                </div>
+                <div class="col-md-7 d-flex flex-column justify-content-between">
+                    <div>
+                        <h3 class="font-marcellus mb-2" style="font-size: 20px; line-height: 1.3; color: var(--c-primary);">${product.prod_name}</h3>
+                        
+                        <div class="quick-modal-price-block mb-4 pb-3 border-bottom-delicate">
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <span id="quickModalCurrentPrice" class="fs-4 fw-bold" style="color: var(--c-primary);"></span>
+                                <span id="quickModalOldPrice" class="text-decoration-line-through text-muted" style="font-size: 15px;"></span>
+                                <span id="quickModalSaveBadge" class="badge bg-gold text-dark rounded-0 px-2 py-1" style="font-size: 10px; letter-spacing: 1px; display: none;">SAVE</span>
+                            </div>
+                        </div>
+
+                        ${colorsHtml}
+                        ${sizesHtml}
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 mt-3">
+                        <button type="button" class="btn-luxury-solid w-100 font-marcellus fs-6" id="quickModalAddToCart" style="height: 48px;">
+                            Add to Cart
+                        </button>
+                        <button type="button" class="btn-luxury-outline w-100 font-marcellus fs-6" id="quickModalBuyNow" style="height: 48px;">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Price display logic helper
+        const updatePriceDisplay = (price, salePrice, offerPercentage) => {
+            const currentEl = document.getElementById('quickModalCurrentPrice');
+            const oldEl = document.getElementById('quickModalOldPrice');
+            const badgeEl = document.getElementById('quickModalSaveBadge');
+
+            if (salePrice && parseFloat(price) > parseFloat(salePrice)) {
+                currentEl.textContent = `₹${parseFloat(salePrice).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                oldEl.textContent = `₹${parseFloat(price).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                oldEl.style.display = 'inline';
+                if (offerPercentage > 0) {
+                    badgeEl.textContent = `SAVE ${offerPercentage}%`;
+                    badgeEl.style.display = 'inline-block';
+                } else {
+                    badgeEl.style.display = 'none';
+                }
+            } else {
+                currentEl.textContent = `₹${parseFloat(price || salePrice).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                oldEl.style.display = 'none';
+                badgeEl.style.display = 'none';
+            }
+        };
+
+        let selectedColorId = product.colors && product.colors.length > 0 ? product.colors[0].id : null;
+        let selectedSizeId = product.sizes && product.sizes.length > 0 ? product.sizes[0].id : null;
+
+        // Initialize display prices
+        if (selectedSizeId) {
+            const sizeModel = product.sizes[0];
+            updatePriceDisplay(sizeModel.price, sizeModel.offer_price, sizeModel.offer);
+        } else {
+            updatePriceDisplay(product.prod_price, product.prod_sale_price, product.offer_percentage);
+        }
+
+        // Color pills event bindings
+        const colorPills = modalBody.querySelectorAll('.quick-color-pill');
+        colorPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                selectedColorId = this.dataset.colorId;
+                colorPills.forEach(x => {
+                    x.style.borderColor = '#bbb';
+                    x.style.fontWeight = 'normal';
+                });
+                this.style.borderColor = 'var(--c-primary)';
+                this.style.fontWeight = '600';
+            });
+        });
+
+        // Size selector event bindings
+        const sizeSelect = document.getElementById('quickModalSizeSelect');
+        if (sizeSelect) {
+            sizeSelect.addEventListener('change', function() {
+                selectedSizeId = this.value;
+                const sizeModel = product.sizes.find(s => s.id == selectedSizeId);
+                if (sizeModel) {
+                    updatePriceDisplay(sizeModel.price, sizeModel.offer_price, sizeModel.offer);
+                }
+            });
+        }
+
+        // Add to Cart
+        const addBtn = document.getElementById('quickModalAddToCart');
+        addBtn.addEventListener('click', async () => {
+            if (product.colors && product.colors.length > 0 && !selectedColorId) {
+                this.showToast('Please select a color', 'error');
+                return;
+            }
+            if (product.sizes && product.sizes.length > 0 && !selectedSizeId) {
+                this.showToast('Please select a size', 'error');
+                return;
+            }
+
+            modal.hide();
+            await this.addToCart(product.id, 1, selectedSizeId || null, selectedColorId || null);
+        });
+
+        // Buy Now
+        const buyBtn = document.getElementById('quickModalBuyNow');
+        buyBtn.addEventListener('click', async () => {
+            if (product.colors && product.colors.length > 0 && !selectedColorId) {
+                this.showToast('Please select a color', 'error');
+                return;
+            }
+            if (product.sizes && product.sizes.length > 0 && !selectedSizeId) {
+                this.showToast('Please select a size', 'error');
+                return;
+            }
+
+            modal.hide();
+            await this.buyNow(product.id, 1, selectedSizeId || null, selectedColorId || null);
+        });
     },
 
     /**

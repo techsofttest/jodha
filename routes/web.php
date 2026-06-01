@@ -51,6 +51,7 @@ Route::get('/article/{slug}', [ArticalController::class, 'detail'])->name('artic
 
 Route::get('/products', [ProductController::class, 'index'])->name('product.index');
 Route::get('/products/material/{slug}', [ProductController::class, 'materialDetail'])->name('product.material.show');
+Route::get('/products/{id}/quick-info', [ProductController::class, 'quickInfo'])->name('product.quickInfo');
 Route::get('/products/{slug}', [ProductController::class, 'showDetails'])->name('product.show');
 
 Route::get('/search-suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');

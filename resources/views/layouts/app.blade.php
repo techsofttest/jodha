@@ -325,6 +325,19 @@ window.addEventListener('load', function () {
 
 
 
-</body>
+    <!-- Quick View / Variant Selector Modal -->
+    <div class="modal fade" id="quickVarModal" tabindex="-1" aria-labelledby="quickVarModalLabel" aria-hidden="true" style="z-index: 1055;">
+        <div class="modal-dialog modal-dialog-centered" style="background: var(--bg-color);">
+            <div class="modal-content rounded-0 border-0 shadow-lg" style="background-color: var(--bg-color); font-family: var(--f-body); color: var(--c-primary);">
+                <div class="modal-header border-0 pb-0 justify-content-end" style="padding: 1rem 1rem 0;">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none;"></button>
+                </div>
+                <div class="modal-body" id="quickVarModalBody" style="padding: 1.5rem 2rem 2.5rem;">
+                    <!-- Content populated via Ajax -->
+                </div>
+            </div>
+        </div>
+    </div>
 
+</body>
 </html>

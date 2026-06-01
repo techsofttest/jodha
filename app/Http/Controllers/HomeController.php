@@ -18,9 +18,10 @@ class HomeController extends Controller
         $data['seo'] = Seo::find(1);
 
         $data['home_collections'] = Collection::with(['products' => function ($q) {
-        $q->where('prod_isactive', 1)
+        $q->with(['colors', 'sizes'])
+          ->where('prod_isactive', 1)
           ->latest()
-          ->take(8);
+          ->take(5);
         }])
         ->orderBy('col_order', 'asc')
         ->take(5)

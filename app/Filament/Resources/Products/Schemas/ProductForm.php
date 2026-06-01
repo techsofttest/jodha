@@ -32,33 +32,6 @@ class ProductForm
 
                     Grid::make(3)->schema([
                         
-                        Grid::make(4)->schema([
-
-                        Toggle::make('prod_isactive')
-                            ->label('Product Active')
-                            ->default(true)
-                            ->inline(false),
-
-                        Toggle::make('prod_home')
-                            ->label('Home Product')
-                            ->inline(false),
-
-
-                            //Checkbox::make('prod_trending')
-                                //->label('Trending'),
-
-                            //Checkbox::make('prod_hotdeal')
-                                //->label('Hot Deal'),
-
-                            // Checkbox::make('prod_deal_of_day')
-                            //     ->label('Deal of the Day'),
-
-                            //Checkbox::make('prod_new_arrival')
-                                //->label('New Arrival'),
-
-                        ])->columnSpanFull(),
-
-                        
 
                         Select::make('prod_cat_id')
                             ->label('Category')
@@ -90,6 +63,8 @@ class ProductForm
                                 fn($set) =>
                                 $set('prod_col_id', null)
                             ),
+
+                        Select::make(''),
 
                         Select::make('prod_col_id')
                             ->label('Collection')

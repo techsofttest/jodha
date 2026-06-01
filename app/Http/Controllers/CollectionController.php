@@ -29,7 +29,7 @@ class CollectionController extends Controller
         $data['collection'] = Collection::where('col_slug', $slug)->firstOrFail();
         
         // You can paginate the products or just get them all. Using get() as requested.
-        $data['products'] = $data['collection']->products()->where('prod_isactive', 1)->get();
+        $data['products'] = $data['collection']->products()->with(['colors', 'sizes'])->where('prod_isactive', 1)->get();
         
         return view('pages.collection-detail', $data);
     }

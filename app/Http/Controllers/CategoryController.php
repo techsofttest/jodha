@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $data['seo'] = Seo::find(1);
         $data['category'] = \App\Models\Category::where('slug', $slug)->firstOrFail();
         
-        $data['products'] = $data['category']->products()->where('prod_isactive', 1)->get();
+        $data['products'] = $data['category']->products()->with(['colors', 'sizes'])->where('prod_isactive', 1)->get();
         
         return view('pages.category-detail', $data);
     }

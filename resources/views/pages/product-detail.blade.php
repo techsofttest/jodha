@@ -6,8 +6,10 @@
 
 @endsection
 
+@section('title',$product->meta_title)
 
-
+@section('meta_description',$product->meta_description)
+ 
 @section('content')
 
      
@@ -248,9 +250,8 @@
 
                                 {{-- Hidden select preserved for existing JS validation/behavior --}}
                                 <select id="pdpColorSelect" class="d-none" aria-hidden="true">
-                                    <option value="" disabled selected>Select Color</option>
                                     @foreach($product->colors as $color)
-                                    <option value="{{ $color->id }}">{{ $color->color_name }}</option>
+                                    <option value="{{ $color->id }}" {{ $loop->first ? 'selected' : '' }}>{{ $color->color_name }}</option>
                                     @endforeach
                                 </select>
 
@@ -262,7 +263,7 @@
                                         data-color-id="{{ $color->id }}"
                                         data-color-name="{{ $color->color_name }}"
                                         title="{{ $color->color_name }}"
-                                        style="background-color: transparent; color: #222; border:2px solid #bbb; padding:6px 12px; border-radius:20px; min-width:auto;">
+                                        style="background-color: transparent; color: #222; border:2px solid {{ $loop->first ? 'var(--c-primary)' : '#bbb' }}; font-weight: {{ $loop->first ? '600' : 'normal' }}; padding:6px 12px; border-radius:20px; min-width:auto;">
                                         {{ $color->color_name }}
                                     </button>
                                     @endforeach
@@ -278,9 +279,8 @@
                                 style="font-family: var(--f-body); font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--c-primary);">Sizes</label>
                             <div class="d-flex flex-wrap gap-2">
                                 <select id="pdpSizeSelect" class="form-select rounded-0 border-dark" style="width: auto; min-width: 150px; font-family: var(--f-body); font-size: 13px; font-weight: 500;">
-                                    <option value="" disabled selected>Select Size</option>
                                     @foreach($product->sizes as $size)
-                                    <option value="{{ $size->id }}" data-price="{{ $size->offer_price ?? $size->price }}">{{ $size->size }}</option>
+                                    <option value="{{ $size->id }}" data-price="{{ $size->offer_price ?? $size->price }}" {{ $loop->first ? 'selected' : '' }}>{{ $size->size }}</option>
                                     @endforeach
                                 </select>
                             </div>

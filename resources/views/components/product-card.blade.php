@@ -1,5 +1,3 @@
-
-
 <div class="col product-item">
 
 <a href="{{ route('product.show', $product->prod_slug) }}"
@@ -24,7 +22,7 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>-->
 
-            <button href="{{ route('product.show', $product->prod_slug) }}" class="hover-action-btn" title="Add to Cart" role="button">
+            <button type="button" class="hover-action-btn js-add-to-cart-btn" title="Add to Cart" role="button" data-product-id="{{ $product->id }}" data-has-variants="{{ ($product->colors->count() > 0 || $product->sizes->count() > 0) ? 'true' : 'false' }}">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

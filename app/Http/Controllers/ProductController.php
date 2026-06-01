@@ -109,7 +109,7 @@ class ProductController extends Controller
             ->firstOrFail();
 
         // Related products from the same category, excluding current product
-        $relatedProducts = Product::with(['colors'])
+        $relatedProducts = Product::with(['colors', 'sizes'])
             ->where('prod_cat_id', $product->prod_cat_id)
             ->where('id', '!=', $product->id)
             ->where('prod_isactive', true)
@@ -125,5 +125,26 @@ class ProductController extends Controller
         $data['partners'] = $partners;
         
         return view('pages.product-detail', $data);
+    }
+
+    public function quickInfo($id)
+    {
+        $product = Product::with(['colors', 'sizes', 'images'])
+            ->where('prod_isactive', 1)
+            ->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'product' => [
+                'id' => $product->id,
+                'prod_name' => $product->prod_name,
+                'prod_image' => asset('storage/' . $product->prod_image),
+                'prod_price' => $product->prod_price,
+                'prod_sale_price' => $product->prod_sale_price,
+                'offer_percentage' => $product->offer_percentage,
+                'colors' => $product->colors,
+                'sizes' => $product->sizes,
+            ]
+        ]);
     }
 }
