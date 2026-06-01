@@ -64,8 +64,6 @@ class ProductForm
                                 $set('prod_col_id', null)
                             ),
 
-                        Select::make(''),
-
                         Select::make('prod_col_id')
                             ->label('Collection')
                             ->relationship(
