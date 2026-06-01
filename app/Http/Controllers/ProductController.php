@@ -129,7 +129,7 @@ class ProductController extends Controller
 
     public function quickInfo($id)
     {
-        $product = Product::with(['colors', 'sizes', 'images'])
+        $product = Product::with(['colors', 'sizes', 'images', 'category', 'subcategory', 'material'])
             ->where('prod_isactive', 1)
             ->findOrFail($id);
 
@@ -138,12 +138,34 @@ class ProductController extends Controller
             'product' => [
                 'id' => $product->id,
                 'prod_name' => $product->prod_name,
+                'prod_slug' => $product->prod_slug,
+                'prod_sku_code' => $product->prod_sku_code,
                 'prod_image' => asset('storage/' . $product->prod_image),
                 'prod_price' => $product->prod_price,
                 'prod_sale_price' => $product->prod_sale_price,
                 'offer_percentage' => $product->offer_percentage,
+                'prod_description' => $product->prod_description,
+                'prod_material' => $product->prod_material,
+                'prod_measurements' => $product->prod_measurements,
                 'colors' => $product->colors,
                 'sizes' => $product->sizes,
+                'images' => $product->images->map(function ($img) {
+                    return [
+                        'id' => $img->id,
+                        'image_path' => asset('storage/' . $img->image_path),
+                    ];
+                }),
+                'category' => $product->category ? [
+                    'name' => $product->category->name,
+                    'slug' => $product->category->slug,
+                ] : null,
+                'subcategory' => $product->subcategory ? [
+                    'subcat_name' => $product->subcategory->subcat_name,
+                ] : null,
+                'material' => $product->material ? [
+                    'name' => $product->material->name,
+                ] : null,
+                'url' => route('product.show', $product->prod_slug),
             ]
         ]);
     }

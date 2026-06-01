@@ -339,5 +339,20 @@ window.addEventListener('load', function () {
         </div>
     </div>
 
+    <!-- Quick View Full Detail Modal -->
+    <div class="modal fade" id="quickViewDetailModal" tabindex="-1" aria-labelledby="quickViewDetailModalLabel" aria-hidden="true" style="z-index: 1056;">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-0 border-0 shadow-lg" style="background-color: var(--bg-color, #fcf8f1); font-family: var(--f-body); color: var(--c-primary);">
+                <div class="modal-header border-0 pb-0 justify-content-between align-items-center" style="padding: 1rem 1.5rem 0;">
+                    <span class="font-marcellus text-muted" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase;">Quick View</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="box-shadow: none;"></button>
+                </div>
+                <div class="modal-body" id="quickViewDetailBody" style="padding: 1.5rem;">
+                    <!-- Content populated via Ajax -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

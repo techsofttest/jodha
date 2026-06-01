@@ -1273,6 +1273,25 @@ body {
     }
 }
 
+/* --- Quick View Detail Modal Styles --- */
+#quickViewDetailModal .modal-content {
+    max-height: 90vh;
+}
+
+#quickViewDetailModal .qv-thumbs::-webkit-scrollbar {
+    display: none;
+}
+
+#quickViewDetailModal .accordion-item {
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+#quickViewDetailModal .accordion-button::after {
+    width: 14px;
+    height: 14px;
+    background-size: 14px;
+}
+
 
 
 

@@ -18,9 +18,9 @@
         @endif
 
         <div class="card-hover-actions">
-          <!--  <button class="hover-action-btn" title="Quick View">
+            <button type="button" class="hover-action-btn js-quick-view-btn" title="Quick View" data-product-id="{{ $product->id }}">
                 <i class="fa-solid fa-magnifying-glass"></i>
-            </button>-->
+            </button>
 
             <button type="button" class="hover-action-btn js-add-to-cart-btn" title="Add to Cart" role="button" data-product-id="{{ $product->id }}" data-has-variants="{{ ($product->colors->count() > 0 || $product->sizes->count() > 0) ? 'true' : 'false' }}">
                 <i class="fa-solid fa-plus"></i>
