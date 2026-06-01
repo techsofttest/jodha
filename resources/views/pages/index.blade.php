@@ -69,36 +69,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    
 
-     @if(isset($home_collections[1])) 
+
+
+    @if(isset($home_collections[0]))
     <section class="product-section py-5">
 
-        <div
-            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$home_collections[1]->col_name}}</h2>
-            <a href="{{ route('collections.show', $home_collections[1]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+        <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+            <h2 class="section-title m-0">{{ $home_collections[0]->col_name }}</h2>
+            <a href="{{ route('collections.show', $home_collections[0]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row g-4 pb-3">
+            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
 
-                @foreach($home_collections[1]->products as $product)
+
+
+                @foreach($home_collections[0]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
                 @endforeach
 
+
             </div>
         </div>
     </section>
-
     @endif
-
-
-
-
-
 
 
 
@@ -234,29 +231,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        @if(isset($home_collections[0]))
+
+
+
+
+
+
+     @if(isset($home_collections[1])) 
     <section class="product-section py-5">
 
-        <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{ $home_collections[0]->col_name }}</h2>
-            <a href="{{ route('collections.show', $home_collections[0]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+        <div
+            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+            <h2 class="section-title m-0">{{$home_collections[1]->col_name}}</h2>
+            <a href="{{ route('collections.show', $home_collections[1]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
         </div>
 
         <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+            <div class="row mobile-swipe-row g-4 pb-3">
 
-
-
-                @foreach($home_collections[0]->products as $product)
+                @foreach($home_collections[1]->products as $product)
 
                 @include('components.product-card',['product' => $product])
 
                 @endforeach
 
-
             </div>
         </div>
     </section>
+
     @endif
 
 
