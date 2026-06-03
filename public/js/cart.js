@@ -31,8 +31,8 @@ const JodhaCart = {
                 // Add directly to cart
                 this.addToCart(productId, 1);
             } else {
-                // Open variant selector popup
-                this.openVariantModal(productId);
+                // Open quick view popup (previously variant selector popup)
+                this.openQuickViewModal(productId);
             }
         });
     },
