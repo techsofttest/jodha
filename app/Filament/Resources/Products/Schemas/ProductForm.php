@@ -253,7 +253,7 @@ class ProductForm
                 ])->columnSpanFull(),
 
 
-            /*Section::make('Product Gallery')
+            Section::make('Product Gallery')
                 ->collapsible()
                 ->schema([
                     Repeater::make('images')
@@ -268,7 +268,7 @@ class ProductForm
                         ])
                         ->addActionLabel('Add Image')
                         ->defaultItems(0),
-                ])->columnSpanFull(),*/
+                ])->columnSpanFull(),
 
             /* ================= DETAILS ================= */
 
