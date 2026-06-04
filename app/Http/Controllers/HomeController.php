@@ -33,6 +33,8 @@ class HomeController extends Controller
         $data['home_product'] = \App\Models\Product::with(['sizes', 'colors', 'images', 'category', 'subcategory'])
             ->where('prod_home', 1)
             ->first();
+
+        $data['partners'] = \App\Models\Partner::all();
             
         return view('pages.index',$data);
 

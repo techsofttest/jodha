@@ -69,6 +69,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+    
+    <!-- Trusted Partners -->
+    <section class="partners-section py-5">
+        <div class="container-fluid px-0">
+
+            <div class="text-center mb-5">
+                <span class="text-gold text-uppercase letter-spacing-3 text-small d-block mb-3">In Collaboration
+                    With</span>
+                <h2 class="font-heading" style="color: var(--c-primary); font-size: 2.5rem; font-weight: 400;">
+                    Our Trusted Partners
+                </h2>
+            </div>
+
+            <div class="partners-marquee-wrapper pt-4">
+                <div class="partners-track">
+
+                    <div class="partners-group">
+                        @foreach($partners as $partner)
+                        <div class="partner-logo">
+                            <img src="{{ asset('storage/' . $partner->image) }}" alt="{{ $partner->title }}">
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <div class="partners-group" aria-hidden="true">
+                        @foreach($partners as $partner)
+                        <div class="partner-logo">
+                            <img src="{{ asset('storage/' . $partner->image) }}" alt="{{ $partner->title }}">
+                        </div>
+                        @endforeach
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
 
 
 

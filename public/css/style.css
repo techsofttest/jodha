@@ -1635,7 +1635,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 .partner-logo img {
     width: 100%;
     height: auto;
-    max-height: 72px;
+    max-height: 90px;
     object-fit: contain;
 
     /* The Luxury Fix */
@@ -1717,7 +1717,7 @@ input[type="search"]::-webkit-search-cancel-button:hover {
 }
 
 .featured-logo img {
-    max-height: 40px;
+    max-height: 90px;
     /* Keeps logos small and elegant like the reference */
     width: auto;
     max-width: 100%;

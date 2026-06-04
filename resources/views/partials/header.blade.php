@@ -333,10 +333,40 @@
 
                 @foreach($header_categories as $category)
                 
-                <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">Coffee
+                <li><a href="#" class="text-dark text-decoration-none font-heading" style="font-size: 16px;">
                             {{ $category->name }}</a></li>
 
                 @endforeach
+                
+                </ul>
+            </div>
+
+
+            <div class="mobile-nav-section pt-3 mb-4">
+                <h6 class="font-heading mb-3" style="font-size: 15px; font-weight: 600;">About Us</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                    
+                 <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('about') }}">Our Story</a></li>
+                <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('article.index') }}">Article</a></li>
+                <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('product.index') }}">All Products</a></li>
+
+                
+                </ul>
+            </div>
+
+
+
+            <div class="mobile-nav-section pt-3 mb-4">
+                <h6 class="font-heading mb-3" style="font-size: 15px; font-weight: 600;">Help & Information</h6>
+                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                 
+                 <li><a href="{{ route('policy.refund') }}">Return Policy</a></li>
+                        <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('policy.privacy') }}">Privacy Policy</a></li>
+                        <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('policy.shipping') }}">Shipping Policy</a></li>
+                        <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('policy.terms') }}">Terms & Conditions</a></li>
+                        <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('contact') }}">Contact Us</a></li>
+                        <li><a class="text-dark text-decoration-none font-heading" style="font-size: 16px;" href="{{ route('faq') }}">FAQs</a></li>
+
                 
                 </ul>
             </div>
