@@ -54,7 +54,7 @@ src="https://www.facebook.com/tr?id=1591339188632110&ev=PageView&noscript=1"
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{asset('css/stylenew.css?v1.2')}}">
+    <link rel="stylesheet" href="{{asset('css/stylenew.css?v1.3')}}">
 
     
         
