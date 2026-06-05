@@ -7,27 +7,150 @@
             <h1 class="font-heading mb-4 text-center">Privacy Policy</h1>
             <div class="card border-0 shadow-sm p-4 p-lg-5" style="background-color: var(--c-white);">
                 <div class="prose">
-                    <p class="lead">Your privacy is important to us. It is Jodha Furniture's policy to respect your privacy regarding any information we may collect from you across our website, <a href="{{ url('/') }}">{{ url('/') }}</a>, and other sites we own and operate.</p>
-                    
-                    <h4 class="mt-5 mb-3">1. Information we collect</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Satius est enim ad omnia respondere, quae a te dicta sunt. Duo Reges: constructio interrete. Quid ergo attinet dicere: Nihil haberem, quod reprehenderem, si finitas cupiditates haberent? Quoniam, si dissimiles essent, anteerepuerent.</p>
-                    
-                    <h4 class="mt-4 mb-3">2. How we use your information</h4>
-                    <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum porta. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus.</p>
-                    
-                    <h4 class="mt-4 mb-3">3. Data security</h4>
-                    <p>Nulla porttitor accumsan tincidunt. Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat.</p>
-                    
-                    <h4 class="mt-4 mb-3">4. Cookies</h4>
-                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla quis lorem ut libero malesuada feugiat. Donec sollicitudin molestie malesuada. Pellentesque in ipsum id orci porta dapibus.</p>
-                    
-                    <h4 class="mt-4 mb-3">5. Third-party services</h4>
-                    <p>Quisque velit nisi, pretium ut lacinia in, elementum id enim. Sed porttitor lectus nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
-                    
-                    <h4 class="mt-4 mb-3">6. Changes to this policy</h4>
-                    <p>Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
-                    
+
+                <p>
+                  At Jodha, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide to us when you use our website or interact with us in any other way. By accessing or using our services, you agree to the terms of this Privacy Policy.
+
+
+Information We Collect
+
+When you visit our website or communicate with us through email or phone, we may collect various types of information, including:
+
+
+Personal Information: your name, email address, phone number, and postal address, which you provide to us when you make a purchase, create an account, or sign up for our newsletter.
+Payment Information: such as credit card details, which you provide when making a purchase through our website. Please note that we do not store your payment information; it is securely processed by our payment service providers.
+Device and Usage Information: such as your IP address, browser type, operating system, and other technical information collected automatically when you visit our website.
+Cookies: we use cookies and similar tracking technologies to enhance your experience on our website, analyze trends, and gather information about how you interact with our site.
+
+</p>
+<p>
+
+How We Use Your Information
+
+We use the information we collect for various purposes, including:
+
+
+Providing and improving our products and services.
+Processing and fulfilling your orders.
+Communicating with you about your orders, inquiries, and other requests.
+Sending you promotional offers, newsletters, and other marketing communications.
+Customizing your experience on our website and optimizing our site's performance.
+Complying with legal obligations and enforcing our terms and policies.
+
+</p>
+
+<p>
+
+How We Share Your Information
+
+We may share your personal information with third parties in the following circumstances:
+
+
+Service Providers: we may share your information with third-party service providers who help us operate our business, such as payment processors, shipping carriers, and IT service providers.
+Legal Compliance: we may disclose your information when required by law or in response to lawful requests from government authorities or law enforcement agencies.
+Business Transfers: if we are involved in a merger, acquisition, or sale of assets, your information may be transferred to the acquiring entity as part of the transaction.
+With Your Consent: we may share your information with third parties if you give us consent to do so.
+
+</p>
+
+<p>
+
+Your Choices
+
+You have the following choices regarding your personal information:
+
+
+You can update or correct your personal information by logging into your account on our website or contacting us directly.
+You can opt out of receiving marketing communications from us by following the unsubscribe instructions provided in the emails we send you.
+You can disable cookies in your browser settings, although this may affect your ability to access certain features of our website.
+
+</p>
+
+<p>
+
+Data Security
+
+We take the security of your personal information seriously and implement appropriate technical and organizational measures to protect it against unauthorized access, disclosure, alteration, or destruction.
+
+</p>
+
+<p>
+
+Children's Privacy
+
+Our website and services are not intended for children under the age of 18, and we do not knowingly collect personal information from individuals under 18 years of age.
+
+</p>
+
+<p>
+
+Data Retention
+
+We will retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. When we no longer need to retain your information, we will securely dispose of it in accordance with our data retention policies.
+
+</p>
+<p>
+
+International Transfers
+
+If you are accessing our website from outside of India, please be aware that your information may be transferred to, stored, and processed in India or other countries where our servers are located and our central database is operated. By using our website or providing us with your information, you consent to the transfer of your information to India and other countries as described in this Privacy Policy.
+
+</p>
+<p>
+
+Third-Party Links
+
+Our website may contain links to third-party websites or services that are not owned or controlled by Jodha. We are not responsible for the privacy practices or content of these third-party sites. We encourage you to review the privacy policies of those sites before providing any personal information.
+
+</p>
+<p>
+
+Consent
+
+By using our website or providing us with your personal information, you consent to collecting, using, and sharing your information as described in this Privacy Policy.
+
+</p>
+<p>
+
+Your Rights
+
+Depending on your jurisdiction, you may have certain rights regarding your personal information, such as the right to access, correct, or delete your information, the right to object to the processing of your information and the right to data portability. If you would like to exercise any of these rights, please contact us using the information provided in this Privacy Policy.
+
+</p>
+<p>
+
+Changes to This Privacy Policy
+
+We may update this Privacy Policy occasionally to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated Privacy Policy on our website.
+
+</p>
+
+
+<p>
+
+Contact Us
+
+If you have any questions or concerns about this Privacy Policy or our privacy practices, you can contact us at:
+
+<br>
+Jodha
+<br>
+8th Cross, Street B,
+<br>
+Ambikapuram Rd, Panampilly Nagar,
+<br>
+Ernakulam, Kerala 682036
+<br>
+Email: business@jodhafurniture.com
+<br>
+Phone: +91 98955 99002
+
+</p>
+
+
                     <p class="mt-5 text-muted small">Last updated: {{ date('F d, Y') }}</p>
+
+
                 </div>
             </div>
         </div>
