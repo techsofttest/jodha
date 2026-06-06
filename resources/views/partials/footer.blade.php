@@ -66,9 +66,7 @@ https://www.instagram.com/jodhafurniture.official_store?igsh=MWxjcTd0a2VpNTI2aw=
             <div class="row">
                 <div class="col-12 text-center">
                     <p class="copyright-text font-jost mb-0">
-                        Copyright &copy; @php echo date('Y') @endphp <a href="#" class="ms-2" style="text-decoration: none;">Techsoft Web
-                            Solutions</a> | All Rights
-                        Reserved
+                        Copyright &copy; @php echo date('Y') @endphp | All Rights Reserved
                     </p>
                 </div>
             </div>

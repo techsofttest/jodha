@@ -29,7 +29,7 @@
                     <div class="mx-auto border-top-gold pt-4 mt-2 animate-reveal delay-2" style="max-width: 600px;">
                         <p class="lead opacity-75 mb-0"
                             style="font-family: var(--f-body); font-weight: 300; letter-spacing: 0.5px;">
-                            At Jodha, we believe that furniture should do more than just fill a room—it should transform
+                            At Ashborn, we believe that furniture should do more than just fill a room—it should transform
                             a space, tell a story, and elevate the atmosphere of a home.
                         </p>
                     </div>

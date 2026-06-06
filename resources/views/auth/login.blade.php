@@ -69,7 +69,7 @@
                     </div>
 
                     <div class="mt-auto pb-2 pt-2">
-                        <p class="mb-0 text-muted small letter-spacing-1">© {{ date('Y') }} JODHA FURNITURE</p>
+                        <p class="mb-0 text-muted small letter-spacing-1">© {{ date('Y') }} ASHBORN FURNITURE</p>
                     </div>
                 </div>
 
@@ -88,11 +88,11 @@
                             Club</span>
                         @php
                             $__lastCoupon = \App\Models\Coupon::latest()->first();
-                            $__couponCode = $__lastCoupon->coupon_code ?? 'JODHA20';
+                            $__couponCode = $__lastCoupon->coupon_code ?? '';
                             $__couponLabel = '';
                             if ($__lastCoupon) {
                                 if ($__lastCoupon->coupon_type == 1) {
-                                    $__couponLabel = $__lastCoupon->coupon_amount . '% Off';
+                                    $__couponLabel = round($__lastCoupon->coupon_amount) . '% Off';
                                 } else {
                                     $__couponLabel = '₹' . number_format($__lastCoupon->coupon_amount, 2) . ' Off';
                                 }

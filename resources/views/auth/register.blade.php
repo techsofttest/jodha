@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="mt-auto pb-2 pt-2">
-                        <p class="mb-0 text-muted small letter-spacing-1">© {{ date('Y') }} JODHA FURNITURE</p>
+                        <p class="mb-0 text-muted small letter-spacing-1">© {{ date('Y') }} ASHBORN FURNITURE</p>
                     </div>
                 </div>
 

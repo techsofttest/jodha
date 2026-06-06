@@ -27,7 +27,7 @@
             <div class="text-center mb-5 pb-lg-5">
                 <span class="text-gold text-uppercase letter-spacing-3 d-block mb-3"
                     style="font-size: 10px; font-weight: 600;">At Your Service</span>
-                <h2 class="font-heading display-5 mb-0 fw-light" style="color: var(--c-primary);">Reach Out to Jodha Furniture
+                <h2 class="font-heading display-5 mb-0 fw-light" style="color: var(--c-primary);">Reach Out to Ashborn Furniture
                 </h2>
             </div>
 
@@ -50,7 +50,7 @@
 
                         <div class="admin-safe-content flex-grow-1"
                             style="font-family: var(--f-body); font-size: 13px; line-height: 2; color: #777;">
-                            Jodha Furniture<br>
+                            Ashborn Furniture<br>
                             Ashborn Collective Pvt Ltd<br>
                             8th Cross Road Opp. French Toast<br>
                             Panampilly Nagar - 682036<br>
