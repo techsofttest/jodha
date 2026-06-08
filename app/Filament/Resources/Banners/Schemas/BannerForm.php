@@ -19,6 +19,7 @@ class BannerForm
                         ->maxLength(255),*/
                     FileUpload::make('image')
                         ->image()
+                        ->disk('public')
                         ->directory('banners')
                         ->required(),
                     /*FileUpload::make('high_res_image')
