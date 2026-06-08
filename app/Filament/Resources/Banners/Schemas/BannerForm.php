@@ -13,8 +13,8 @@ class BannerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
-                Grid::make(1)->schema([
                     /*TextInput::make('title')
                         ->maxLength(255),*/
                     FileUpload::make('image')
@@ -32,7 +32,6 @@ class BannerForm
                         ->default(0),*/
                     /*Toggle::make('is_active')
                         ->default(true),*/
-                ])
             ]);
     }
 }

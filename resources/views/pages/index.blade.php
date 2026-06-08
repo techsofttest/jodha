@@ -39,16 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 @if(isset($banners) && $banners->isNotEmpty())
                     @foreach($banners as $index => $banner)
                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                            @if($banner->link)
-                                <a href="{{ $banner->link }}">
-                            @endif
+                           
                             <img src="{{ asset('storage/'.$banner->image) }}" 
-                                @if($banner->high_res_image) data-src="{{ asset('storage/'.$banner->high_res_image) }}" @else data-src="{{ asset('storage/'.$banner->image) }}" @endif 
-                                class="d-block w-100 hero-img lazy-upgrade"
+                                class="d-block w-100 hero-img"
                                 alt="{{ $banner->title ?? 'Banner' }}">
-                            @if($banner->link)
-                                </a>
-                            @endif
+                            
                         </div>
                     @endforeach
                 @else
