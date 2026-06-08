@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\HomePageSection;
 
 class Category extends Model
 {
@@ -20,6 +21,14 @@ class Category extends Model
                 $slug = $originalSlug . '-' . $count++;
             }
             $category->slug = $slug;
+        });
+
+        static::saved(function () {
+            HomePageSection::clearHomepageCache();
+        });
+
+        static::deleted(function () {
+            HomePageSection::clearHomepageCache();
         });
     }
 

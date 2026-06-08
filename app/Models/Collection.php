@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\HomePageSection;
 
 class Collection extends Model
 {
@@ -42,6 +43,14 @@ class Collection extends Model
                 $slug = $originalSlug . '-' . $count++;
             }
             $collection->col_slug = $slug;
+        });
+
+        static::saved(function () {
+            HomePageSection::clearHomepageCache();
+        });
+
+        static::deleted(function () {
+            HomePageSection::clearHomepageCache();
         });
     }
 }

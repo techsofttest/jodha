@@ -9,8 +9,8 @@
                 <div class="prose">
                     <p class="lead">We deliver our high-quality furniture across India and select international locations with care.</p>
                     
-                    <h4 class="mt-5 mb-3">Jodha Furniture Delivery Policy</h4>
-                    <p>At Jodha Furniture, we take pride in delivering beautifully crafted, 100% handmade and handcrafted inlay furniture that exemplifies pure craftsmanship. Due to the intricate nature of our work, delivery timelines vary depending on the type of product ordered.</p>
+                    <h4 class="mt-5 mb-3">Ashborn Furnitures Delivery Policy</h4>
+                    <p>At Ashborn Furniture, we take pride in delivering beautifully crafted, 100% handmade and handcrafted inlay furniture that exemplifies pure craftsmanship. Due to the intricate nature of our work, delivery timelines vary depending on the type of product ordered.</p>
                     
                     <h4 class="mt-4 mb-3">Delivery Timeframes</h4>
                     <p>
@@ -49,7 +49,7 @@ If your product arrives damaged and cannot be amended, we will arrange for a rep
                     <h4 class="mt-4 mb-3">Custom Orders</h4>
                     <p>We welcome customized orders to create something truly unique for your space. If you're interested in a custom piece, please reach out to us at business@jodhafurniture.com or fill out the customization form on our website. Our team will get in touch with you to bring your vision to life.</p>
                     
-                    <p>Thank you for choosing Jodha Furniture!</p>
+                    <p>Thank you for choosing Ashborn Furniture!</p>
 
                     <p class="mt-5 text-muted small">Last updated: {{ date('F d, Y') }}</p>
                 </div>

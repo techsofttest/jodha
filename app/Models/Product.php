@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\HomePageSection;
 
 class Product extends Model
 {
@@ -71,6 +72,14 @@ class Product extends Model
             if ($product->prod_home) {
                 static::where('id', '!=', $product->id)->update(['prod_home' => false]);
             }
+        });
+
+        static::saved(function () {
+            HomePageSection::clearHomepageCache();
+        });
+
+        static::deleted(function () {
+            HomePageSection::clearHomepageCache();
         });
     }
 

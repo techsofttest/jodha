@@ -9,7 +9,7 @@
                 <div class="prose">
 
                <p class="lead">
-    At Jodha, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide to us when you use our website or interact with us in any other way. By accessing or using our services, you agree to the terms of this Privacy Policy.
+    At Ashborn, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, disclose, and protect the information you provide to us when you use our website or interact with us in any other way. By accessing or using our services, you agree to the terms of this Privacy Policy.
 </p>
 
 <h4 class="mt-5 mb-3">Information We Collect</h4>
@@ -62,7 +62,7 @@
 <p>If you are accessing our website from outside of India, please be aware that your information may be transferred to, stored, and processed in India or other countries where our servers are located and our central database is operated. By using our website or providing us with your information, you consent to the transfer of your information to India and other countries as described in this Privacy Policy.</p>
 
 <h4 class="mt-4 mb-3">Third-Party Links</h4>
-<p>Our website may contain links to third-party websites or services that are not owned or controlled by Jodha. We are not responsible for the privacy practices or content of these third-party sites. We encourage you to review the privacy policies of those sites before providing any personal information.</p>
+<p>Our website may contain links to third-party websites or services that are not owned or controlled by Ashborn Furniture. We are not responsible for the privacy practices or content of these third-party sites. We encourage you to review the privacy policies of those sites before providing any personal information.</p>
 
 <h4 class="mt-4 mb-3">Consent</h4>
 <p>By using our website or providing us with your personal information, you consent to the collection, use, and sharing of your information as described in this Privacy Policy.</p>
@@ -77,7 +77,7 @@
 <p>If you have any questions or concerns about this Privacy Policy or our privacy practices, you can contact us at:</p>
 
 <p>
-    <strong>Jodha</strong><br>
+    <strong>Ashborn Furniture</strong><br>
     8th Cross, Street B,<br>
     Ambikapuram Rd, Panampilly Nagar,<br>
     Ernakulam, Kerala 682036<br><br>

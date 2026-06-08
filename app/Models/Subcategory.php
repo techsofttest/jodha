@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\HomePageSection;
 
 class Subcategory extends Model
 {
@@ -30,6 +31,14 @@ class Subcategory extends Model
                 $slug = $originalSlug . '-' . $count++;
             }
             $subcategory->subcat_slug = $slug;
+        });
+
+        static::saved(function () {
+            HomePageSection::clearHomepageCache();
+        });
+
+        static::deleted(function () {
+            HomePageSection::clearHomepageCache();
         });
     }
 }

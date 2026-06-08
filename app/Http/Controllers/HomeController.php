@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Seo;
 use App\Models\Collection;
 use App\Models\Category;
+use App\Models\HomePageSection;
+use Illuminate\Support\Facades\Cache;
 
 
 
@@ -17,16 +19,19 @@ class HomeController extends Controller
     {
         $data['seo'] = Seo::find(1);
 
-        $data['home_collections'] = Collection::with(['products' => function ($q) {
-        $q->with(['colors', 'sizes'])
-          ->where('prod_isactive', 1)
-          ->latest()
-          ->take(5);
-        }])
-        ->orderBy('col_order', 'asc')
-        ->take(5)
-        ->get()
-        ->values(); 
+        // Dynamic homepage sections with caching
+        $data['home_sections'] = Cache::rememberForever('homepage_sections_with_products', function () {
+            $sections = HomePageSection::where('status', true)
+                ->orderBy('display_order', 'asc')
+                ->get();
+
+            // Eager-load products for each section
+            foreach ($sections as $section) {
+                $section->cached_products = $section->getProducts();
+            }
+
+            return $sections;
+        });
 
         $data['collections'] = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
 
@@ -35,6 +40,8 @@ class HomeController extends Controller
             ->first();
 
         $data['partners'] = \App\Models\Partner::all();
+
+        $data['banners'] = \App\Models\Banner::where('is_active', true)->orderBy('order')->get();
             
         return view('pages.index',$data);
 
