@@ -16,7 +16,9 @@ class BannersTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                ->disk('public')
+                ->visibility('public'),
                 /*TextColumn::make('title')
                     ->searchable(),*/
                 /*TextColumn::make('order')
