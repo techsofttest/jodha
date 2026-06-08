@@ -14,23 +14,18 @@ use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
-   
+
     public function index()
     {
         $data['seo'] = Seo::find(1);
 
-        // Dynamic homepage sections with caching
+        // Dynamic homepage sections keyed by display_order for direct access in the view
         $data['home_sections'] = Cache::rememberForever('homepage_sections_with_products', function () {
-            $sections = HomePageSection::where('status', true)
+            return HomePageSection::where('status', true)
                 ->orderBy('display_order', 'asc')
-                ->get();
-
-            // Eager-load products for each section
-            foreach ($sections as $section) {
-                $section->cached_products = $section->getProducts();
-            }
-
-            return $sections;
+                ->get()
+                ->each(fn($section) => $section->cached_products = $section->getProducts())
+                ->keyBy('display_order');
         });
 
         $data['collections'] = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
@@ -42,9 +37,8 @@ class HomeController extends Controller
         $data['partners'] = \App\Models\Partner::all();
 
         $data['banners'] = \App\Models\Banner::where('is_active', true)->orderBy('order')->get();
-            
-        return view('pages.index',$data);
 
+        return view('pages.index', $data);
     }
 
     public function about()
@@ -54,7 +48,4 @@ class HomeController extends Controller
         $data['cms'] = \App\Models\Cms::find(2);
         return view('pages.about', $data);
     }
-
-
 }
-

@@ -17,11 +17,11 @@ class BannersTable
         return $table
             ->columns([
                 ImageColumn::make('image'),
-                TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('order')
+                /*TextColumn::make('title')
+                    ->searchable(),*/
+                /*TextColumn::make('order')
                     ->sortable(),
-                ToggleColumn::make('is_active'),
+                ToggleColumn::make('is_active'),*/
             ])
             ->filters([
                 //

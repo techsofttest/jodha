@@ -124,205 +124,147 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    @if(isset($home_sections) && $home_sections->count() > 0)
-        @foreach($home_sections as $section)
-
-            {{-- Product Section --}}
-            @if($section->cached_products && $section->cached_products->count() > 0)
-            <section class="product-section py-5">
-                <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-                    <h2 class="section-title m-0">{{ $section->title }}</h2>
-                    <a href="{{ $section->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
-                </div>
-
-                <div class="container-fluid px-4 px-lg-5">
-                    <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
-                        @foreach($section->cached_products as $product)
-                            @include('components.product-card', ['product' => $product])
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-            @endif
-
-            {{-- After first section: Featured Product --}}
-            @if($loop->index === 0 && isset($home_product))
-            <section class="container-fluid product-detail-section py-5 px-5">
-                <div class="row">
-                    <div class="col-md-6 product-gallery-container">
-                        <div class="product-gallery-inner sticky-top" style="top: 20px;">
-                            <div class="row gx-2">
-                                <div class="col-md-2 product-thumbnails d-none d-md-flex flex-column gap-2 pe-lg-3">
-                                    <div class="thumbnail-wrapper border p-1 rounded-1 active" data-slide-to="0">
-                                        <img data-src="{{ asset('storage/'.$home_product->prod_image) }}"
-                                            class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
-                                    </div>
-                                    @foreach($home_product->images as $index => $image)
-                                    <div class="thumbnail-wrapper border p-1 rounded-1" data-slide-to="{{ $index + 1 }}">
-                                        <img data-src="{{ asset('storage/'.$image->image_path) }}"
-                                            class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <div class="col-md-10 product-main-image">
-                                    <div id="homeProductCarousel" class="carousel slide" data-bs-ride="false">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img src="{{ asset('storage/'.$home_product->prod_image) }}"
-                                                    class="img-fluid rounded-1 w-100" alt="{{ $home_product->prod_name }}">
-                                            </div>
-                                            @foreach($home_product->images as $index => $image)
-                                            <div class="carousel-item">
-                                                <img data-src="{{ asset('storage/'.$image->image_path) }}"
-                                                    class="img-fluid rounded-1 w-100 lazy-image" alt="{{ $home_product->prod_name }}">
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 product-info-container font-jost px-lg-5 mt-4 mt-md-0">
-                        <h1 class="product-title font-marcellus mb-2">{{ $home_product->prod_name }}</h1>
-                        <p class="brand-text text-muted mb-4">{{ $home_product->subcategory ? $home_product->subcategory->subcat_name : 'Jodha' }}</p>
-
-                        <div class="price-container mb-4">
-                            @if($home_product->prod_sale_price && $home_product->prod_price > $home_product->prod_sale_price)
-                                <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price, 2) }}</span>
-                                <span class="grid-old-price text-muted fw-light ms-2 text-decoration-line-through">₹{{ number_format($home_product->prod_price, 2) }}</span>
-                                @if($home_product->offer_percentage > 0)
-                                    <span class="grid-discount text-gold fw-light ms-2">Save {{ $home_product->offer_percentage }}%</span>
-                                @endif
-                            @else
-                                <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price ?: $home_product->prod_price, 2) }}</span>
-                            @endif
-                        </div>
-
-                        <div class="attribute-section mb-5">
-                            @if($home_product->prod_sku_code)
-                            <div class="attr-row mb-3 fw-light">
-                                <span class="attr-label text-dark me-2">SKU :</span>
-                                <span class="attr-value text-muted">{{ $home_product->prod_sku_code }}</span>
-                            </div>
-                            @endif
-                            @if($home_product->material || $home_product->prod_material)
-                            <div class="attr-row mb-3 fw-light">
-                                <span class="attr-label text-dark me-2">Material :</span>
-                                <div class="attr-value text-muted d-inline-block pdp-attr-content">
-                                    @if($home_product->material)
-                                        {{ $home_product->material->name }}
-                                    @else
-                                        {!! Str::limit(strip_tags($home_product->prod_material), 100) !!}
-                                    @endif
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-
-                        @if($home_product->colors->count() > 0)
-                        <div class="variant-section mb-4">
-                            <p class="variant-label text-muted fw-light mb-2">Color</p>
-                            <div class="variant-options d-flex gap-2 fw-light align-items-center">
-
-                                {{-- Hidden select preserved for existing logic --}}
-                                <select id="pdpColorSelect" class="d-none" aria-hidden="true">
-                                    <option value="" disabled selected>Select Color</option>
-                                    @foreach($home_product->colors as $color)
-                                        <option value="{{ $color->id }}">{{ $color->color_name }}</option>
-                                    @endforeach
-                                </select>
-
-                                {{-- Visible pills --}}
-                                <div id="homePdpColorPills" class="d-flex flex-wrap gap-2">
-                                    @foreach($home_product->colors as $color)
-                                    <button type="button" class="home-color-pill btn-color-pill" data-color-id="{{ $color->id }}" data-color-name="{{ $color->color_name }}" title="{{ $color->color_name }}" style="background: transparent; color: #222; border:2px solid #bbb; padding:6px 12px; border-radius:20px;">{{ $color->color_name }}</button>
-                                    @endforeach
-                                </div>
-
-                            </div>
-                        </div>
-                        @endif
-
-                        @if($home_product->sizes->count() > 0)
-                        <div class="variant-section mb-5">
-                            <p class="variant-label text-muted fw-light mb-2">Size</p>
-                            <div class="variant-options d-flex gap-2 fw-light">
-                                <select id="pdpSizeSelect" class="form-select rounded-0 border text-muted px-3 py-2" style="width: auto; min-width: 200px; font-size: 14px;background:var(--bg-color);">
-                                    <option value="" disabled selected>Select Size</option>
-                                    @foreach($home_product->sizes as $size)
-                                        <option value="{{ $size->id }}">{{ $size->size }} - ₹{{ number_format($size->offer_price ?? $size->price, 2) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        @endif
-
-                        <div class="cta-buttons d-grid gap-3">
-                            <button id="homeAddToCartBtn" data-product-id="{{ $home_product->id }}" class="btn btn-outline-dark add-to-cart-btn btn-lg rounded-0 fw-light text-uppercase">Add to cart</button>
-                            <a href="{{ route('product.show', $home_product->prod_slug) }}" class="btn solid-gold-btn btn-lg buy-now-btn rounded-0 fw-light text-uppercase text-center text-decoration-none">View full details</a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            @endif
-
-            
-
-            {{-- After fourth section: Values --}}
-            @if($loop->index === 3)
-            <section class="values-section py-5">
-                <div class="container-fluid px-4 px-lg-5">
-                    <div class="row text-center gy-4">
-                        <div class="col-md-4 feature-col">
-                            <h3 class="feature-title">100% Handcrafted</h3>
-                            <p class="feature-text">Every piece is meticulously crafted by skilled artisans</p>
-                        </div>
-                        <div class="col-md-4 feature-col border-desktop-sides">
-                            <h3 class="feature-title">Ethically Sourced</h3>
-                            <p class="feature-text">We prioritize ethical sourcing and sustainable practices</p>
-                        </div>
-                        <div class="col-md-4 feature-col">
-                            <h3 class="feature-title">Individually Handmade</h3>
-                            <p class="feature-text">Handcrafted with care and precision, one piece at a time</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            @endif
-
-        @endforeach
-    @endif
-
-    {{-- Static homepage sections below should not render when home sections module is present --}}
-    @if(!isset($home_sections) || $home_sections->count() === 0)
-
-
-        @if(isset($home_product))
-        {{-- Featured product would go here but is skipped for brevity when no sections exist --}}
-        @endif
-      
-
-        <section class="values-section py-5">
+    {{-- ── Section 1 (display_order = 1) ───────────────────────────────────── --}}
+    @php $section1 = $home_sections->get(1) @endphp
+    @if($section1 && $section1->cached_products?->count())
+        <section class="product-section py-5">
+            <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+                <h2 class="section-title m-0">{{ $section1->title }}</h2>
+                <a href="{{ $section1->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            </div>
             <div class="container-fluid px-4 px-lg-5">
-                <div class="row text-center gy-4">
-                    <div class="col-md-4 feature-col">
-                        <h3 class="feature-title">100% Handcrafted</h3>
-                        <p class="feature-text">Every piece is meticulously crafted by skilled artisans</p>
-                    </div>
-                    <div class="col-md-4 feature-col border-desktop-sides">
-                        <h3 class="feature-title">Ethically Sourced</h3>
-                        <p class="feature-text">We prioritize ethical sourcing and sustainable practices</p>
-                    </div>
-                    <div class="col-md-4 feature-col">
-                        <h3 class="feature-title">Individually Handmade</h3>
-                        <p class="feature-text">Handcrafted with care and precision, one piece at a time</p>
-                    </div>
+                <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+                    @foreach($section1->cached_products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
                 </div>
             </div>
         </section>
-    @endif
+        @endif
+    
+
+    {{-- ── Featured Product (shown after section 1) ────────────────────────── --}}
+    @isset($home_product)
+    <section class="container-fluid product-detail-section py-5 px-5">
+        <div class="row">
+            <div class="col-md-6 product-gallery-container">
+                <div class="product-gallery-inner sticky-top" style="top: 20px;">
+                    <div class="row gx-2">
+                        <div class="col-md-2 product-thumbnails d-none d-md-flex flex-column gap-2 pe-lg-3">
+                            <div class="thumbnail-wrapper border p-1 rounded-1 active" data-slide-to="0">
+                                <img data-src="{{ asset('storage/'.$home_product->prod_image) }}"
+                                    class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
+                            </div>
+                            @foreach($home_product->images as $index => $image)
+                            <div class="thumbnail-wrapper border p-1 rounded-1" data-slide-to="{{ $index + 1 }}">
+                                <img data-src="{{ asset('storage/'.$image->image_path) }}"
+                                    class="img-fluid lazy-image" alt="{{ $home_product->prod_name }}">
+                            </div>
+                            @endforeach
+                        </div>
+                        <div class="col-md-10 product-main-image">
+                            <div id="homeProductCarousel" class="carousel slide" data-bs-ride="false">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="{{ asset('storage/'.$home_product->prod_image) }}"
+                                            class="img-fluid rounded-1 w-100" alt="{{ $home_product->prod_name }}">
+                                    </div>
+                                    @foreach($home_product->images as $index => $image)
+                                    <div class="carousel-item">
+                                        <img data-src="{{ asset('storage/'.$image->image_path) }}"
+                                            class="img-fluid rounded-1 w-100 lazy-image" alt="{{ $home_product->prod_name }}">
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 product-info-container font-jost px-lg-5 mt-4 mt-md-0">
+                <h1 class="product-title font-marcellus mb-2">{{ $home_product->prod_name }}</h1>
+                <p class="brand-text text-muted mb-4">{{ $home_product->subcategory?->subcat_name ?? 'Jodha' }}</p>
+
+                <div class="price-container mb-4">
+                    @if($home_product->prod_sale_price && $home_product->prod_price > $home_product->prod_sale_price)
+                        <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price, 2) }}</span>
+                        <span class="grid-old-price text-muted fw-light ms-2 text-decoration-line-through">₹{{ number_format($home_product->prod_price, 2) }}</span>
+                        @if($home_product->offer_percentage > 0)
+                            <span class="grid-discount text-gold fw-light ms-2">Save {{ $home_product->offer_percentage }}%</span>
+                        @endif
+                    @else
+                        <span class="grid-current-price fs-4 fw-normal text-dark">₹{{ number_format($home_product->prod_sale_price ?: $home_product->prod_price, 2) }}</span>
+                    @endif
+                </div>
+
+                <div class="attribute-section mb-5">
+                    @if($home_product->prod_sku_code)
+                    <div class="attr-row mb-3 fw-light">
+                        <span class="attr-label text-dark me-2">SKU :</span>
+                        <span class="attr-value text-muted">{{ $home_product->prod_sku_code }}</span>
+                    </div>
+                    @endif
+                    @if($home_product->material || $home_product->prod_material)
+                    <div class="attr-row mb-3 fw-light">
+                        <span class="attr-label text-dark me-2">Material :</span>
+                        <div class="attr-value text-muted d-inline-block pdp-attr-content">
+                            {{ $home_product->material?->name ?? Str::limit(strip_tags($home_product->prod_material), 100) }}
+                        </div>
+                    </div>
+                    @endif
+                </div>
+
+                @if($home_product->colors->count())
+                <div class="variant-section mb-4">
+                    <p class="variant-label text-muted fw-light mb-2">Color</p>
+                    <div class="variant-options d-flex gap-2 fw-light align-items-center">
+                        <select id="pdpColorSelect" class="d-none" aria-hidden="true">
+                            <option value="" disabled selected>Select Color</option>
+                            @foreach($home_product->colors as $color)
+                                <option value="{{ $color->id }}">{{ $color->color_name }}</option>
+                            @endforeach
+                        </select>
+                        <div id="homePdpColorPills" class="d-flex flex-wrap gap-2">
+                            @foreach($home_product->colors as $color)
+                            <button type="button" class="home-color-pill btn-color-pill"
+                                data-color-id="{{ $color->id }}"
+                                data-color-name="{{ $color->color_name }}"
+                                title="{{ $color->color_name }}"
+                                style="background:transparent;color:#222;border:2px solid #bbb;padding:6px 12px;border-radius:20px;">
+                                {{ $color->color_name }}
+                            </button>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                @if($home_product->sizes->count())
+                <div class="variant-section mb-5">
+                    <p class="variant-label text-muted fw-light mb-2">Size</p>
+                    <div class="variant-options d-flex gap-2 fw-light">
+                        <select id="pdpSizeSelect" class="form-select rounded-0 border text-muted px-3 py-2"
+                            style="width:auto;min-width:200px;font-size:14px;background:var(--bg-color);">
+                            <option value="" disabled selected>Select Size</option>
+                            @foreach($home_product->sizes as $size)
+                                <option value="{{ $size->id }}">{{ $size->size }} - ₹{{ number_format($size->offer_price ?? $size->price, 2) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                @endif
+
+                <div class="cta-buttons d-grid gap-3">
+                    <button id="homeAddToCartBtn" data-product-id="{{ $home_product->id }}"
+                        class="btn btn-outline-dark add-to-cart-btn btn-lg rounded-0 fw-light text-uppercase">Add to cart</button>
+                    <a href="{{ route('product.show', $home_product->prod_slug) }}"
+                        class="btn solid-gold-btn btn-lg buy-now-btn rounded-0 fw-light text-uppercase text-center text-decoration-none">View full details</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endisset
 
 
 
@@ -331,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    {{-- Render static blocks only if no dynamic homepage sections are enabled --}}
+    {{-- ═══ Dead block below — kept only for reference, safe to delete ═══ --}}
     @if(false)
 
 
@@ -470,29 +412,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-     @if(isset($home_collections[1])) 
-    <section class="product-section py-5">
-
-        <div
-            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$home_collections[1]->col_name}}</h2>
-            <a href="{{ route('collections.show', $home_collections[1]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
-        </div>
-
-        <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row g-4 pb-3">
-
-                @foreach($home_collections[1]->products as $product)
-
-                @include('components.product-card',['product' => $product])
-
-                @endforeach
-
+    {{-- ── Section 2 (display_order = 2) ───────────────────────────────────── --}}
+    @php $section2 = $home_sections->get(2) @endphp
+    @if($section2 && $section2->cached_products?->count())
+        <section class="product-section py-5">
+            <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+                <h2 class="section-title m-0">{{ $section2->title }}</h2>
+                <a href="{{ $section2->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
             </div>
-        </div>
-    </section>
-
-    @endif
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+                    @foreach($section2->cached_products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+    
 
 
 
@@ -533,56 +470,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
 
-    @if(isset($home_collections[2]))
-
-    <section class="product-section py-5">
-        <div
-            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$home_collections[2]->col_name}}</h2>
-            <a href="{{ route('collections.show', $home_collections[2]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
-        </div>
-
-        <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
-
-                @foreach($home_collections[2]->products as $product)
-
-                @include('components.product-card',['product' => $product])
-
-                @endforeach
-            
-               
-
+    {{-- ── Section 3 (display_order = 3) ───────────────────────────────────── --}}
+    @php $section3 = $home_sections->get(3) @endphp
+    @if($section3 && $section3->cached_products?->count())
+        <section class="product-section py-5">
+            <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+                <h2 class="section-title m-0">{{ $section3->title }}</h2>
+                <a href="{{ $section3->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
             </div>
-        </div>
-    </section>
-
-    @endif
-
-
-
-
-    @if(isset($home_collections[3]))
-    <section class="product-section py-5">
-        <div
-            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$home_collections[3]->col_name}}</h2>
-            <a href="{{ route('collections.show', $home_collections[3]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
-        </div>
-
-        <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
-
-                @foreach($home_collections[3]->products as $product)
-
-                @include('components.product-card',['product' => $product])
-
-                @endforeach
-
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+                    @foreach($section3->cached_products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
+                </div>
             </div>
-        </div>
-    </section>
-    @endif
+        </section>
+        @endif
+    
+
+
+
+
+    {{-- ── Section 4 (display_order = 4) ───────────────────────────────────── --}}
+    @php $section4 = $home_sections->get(4) @endphp
+    @if($section4 && $section4->cached_products?->count())
+        <section class="product-section py-5">
+            <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+                <h2 class="section-title m-0">{{ $section4->title }}</h2>
+                <a href="{{ $section4->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
+            </div>
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+                    @foreach($section4->cached_products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+    
 
 
 
@@ -617,28 +544,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    @if(isset($home_collections[4]))
-    <section class="product-section py-5">
-        <div
-            class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
-            <h2 class="section-title m-0">{{$home_collections[4]->col_name}}</h2>
-            <a href="{{ route('collections.show', $home_collections[4]->col_slug) }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
-        </div>
-
-        <div class="container-fluid px-4 px-lg-5">
-            <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
-
-                @foreach($home_collections[4]->products as $product)
-
-                @include('components.product-card',['product' => $product])
-
-                @endforeach
-
-
+    {{-- ── Section 5 (display_order = 5) ───────────────────────────────────── --}}
+    @php $section5 = $home_sections->get(5) @endphp
+    @if($section5 && $section5->cached_products?->count())
+        <section class="product-section py-5">
+            <div class="container-fluid px-4 px-lg-5 position-relative mb-4 d-flex justify-content-center align-items-center">
+                <h2 class="section-title m-0">{{ $section5->title }}</h2>
+                <a href="{{ $section5->view_all_url }}" class="view-all-link position-absolute end-0 me-4 me-lg-5">View all</a>
             </div>
-        </div>
-    </section>
-    @endif
+            <div class="container-fluid px-4 px-lg-5">
+                <div class="row mobile-swipe-row row-cols-md-3 row-cols-xl-5 g-4 pb-3">
+                    @foreach($section5->cached_products as $product)
+                        @include('components.product-card', ['product' => $product])
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+    
 
 
 
