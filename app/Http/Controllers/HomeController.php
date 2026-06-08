@@ -20,13 +20,11 @@ class HomeController extends Controller
         $data['seo'] = Seo::find(1);
 
         // Dynamic homepage sections keyed by display_order for direct access in the view
-        $data['home_sections'] = Cache::rememberForever('homepage_sections_with_products', function () {
-            return HomePageSection::where('status', true)
-                ->orderBy('display_order', 'asc')
-                ->get()
-                ->each(fn($section) => $section->cached_products = $section->getProducts())
-                ->keyBy('display_order');
-        });
+        $data['home_sections'] = HomePageSection::where('status', true)
+            ->orderBy('display_order', 'asc')
+            ->get()
+            ->each(fn($section) => $section->cached_products = $section->getProducts())
+            ->keyBy('display_order');
 
         $data['collections'] = Collection::orderBy('col_order', 'asc')->orderBy('col_name', 'asc')->get();
 
