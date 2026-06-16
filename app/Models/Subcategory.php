@@ -11,6 +11,31 @@ class Subcategory extends Model
     //
     protected $fillable = ['subcat_cat_id', 'subcat_name', 'subcat_description', 'subcat_image', 'subcat_slug', 'meta_title', 'meta_description', 'meta_keywords'];
 
+    public function getNameAttribute()
+    {
+        return $this->subcat_name;
+    }
+
+    public function getSlugAttribute()
+    {
+        return $this->subcat_slug;
+    }
+
+    public function getImageAttribute()
+    {
+        return $this->subcat_image;
+    }
+
+    public function getDescriptionAttribute()
+    {
+        return $this->subcat_description;
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'prod_subcat_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'subcat_cat_id');

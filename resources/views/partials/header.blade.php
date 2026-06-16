@@ -104,13 +104,17 @@
                     </li>
 
 
-                    @foreach($header_categories->take(4) as $category)
+                    @foreach($header_categories->take(3) as $category)
                        
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
                             </li>
                       
                     @endforeach
+
+                    <li class="nav-item">
+                                <a class="nav-link" href="{{ route('inlaygallery.show') }}">Inlay Gallery</a>
+                    </li>
 
                     <li class="nav-item"><a class="nav-link" target="_blank" href="https://wa.me/919895599002">Customization</a></li>
                 

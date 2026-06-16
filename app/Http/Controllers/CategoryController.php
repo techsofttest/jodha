@@ -29,5 +29,21 @@ class CategoryController extends Controller
         return view('pages.category-detail', $data);
     }
 
+
+
+    public function inlayGallery()
+    {
+        $data['seo'] = Seo::find(1);
+
+        $category = \App\Models\Category::where('slug', 'inlay-gallery')->first();
+
+        $data['category'] = $category;
+        $data['subcategories'] = $category ? $category->subcategories : collect();
+        
+        return view('pages.subcategories', $data);
+    }
+
+
+
 }
 

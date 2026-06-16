@@ -21,11 +21,12 @@ class SubCategoryController extends Controller
 
     public function showDetails($slug)
     {
-
         $data['seo'] = Seo::find(1);
+        $data['subcategory'] = \App\Models\Subcategory::where('subcat_slug', $slug)->firstOrFail();
         
-        return view('pages.index',$data);
-
+        $data['products'] = $data['subcategory']->products()->with(['colors', 'sizes'])->where('prod_isactive', 1)->get();
+        
+        return view('pages.subcategory-detail', $data);
     }
 
 

@@ -37,6 +37,8 @@ Route::get('/sitemap', [PolicyController::class, 'sitemap'])->name('sitemap');
 Route::get('/faq', [PolicyController::class, 'faq'])->name('faq');
 
 
+Route::get('/inlay-gallery', [CategoryController::class, 'inlayGallery'])->name('inlaygallery.show');
+
 Route::get('/category', [CategoryController::class, 'show'])->name('category.index');
 Route::get('/category/{slug}', [CategoryController::class, 'showDetails'])->name('category.show');
 
