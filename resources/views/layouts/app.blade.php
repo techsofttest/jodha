@@ -94,8 +94,8 @@ src="https://www.facebook.com/tr?id=1591339188632110&ev=PageView&noscript=1"
                 display: none;
             }
             .mobile-swipe-row > .col {
-                flex: 0 0 75%;
-                max-width: 75%;
+                flex: 0 0 50%;
+                max-width: 50%;
             }
         }
     </style>
@@ -144,7 +144,7 @@ src="https://www.facebook.com/tr?id=1591339188632110&ev=PageView&noscript=1"
 	  flex-direction: column;
 	  align-items:center;
 	  justify-content:center;
-	  z-index: 1000;
+	  z-index: 9999;
 	}
 
 	@keyframes pulsing {
