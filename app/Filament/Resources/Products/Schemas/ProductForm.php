@@ -119,13 +119,14 @@ class ProductForm
                             ->label('Regular Price')
                             ->required()
                             ->numeric()
+							->minValue(1)
                             ->prefix('₹'),
 
                         TextInput::make('prod_sale_price')
                             ->label('Sale Price')
                             ->numeric()
                             ->prefix('₹')
-                            ->default(0)
+							->minValue(1)
                             ->dehydrateStateUsing(fn ($state) => $state == 0 ? null : $state),
 
                         TextInput::make('prod_offer')
@@ -139,12 +140,14 @@ class ProductForm
                             ->label('Stock Quantity')
                             ->numeric()
                             ->default(0)
+							->minValue(0)
                             ->hidden(),
                         
                         TextInput::make('shipping_cost')
                             ->label('Shipping Cost')
                             ->numeric()
                             ->default(0)
+							->minValue(0)
                             ->prefix('₹'),
 
                         TextInput::make('prod_expected_delivery')

@@ -23,4 +23,7 @@ class CreateHomePageSection extends CreateRecord
             $this->halt();
         }
     }
+
+    
+
 }

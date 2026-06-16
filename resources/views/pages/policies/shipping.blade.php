@@ -35,6 +35,7 @@ For export orders, please allow 45 days for the crafting period. The transportat
 Furniture pieces are securely packed in wooden crates to ensure zero damage during transit.
                     </p>
                     
+					<!--
                     <h4 class="mt-4 mb-3">Delays & Damages</h4>
                     <p>
                     <b>Delays:</b>
@@ -45,6 +46,7 @@ If your product arrives damaged and cannot be amended, we will arrange for a rep
 
 
                     </p>
+					-->
                     
                     <h4 class="mt-4 mb-3">Custom Orders</h4>
                     <p>We welcome customized orders to create something truly unique for your space. If you're interested in a custom piece, please reach out to us at business@jodhafurniture.com or fill out the customization form on our website. Our team will get in touch with you to bring your vision to life.</p>
