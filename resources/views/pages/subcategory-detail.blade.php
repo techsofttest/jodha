@@ -37,7 +37,7 @@
                 <div class="text-center py-5">
                     <h5 class="font-marcellus text-muted">No products found in this subcategory.</h5>
                     @if($subcategory->category)
-                        <a href="{{ route('category.show', $subcategory->category->slug) }}" class="btn-luxury-outline mt-3 px-4 py-2 text-decoration-none">Back to {{ $subcategory->category->name }}</a>
+                        
                     @else
                         <a href="{{ route('home') }}" class="btn-luxury-outline mt-3 px-4 py-2 text-decoration-none">Back to Home</a>
                     @endif
