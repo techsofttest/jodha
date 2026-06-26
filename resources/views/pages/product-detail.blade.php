@@ -459,9 +459,7 @@
                                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                     </svg>
                                 </span>
-                                <span
-                                    style="font-family: var(--f-body); font-size: 12px; color: var(--c-primary); font-weight: 500;">Lifetime
-                                    Service Warranty</span>
+                                
                             </div>
                         </div>
 

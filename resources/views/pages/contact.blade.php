@@ -115,12 +115,12 @@
 
                         <div class="admin-safe-content flex-grow-1"
                             style="font-family: var(--f-body); font-size: 13px; line-height: 2; color: #777;">
-                            <a href="mailto:jodhahomesmarketing@gmail.com"
-                                class="text-dark text-decoration-none hover-gold transition-all">jodhahomesmarketing@gmail.com</a>
+                            <a href="mailto:ashbornfurniture@gmail.com"
+                                class="text-dark text-decoration-none hover-gold transition-all">ashbornfurniture@gmail.com</a>
                         </div>
 
                         <div class="mt-4 pt-4 position-relative cta-wrapper">
-                            <a href="mailto:jodhahomesmarketing@gmail.com"
+                            <a href="mailto:ashbornfurniture@gmail.com"
                                 class="text-dark text-decoration-none text-uppercase letter-spacing-2 luxury-link"
                                 style="font-size: 10px; font-weight: 500;">Drop a Note</a>
                         </div>

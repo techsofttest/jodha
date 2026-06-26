@@ -412,12 +412,12 @@
                                 </path>
                             </svg>
                         </div>
-                        <span style="font-size: 16px;">+91 984730007</span>
+                        <span style="font-size: 16px;">+91 9847300077</span>
                     </a>
 					
 					
 
-                    <a href="jodhahomesmarketing@gmail.com"
+                    <a href="ashbornfurniture@gmail.com"
                         class="text-dark text-decoration-none font-heading d-flex align-items-center gap-3 touch-target-44">
                         <div class="d-flex align-items-center justify-content-center rounded-circle border border-dark-subtle transition-icon"
                             style="width: 44px; height: 44px;">
@@ -428,7 +428,7 @@
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
                         </div>
-                        <span style="font-size: 14px;">jodhahomesmarketing@gmail.com</span>
+                        <span style="font-size: 14px;">ashbornfurniture@gmail.com</span>
                     </a>
                 </div>
 
@@ -444,7 +444,7 @@
                             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                         </svg>
                     </a>
-                    <a href="#"
+                    <a target="_blank" href="https://www.instagram.com/ashborn.furniture"
                         class="d-flex align-items-center justify-content-center rounded-circle border border-dark-subtle text-dark transition-icon"
                         style="width: 44px; height: 44px;">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
