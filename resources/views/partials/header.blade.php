@@ -428,7 +428,7 @@
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
                         </div>
-                        <span style="font-size: 16px;">jodhahomesmarketing@gmail.com</span>
+                        <span style="font-size: 14px;">jodhahomesmarketing@gmail.com</span>
                     </a>
                 </div>
 
