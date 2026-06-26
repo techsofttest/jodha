@@ -384,7 +384,9 @@
                     touch</h6>
 
                 <div class="d-flex flex-column gap-3 mb-5">
-                    <a href="tel:+919746005500"
+				
+				
+                    <a href="tel:+919895599002"
                         class="text-dark text-decoration-none font-heading d-flex align-items-center gap-3 touch-target-44">
                         <div class="d-flex align-items-center justify-content-center rounded-circle border border-dark-subtle transition-icon"
                             style="width: 44px; height: 44px;">
@@ -395,10 +397,27 @@
                                 </path>
                             </svg>
                         </div>
-                        <span style="font-size: 16px;">+91 97460 05500</span>
+                        <span style="font-size: 16px;">+91 9895599002</span>
                     </a>
+					
+					
+					<a href="tel:+919847300077"
+                        class="text-dark text-decoration-none font-heading d-flex align-items-center gap-3 touch-target-44">
+                        <div class="d-flex align-items-center justify-content-center rounded-circle border border-dark-subtle transition-icon"
+                            style="width: 44px; height: 44px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-gold)"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span style="font-size: 16px;">+91 984730007</span>
+                    </a>
+					
+					
 
-                    <a href="mailto:support@jodha.in"
+                    <a href="jodhahomesmarketing@gmail.com"
                         class="text-dark text-decoration-none font-heading d-flex align-items-center gap-3 touch-target-44">
                         <div class="d-flex align-items-center justify-content-center rounded-circle border border-dark-subtle transition-icon"
                             style="width: 44px; height: 44px;">
@@ -409,7 +428,7 @@
                                 <polyline points="22,6 12,13 2,6"></polyline>
                             </svg>
                         </div>
-                        <span style="font-size: 16px;">support@jodha.in</span>
+                        <span style="font-size: 16px;">jodhahomesmarketing@gmail.com</span>
                     </a>
                 </div>
 
